@@ -1,0 +1,140 @@
+version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@1.0.0
+
+executors:
+  unit-test:
+    docker:
+      - image: circleci/node:12.13
+    working_directory: ~/repo
+  integration-test:
+    docker:
+      - image: circleci/node:12.13-browsers
+      - image: circleci/dynamodb
+        entrypoint: ['java', '-Xmx1G', '-jar', 'DynamoDBLocal.jar', '-sharedDb']
+    working_directory: ~/repo
+
+jobs:
+  install-dependencies-and-unit-tests:
+    executor: unit-test
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install dependencies
+          command: CYPRESS_CACHE_FOLDER=~/repo/cypress_cache yarn
+
+      - run:
+          name: Build the application
+          command: |
+            export NEXT_PUBLIC_API_URL=http://localhost:3000/api
+            yarn build
+
+      - run:
+          name: Run unit tests
+          command: yarn run unit-test
+
+      - run:
+          name: Run linting
+          command: yarn lint
+
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
+
+  run-integration-tests:
+    executor: integration-test
+
+    working_directory: ~/repo
+
+    steps:
+      - attach_workspace:
+          at: ~/repo
+
+      - aws-cli/setup:
+          aws-access-key-id: CYPRESS_AWS_ACCESS_KEY_ID
+          aws-secret-access-key: CYPRESS_AWS_SECRET_ACCESS_KEY
+          aws-region: CYPRESS_AWS_REGION
+
+      - run:
+          name: Create local DynamoDB vulnerabilities table
+          command: aws dynamodb create-table --cli-input-json file://./config/tables/vulnerabilities.json --endpoint-url http://localhost:8000 > /dev/null
+
+      - run:
+          name: Run integration tests
+          command: |
+            export NEXT_PUBLIC_API_URL=http://localhost:3000/api
+            CYPRESS_CACHE_FOLDER=~/repo/cypress_cache yarn run int-test
+
+      - store_artifacts:
+          path: ~/repo/cypress/screenshots
+
+      - store_artifacts:
+          path: ~/repo/cypress/videos
+
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
+
+  build-deploy-staging:
+    executor: aws-cli/default
+
+    steps:
+      - attach_workspace:
+          at: ~/repo
+
+      - aws-cli/setup:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          aws-region: AWS_REGION
+
+      - run:
+          name: deploy
+          command: |
+            export NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL_STAGING}
+            cd ../repo && yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy -s staging
+
+  build-deploy-production:
+    executor: aws-cli/default
+
+    steps:
+      - attach_workspace:
+          at: ~/repo
+
+      - aws-cli/setup:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          aws-region: AWS_REGION
+
+      - run:
+          name: deploy
+          command: |
+            export NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL_PRODUCTION}
+            cd ../repo && yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy -s production
+
+workflows:
+  version: 2
+  continuous-delivery:
+    jobs:
+      - install-dependencies-and-unit-tests
+      - run-integration-tests:
+          requires:
+            - install-dependencies-and-unit-tests
+      - build-deploy-staging:
+          requires:
+            - run-integration-tests
+          filters:
+            branches:
+              only:
+                - master
+      - permit-deploy-production:
+          type: approval
+          requires:
+            - build-deploy-staging
+      - build-deploy-production:
+          requires:
+            - permit-deploy-production
