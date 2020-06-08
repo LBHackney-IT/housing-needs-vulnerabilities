@@ -10,9 +10,9 @@ async function request(path, { token, ...options }) {
     headers: {
       accept: 'application/json',
       authorization: token ? `Bearer ${token}` : undefined,
-      'content-type': 'application/json',
+      'content-type': 'application/json'
     },
-    body: options?.body ? JSON.stringify(options.body) : null,
+    body: options?.body ? JSON.stringify(options.body) : null
   });
 
   if (response.ok) {

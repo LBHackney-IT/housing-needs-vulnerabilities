@@ -52,12 +52,9 @@ describe('TextInput', () => {
         label={inputLabel}
         onChange={() => {}}
         validate={true}
+        value="hello"
       />
     );
-
-    fireEvent.change(getByLabelText(inputLabel), {
-      target: { value: 'hello' }
-    });
 
     expect(
       container.querySelector('.govuk-error-message')

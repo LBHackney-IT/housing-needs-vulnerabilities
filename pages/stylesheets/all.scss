@@ -1,66 +1,8 @@
 @import 'node_modules/govuk-frontend/govuk/all';
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
 @import './vars';
+@import './gov-uk-overrides.scss';
 
 html.lbh-template > body.lbh-template__body * {
   font-family: 'Montserrat', sans-serif;
-}
-
-.govuk-header__container {
-  border-bottom-color: #00513f;
-}
-
-.govuk-tag {
-  background-color: #00513f;
-}
-
-.lbh-header__container {
-  display: flex;
-  align-items: center;
-}
-
-.lbh-header__logotype {
-  svg {
-    width: 100%;
-    max-width: 12rem;
-    padding-top: 0.25rem;
-  }
-}
-
-.lbh-link-button {
-  display: block;
-  font-family: inherit;
-  font-size: 1em;
-  color: $hackney-green;
-  background: none;
-  border: 0 none;
-  padding: 0;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.lbh-link-button:hover,
-.lbh-link-button:focus {
-  text-decoration: underline;
-}
-
-.lbh-link-button::after {
-  display: inline-block;
-  margin-left: 0.5em;
-}
-
-.lbh-link-button:hover::after {
-  text-decoration: none;
-}
-
-.lbh-link-button__down::after {
-  content: '▾';
-}
-
-.lbh-link-button__up {
-  margin-top: 0.5em;
-}
-
-.lbh-link-button__up::after {
-  content: '▴';
 }

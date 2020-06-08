@@ -1,4 +1,4 @@
-import CheckAuth from 'lib/use-cases/check-auth';
+import CheckAuth from './check-auth';
 import jwt from 'jsonwebtoken';
 jest.mock('jsonwebtoken');
 
@@ -18,7 +18,6 @@ describe('Check Auth Use Case', () => {
   it('should return true if a user is in the allowed groups', () => {
     const allowedGroups = ['theGroup'];
     jwt.verify.mockReturnValue({ groups: ['theGroup'] });
-    //const jwt = { verify: jest.fn(() => ({ groups: ['theGroup'] })) };
     const checkAuth = new CheckAuth({ allowedGroups, jwt });
 
     const result = checkAuth.execute({ token: 'xyz' });

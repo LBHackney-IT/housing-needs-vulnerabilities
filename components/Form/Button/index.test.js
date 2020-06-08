@@ -24,4 +24,15 @@ describe('Button', () => {
     );
     expect(myAction).toHaveBeenCalled();
   });
+
+  it('can render a secondary button', () => {
+    const buttonText = 'My Button';
+    const myAction = jest.fn();
+    const { getByText } = render(
+      <Button text={buttonText} onClick={myAction} isSecondary={true} />
+    );
+    expect(getByText(buttonText).className).toContain(
+      'govuk-button--secondary'
+    );
+  });
 });

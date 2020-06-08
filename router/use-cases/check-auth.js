@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
 class CheckAuth {
   constructor({ allowedGroups }) {

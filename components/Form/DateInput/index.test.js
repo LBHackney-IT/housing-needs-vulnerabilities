@@ -117,49 +117,23 @@ describe('DateInput', () => {
 
   it('shows an error message if validation is required and date is invalid', () => {
     const { container, getByLabelText } = render(
-      <DateInput name={inputName} validate={true} onChange={() => {}} />
+      <DateInput name={inputName} validate={true} onChange={() => {}} day={99} month={10} year={2021} />
     );
-    fireEvent.change(getByLabelText(/\s*Day\s*/), {
-      target: { value: 99 }
-    });
-    fireEvent.change(getByLabelText(/\s*Month\s*/), {
-      target: { value: 10 }
-    });
-    fireEvent.change(getByLabelText(/\s*Year\s*/), {
-      target: { value: 2021 }
-    });
     expect(container.querySelector('.govuk-error-message')).toBeInTheDocument();
   });
 
   it('shows an error message if validation is required and date is in the past', () => {
     const { container, getByLabelText } = render(
-      <DateInput name={inputName} validate={true} onChange={() => {}} />
+      <DateInput name={inputName} validate={true} onChange={() => {}} day={10} month={10} year={1999}/>
     );
-    fireEvent.change(getByLabelText(/\s*Day\s*/), {
-      target: { value: 10 }
-    });
-    fireEvent.change(getByLabelText(/\s*Month\s*/), {
-      target: { value: 10 }
-    });
-    fireEvent.change(getByLabelText(/\s*Year\s*/), {
-      target: { value: 1999 }
-    });
     expect(container.querySelector('.govuk-error-message')).toBeInTheDocument();
   });
 
   it('does not show an error message if validation is required and date is all good', () => {
     const { container, getByLabelText } = render(
-      <DateInput name={inputName} validate={true} onChange={() => {}} />
+      <DateInput name={inputName} validate={true} onChange={() => {}} day={10} month={10} year={2030} />
     );
-    fireEvent.change(getByLabelText(/\s*Day\s*/), {
-      target: { value: 10 }
-    });
-    fireEvent.change(getByLabelText(/\s*Month\s*/), {
-      target: { value: 10 }
-    });
-    fireEvent.change(getByLabelText(/\s*Year\s*/), {
-      target: { value: 2030 }
-    });
+
     expect(
       container.querySelector('.govuk-error-message')
     ).not.toBeInTheDocument();

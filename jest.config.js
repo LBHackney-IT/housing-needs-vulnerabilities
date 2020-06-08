@@ -20,7 +20,8 @@ module.exports = {
     '^.+\\.module\\.(css|sass|scss)$'
   ],
   moduleNameMapper: {
-    '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy'
+    '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
+    '^react(.*)$': '<rootDir>/node_modules/react$1'
   },
   moduleDirectories: ['node_modules', '.']
 };

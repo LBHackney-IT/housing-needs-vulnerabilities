@@ -24,8 +24,8 @@ const TableHeader = ({ children, className, scope }) => (
   </th>
 );
 
-const TableData = ({ children, className }) => (
-  <td className={classNames('govuk-table__cell', className)}>{children}</td>
+const TableData = ({ children, className, ...props }) => (
+  <td className={classNames('govuk-table__cell', className)} {...props}>{children}</td>
 );
 
 const Table = ({ children, className }) => (

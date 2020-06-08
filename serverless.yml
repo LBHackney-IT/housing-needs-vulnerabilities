@@ -26,10 +26,10 @@ package:
 functions:
   hn-vulnerabilities:
     name: ${self:service}-${self:provider.stage}
-    handler: lambda.handler
+    handler: router/lambda.handler
     package:
       include:
-        - lambda.js
+        - router/**
         - next.config.js
         - lib/**
         - pages/**
@@ -49,6 +49,7 @@ functions:
       JWT_SECRET: ${ssm:/common/hackney-jwt-secret}
       VULNERABILITIES_TABLE_NAME: ${self:provider.environment.VULNERABILITIES_TABLE}
       NEXT_PUBLIC_API_URL: https://${self:custom.aliases.${self:provider.stage}}/api
+      NEXT_PUBLIC_URL: https://${self:custom.aliases.${self:provider.stage}}
 
   hn-vulnerabilities-authorizer:
     name: ${self:service}-authorizer-${self:provider.stage}
@@ -138,7 +139,7 @@ resources:
 
 custom:
   authorizer:
-    hn-vulnerabilities-authorizer:
+    hn-shared-vulnerabilities-authorizer:
       name: ${self:service}-authorizer
       type: request
       identitySource: ''

@@ -1,4 +1,4 @@
-const TextArea = ({ label, name, onChange }) => (
+const TextArea = ({ label, name, onChange, value }) => (
   <div className="govuk-form-group">
     <label className="govuk-label" htmlFor={`${name}`}>
       {label}
@@ -10,6 +10,7 @@ const TextArea = ({ label, name, onChange }) => (
       data-testid={name}
       rows="5"
       onChange={onChange}
+      value={value}
     ></textarea>
   </div>
 );

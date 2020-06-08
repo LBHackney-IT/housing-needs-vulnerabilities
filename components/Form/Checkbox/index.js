@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const Checkbox = ({ checked, label, name, onClick }) => {
+const Checkbox = ({ checked, label, name, onClick, ...others }) => {
   const [checkedValue, setCheckedValue] = useState(checked ? checked : false);
   return (
     <div className="govuk-form-group">
@@ -13,6 +13,7 @@ const Checkbox = ({ checked, label, name, onClick }) => {
             type="checkbox"
             onClick={onClick}
             defaultChecked={checkedValue}
+            {...others}
           />
           <label className="govuk-label govuk-checkboxes__label" htmlFor={name}>
             {label}
