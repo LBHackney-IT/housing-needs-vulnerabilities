@@ -1,8 +1,8 @@
 @import 'node_modules/govuk-frontend/govuk/all';
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
 @import './vars';
 @import './gov-uk-overrides.scss';
 
 html.lbh-template > body.lbh-template__body * {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
