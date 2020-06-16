@@ -26,13 +26,6 @@ describe('Create Snapshot api', () => {
       systemIds
     });
     expect(response.statusCode).toBe(201);
-    expect(response.body).toEqual(
-      JSON.stringify({
-        firstName,
-        lastName,
-        systemIds
-      })
-    );
   });
 
   it('does not accept non-POST requests', async () => {

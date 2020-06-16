@@ -26,12 +26,12 @@ export const endpoint = ({ createSnapshot }) =>
       ]
     },
     async ({ body: { firstName, lastName, systemIds } }) => {
-      await createSnapshot.execute({ firstName, lastName, systemIds });
-      return Response.created({
+      const snapshot = await createSnapshot.execute({
         firstName,
         lastName,
         systemIds
       });
+      return Response.created(snapshot);
     }
   );
 
