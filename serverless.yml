@@ -139,7 +139,7 @@ resources:
 
 custom:
   authorizer:
-    hn-shared-vulnerabilities-authorizer:
+    hn-vulnerabilities-authorizer:
       name: ${self:service}-authorizer
       type: request
       identitySource: ''
