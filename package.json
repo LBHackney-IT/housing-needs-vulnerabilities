@@ -51,7 +51,6 @@
     "eslint-plugin-prettier": "^3.1.1",
     "govuk-frontend": "^3.6.0",
     "identity-obj-proxy": "^3.0.0",
-    "intl": "^1.2.5",
     "jest": "^25.5.4",
     "jest-fetch-mock": "^3.0.3",
     "mockdate": "^3.0.2",
