@@ -6,3 +6,15 @@
 html.lbh-template > body.lbh-template__body * {
   font-family: 'Open Sans', sans-serif;
 }
+
+.vulnerability-group {
+  label::before {
+    border-color: #013687;
+  }
+}
+
+.asset-group {
+  label::before {
+    border-color: #ff6912;
+  }
+}
