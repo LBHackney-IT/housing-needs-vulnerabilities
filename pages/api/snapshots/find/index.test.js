@@ -1,5 +1,5 @@
 import { endpoint } from './index';
-import { createMockResponse } from 'lib/api/utils/createMockResponse';
+import createMockResponse from 'lib/api/utils/createMockResponse';
 
 describe('Find Snapshots api', () => {
   const findSnapshots = { execute: jest.fn(() => ({ snapshotIds: [1, 2] })) };
