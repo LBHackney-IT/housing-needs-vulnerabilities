@@ -1,7 +1,7 @@
 import { endpoint } from './index';
 import createMockResponse from 'lib/api/utils/createMockResponse';
 
-describe('Create Snapshot api', () => {
+describe('Create Snapshot Api', () => {
   const createSnapshot = { execute: jest.fn() };
   const call = async ({ method, body }) => {
     const response = createMockResponse();
