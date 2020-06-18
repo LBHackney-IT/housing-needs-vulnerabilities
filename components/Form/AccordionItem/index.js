@@ -1,5 +1,5 @@
 const AccordionItem = ({ children, heading, id }) => (
-  <div className="govuk-accordion__section ">
+  <div className="govuk-accordion__section">
     <div className="govuk-accordion__section-header">
       <h3 className="govuk-accordion__section-heading">
         <span className="govuk-accordion__section-button" id={id}>
