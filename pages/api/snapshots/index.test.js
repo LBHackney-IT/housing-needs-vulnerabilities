@@ -1,10 +1,11 @@
 import { endpoint } from './index';
-import { createMockResponse } from 'lib/api/utils/createMockResponse';
+import createMockResponse from 'lib/api/utils/createMockResponse';
 
 describe('Create Snapshot api', () => {
   const createSnapshot = { execute: jest.fn() };
   const call = async ({ method, body }) => {
     const response = createMockResponse();
+
     await endpoint({ createSnapshot })(
       {
         method: method || 'POST',
@@ -12,6 +13,7 @@ describe('Create Snapshot api', () => {
       },
       response
     );
+
     return response;
   };
 

@@ -1,5 +1,5 @@
-import Response from 'lib/api/response';
-import { createEndpoint } from 'lib/api/createEndpoint';
+import createEndpoint from 'lib/api/utils/createEndpoint';
+import Response from 'lib/api/domain/Response';
 import { findSnapshots } from 'lib/dependencies';
 
 export const endpoint = ({ findSnapshots }) =>
