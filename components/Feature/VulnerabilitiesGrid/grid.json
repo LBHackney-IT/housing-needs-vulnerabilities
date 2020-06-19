@@ -1,0 +1,14 @@
+[
+  {
+    "id": "group1",
+    "name": "this is a group",
+    "assets": [{ "text": "a1" }],
+    "vulnerabilities": [{ "text": "v1" }, { "text": "v2" }]
+  },
+  {
+    "id": "group2",
+    "name": "this is another group",
+    "assets": [{ "text": "a1" }],
+    "vulnerabilities": [{ "text": "v1" }, { "text": "v2" }]
+  }
+]

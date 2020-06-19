@@ -4,23 +4,9 @@ import {
   Checkbox,
   CheckboxList
 } from 'components/Form';
+import groups from './grid.json';
 
 const VulnerabilitiesGrid = () => {
-  const groups = [
-    {
-      id: 'group1',
-      name: 'this is a group',
-      assets: [{ text: 'a1' }],
-      vulnerabilities: [{ text: 'v1' }, { text: 'v2' }]
-    },
-    {
-      id: 'group2',
-      name: 'this is another group',
-      assets: [{ text: 'a1' }],
-      vulnerabilities: [{ text: 'v1' }, { text: 'v2' }]
-    }
-  ];
-
   return (
     <Accordion>
       {groups.map(({ id, name, assets, vulnerabilities }, i) => (
@@ -28,10 +14,10 @@ const VulnerabilitiesGrid = () => {
           <div className="govuk-grid-row">
             <div className="govuk-grid-column-one-half">
               <CheckboxList className="vulnerability">
-                {vulnerabilities.map((v, j) => (
+                {vulnerabilities.map(({ text }, j) => (
                   <Checkbox
                     key={`${id}-v-${j}`}
-                    label={v.text}
+                    label={text}
                     name={`${id}-v-${j}`}
                   />
                 ))}
@@ -39,10 +25,10 @@ const VulnerabilitiesGrid = () => {
             </div>
             <div className="govuk-grid-column-one-half">
               <CheckboxList className="asset">
-                {assets.map((a, j) => (
+                {assets.map(({ text }, j) => (
                   <Checkbox
                     key={`${id}-a-${j}`}
-                    label={a.text}
+                    label={text}
                     name={`${id}-a-${j}`}
                   />
                 ))}
