@@ -8,7 +8,7 @@
   {
     "id": "group2",
     "name": "this is another group",
-    "assets": [{ "text": "a1" }],
-    "vulnerabilities": [{ "text": "v1" }, { "text": "v2" }]
+    "assets": [{ "text": "a2" }],
+    "vulnerabilities": [{ "text": "v3" }, { "text": "v4" }]
   }
 ]

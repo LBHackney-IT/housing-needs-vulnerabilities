@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Accordion,
   AccordionItem,
@@ -6,7 +7,29 @@ import {
 } from 'components/Form';
 import groups from './grid.json';
 
-const VulnerabilitiesGrid = () => {
+const VulnerabilitiesGrid = ({ onUpdate }) => {
+  const [grid, setGrid] = useState({ assets: {}, vulnerabilities: {} });
+
+  const updateAssets = (id, text) => {
+    grid.assets[id] ? delete grid.assets[id] : (grid.assets[id] = text);
+    updateGrid(grid);
+  };
+
+  const updateVulnerabilities = (id, text) => {
+    grid.vulnerabilities[id]
+      ? delete grid.vulnerabilities[id]
+      : (grid.vulnerabilities[id] = text);
+    updateGrid(grid);
+  };
+
+  const updateGrid = newGrid => {
+    setGrid(newGrid);
+    onUpdate({
+      assets: Object.values(newGrid.assets),
+      vulnerabilities: Object.values(newGrid.vulnerabilities)
+    });
+  };
+
   return (
     <Accordion>
       {groups.map(({ id, name, assets, vulnerabilities }, i) => (
@@ -19,6 +42,7 @@ const VulnerabilitiesGrid = () => {
                     key={`${id}-v-${j}`}
                     label={text}
                     name={`${id}-v-${j}`}
+                    onClick={() => updateVulnerabilities(`${id}-v-${j}`, text)}
                   />
                 ))}
               </CheckboxList>
@@ -30,6 +54,7 @@ const VulnerabilitiesGrid = () => {
                     key={`${id}-a-${j}`}
                     label={text}
                     name={`${id}-a-${j}`}
+                    onClick={() => updateAssets(`${id}-a-${j}`, text)}
                   />
                 ))}
               </CheckboxList>
