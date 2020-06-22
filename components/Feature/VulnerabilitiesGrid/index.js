@@ -31,7 +31,7 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
   };
 
   return (
-    <Accordion>
+    <Accordion title="Things to explore with the resident">
       {groups.map(({ id, name, assets, vulnerabilities }, i) => (
         <AccordionItem key={`${id}-${i}`} id={`${id}-${i}`} heading={name}>
           <div className="govuk-grid-row">

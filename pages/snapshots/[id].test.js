@@ -30,7 +30,9 @@ describe('SnapshotSummary', () => {
     it('shows the name', () => {
       const snapshot = {
         firstName: 'John',
-        lastName: 'Wick'
+        lastName: 'Wick',
+        vulnerabilities: [],
+        assets: []
       };
       const { getByText } = render(
         <SnapshotSummary initialSnapshot={snapshot} />
@@ -41,17 +43,70 @@ describe('SnapshotSummary', () => {
     });
 
     it('shows the vulnerabilities grid', () => {
-      const { container } = render(<SnapshotSummary initialSnapshot={{}} />);
+      const snapshot = {
+        vulnerabilities: [],
+        assets: []
+      };
+      const { container } = render(
+        <SnapshotSummary initialSnapshot={snapshot} />
+      );
       expect(container.querySelector('.govuk-accordion')).toBeInTheDocument();
     });
 
     it('shows the notes', () => {
+      const snapshot = {
+        vulnerabilities: [],
+        assets: []
+      };
       const { getByLabelText } = render(
-        <SnapshotSummary initialSnapshot={{}} />
+        <SnapshotSummary initialSnapshot={snapshot} />
       );
       expect(
         getByLabelText(`Any other notes you'd like to add?`)
       ).toBeInTheDocument();
+    });
+
+    it('hides the edit view if a vulnerability exists', () => {
+      const snapshot = {
+        vulnerabilities: ['v1'],
+        assets: []
+      };
+      const { container, getByText } = render(
+        <SnapshotSummary initialSnapshot={snapshot} />
+      );
+      expect(
+        container.querySelector('.govuk-accordion')
+      ).not.toBeInTheDocument();
+      expect(getByText('v1')).toBeInTheDocument();
+    });
+
+    it('hides the edit view if a asset exists', () => {
+      const snapshot = {
+        vulnerabilities: [],
+        assets: ['a1']
+      };
+      const { container, getByText } = render(
+        <SnapshotSummary initialSnapshot={snapshot} />
+      );
+      expect(
+        container.querySelector('.govuk-accordion')
+      ).not.toBeInTheDocument();
+      expect(getByText('a1')).toBeInTheDocument();
+    });
+
+    it('hides the edit view if notes exist', () => {
+      const snapshot = {
+        vulnerabilities: [],
+        assets: [],
+        notes: 'some notes'
+      };
+      const { container, getByText } = render(
+        <SnapshotSummary initialSnapshot={snapshot} />
+      );
+      expect(
+        container.querySelector('.govuk-accordion')
+      ).not.toBeInTheDocument();
+      expect(getByText('some notes')).toBeInTheDocument();
     });
   });
 });
