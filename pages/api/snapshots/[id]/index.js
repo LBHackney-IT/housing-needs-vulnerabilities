@@ -1,23 +1,21 @@
 import createEndpoint from 'lib/api/utils/createEndpoint';
 import Response from 'lib/api/domain/Response';
-import { getSnapshot } from 'lib/dependencies';
+import { getSnapshot, updateSnapshot } from 'lib/dependencies';
 
-export const endpoint = ({ getSnapshot }) =>
+export const endpoint = ({ getSnapshot, updateSnapshot }) =>
   createEndpoint(
     {
-      allowedMethods: ['GET'],
-      validators: [
-        {
-          name: 'id',
-          failureMessage: 'id is required',
-          validate: ({ params }) => params.id?.length > 0
-        }
-      ]
+      allowedMethods: ['GET', 'PATCH']
     },
-    async ({ params: { id } }) => {
+    async ({ method, params: { id }, body: snapshot }) => {
+      if (method === 'PATCH') {
+        await updateSnapshot.execute({ snapshot });
+        return Response.noContent();
+      }
+
       const result = await getSnapshot.execute({ id });
       return Response.ok(result);
     }
   );
 
-export default endpoint({ getSnapshot });
+export default endpoint({ getSnapshot, updateSnapshot });
