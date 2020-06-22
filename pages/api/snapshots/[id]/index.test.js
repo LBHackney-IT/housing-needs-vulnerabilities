@@ -58,6 +58,7 @@ describe('Get/Update Snapshot Api', () => {
       });
       expect(updateSnapshot.execute).toHaveBeenCalledWith({ snapshot });
       expect(response.statusCode).toBe(204);
+      expect(response.body).toBeUndefined();
     });
 
     it('accepts PATCH requests', async () => {
