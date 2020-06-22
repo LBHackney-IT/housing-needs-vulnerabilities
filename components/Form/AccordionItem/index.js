@@ -1,6 +1,10 @@
+import styles from './index.module.scss';
+
 const AccordionItem = ({ children, heading, id }) => (
   <div className="govuk-accordion__section">
-    <div className="govuk-accordion__section-header">
+    <div
+      className={`govuk-accordion__section-header ${styles['lbh-accordion__section-header']}`}
+    >
       <h3 className="govuk-accordion__section-heading">
         <span className="govuk-accordion__section-button" id={id}>
           {heading}

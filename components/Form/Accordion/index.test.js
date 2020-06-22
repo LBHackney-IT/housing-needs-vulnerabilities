@@ -3,7 +3,8 @@ import Accordion from './index';
 
 describe('Accordion', () => {
   it('renders a accordion', () => {
-    const { container } = render(<Accordion />);
+    const { container, getByText } = render(<Accordion title="my acc" />);
     expect(container.querySelector('.govuk-accordion')).toBeInTheDocument();
+    expect(getByText('my acc')).toBeInTheDocument();
   });
 });

@@ -819,10 +819,13 @@ Accordion.prototype.initControls = function () {
   this.$openAllButton.setAttribute('type', 'button');
 
   // Create control wrapper and add controls to it
-  var accordionControls = document.createElement('div');
-  accordionControls.setAttribute('class', this.controlsClass);
+  // var accordionControls = document.createElement('div');
+  // accordionControls.setAttribute('class', this.controlsClass);
+  // accordionControls.appendChild(this.$openAllButton);
+  // this.$module.insertBefore(accordionControls, this.$module.firstChild);
+
+  var accordionControls = this.$module.querySelector('.' + this.controlsClass);
   accordionControls.appendChild(this.$openAllButton);
-  this.$module.insertBefore(accordionControls, this.$module.firstChild);
 
   // Handle events for the controls
   this.$openAllButton.addEventListener('click', this.onOpenOrCloseAllToggle.bind(this));
