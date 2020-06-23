@@ -18,7 +18,10 @@ describe('SnapshotSummary', () => {
   });
 
   it('fetches snapshot from the correct url and sets props', async () => {
-    const props = await SnapshotSummary.getInitialProps({ query: { id: '1' } });
+    const props = await SnapshotSummary.getInitialProps({
+      query: { id: '1' },
+      req: { headers: {} }
+    });
     expect(fetch).toHaveBeenCalledWith(
       expect.stringContaining('/snapshots/1'),
       expect.any(Object)

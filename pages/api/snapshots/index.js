@@ -1,6 +1,7 @@
 import createEndpoint from 'lib/api/utils/createEndpoint';
 import Response from 'lib/api/domain/Response';
 import { createSnapshot } from 'lib/dependencies';
+import { getUsername, getTokenFromAuthHeader } from 'lib/utils/token';
 
 export const endpoint = ({ createSnapshot }) =>
   createEndpoint(
@@ -25,8 +26,11 @@ export const endpoint = ({ createSnapshot }) =>
         }
       ]
     },
-    async ({ body: { firstName, lastName, systemIds } }) => {
+    async ({ body: { dob, firstName, lastName, systemIds }, headers }) => {
+      const createdBy = getUsername(getTokenFromAuthHeader(headers));
       const snapshot = await createSnapshot.execute({
+        dob,
+        createdBy,
         firstName,
         lastName,
         systemIds

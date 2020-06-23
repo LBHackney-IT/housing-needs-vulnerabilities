@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useSnapshot from 'lib/api/utils/useSnapshot';
 import { requestSnapshot } from 'lib/api';
 import HttpStatusError from 'lib/api/domain/HttpStatusError';
-import { getToken } from 'lib/utils/token';
+import { getTokenFromCookieHeader } from 'lib/utils/token';
 import { Button, TextArea } from 'components/Form';
 import VulnerabilitiesGrid from 'components/Feature/VulnerabilitiesGrid';
 import { convertIsoDateToString, convertIsoDateToYears } from 'lib/utils/date';
@@ -100,9 +100,13 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
   );
 };
 
-SnapshotSummary.getInitialProps = async ({ query: { id }, req, res }) => {
+SnapshotSummary.getInitialProps = async ({
+  query: { id },
+  req: { headers },
+  res
+}) => {
   try {
-    const token = getToken(req);
+    const token = getTokenFromCookieHeader(headers);
     const initialSnapshot = await requestSnapshot(id, { token });
     return {
       initialSnapshot,

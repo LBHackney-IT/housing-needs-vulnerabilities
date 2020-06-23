@@ -3,13 +3,14 @@ import createMockResponse from 'lib/api/utils/createMockResponse';
 
 describe('Create Snapshot Api', () => {
   const createSnapshot = { execute: jest.fn() };
-  const call = async ({ method, body }) => {
+  const call = async ({ body, headers, method }) => {
     const response = createMockResponse();
 
     await endpoint({ createSnapshot })(
       {
-        method: method || 'POST',
-        body
+        body,
+        headers,
+        method: method || 'POST'
       },
       response
     );
@@ -18,11 +19,17 @@ describe('Create Snapshot Api', () => {
   };
 
   it('can create a snapshot', async () => {
+    const dob = {};
     const firstName = 'sue';
     const lastName = 'taylor';
     const systemIds = ['xyz'];
-    const response = await call({ body: { firstName, lastName, systemIds } });
+    const response = await call({
+      body: { dob, firstName, lastName, systemIds },
+      headers: {}
+    });
     expect(createSnapshot.execute).toHaveBeenCalledWith({
+      dob,
+      createdBy: '',
       firstName,
       lastName,
       systemIds
