@@ -1,14 +1,85 @@
 [
   {
-    "id": "group1",
-    "name": "this is a group",
-    "assets": [{ "text": "a1" }],
-    "vulnerabilities": [{ "text": "v1" }, { "text": "v2" }]
+    "id": "financial-stability",
+    "name": "Financial stability",
+    "assets": [{ "text": "Stable job" }],
+    "vulnerabilities": [
+      { "text": "Rent arrears" },
+      { "text": "Benefits shortfall" }
+    ]
   },
   {
-    "id": "group2",
-    "name": "this is another group",
-    "assets": [{ "text": "a2" }],
-    "vulnerabilities": [{ "text": "v3" }, { "text": "v4" }]
+    "id": "physical-health",
+    "name": "Physical health",
+    "assets": [{ "text": "In good physical health" }],
+    "vulnerabilities": [
+      { "text": "Health condition" },
+      { "text": "Disability" },
+      { "text": "Drugs and alcohol" }
+    ]
+  },
+  {
+    "id": "mental-health",
+    "name": "Mental health",
+    "assets": [{ "text": "In good mental health" }],
+    "vulnerabilities": [
+      { "text": "Diagnosed mental health problem" },
+      { "text": "Depression / anxiety" },
+      { "text": "Mental health medication" }
+    ]
+  },
+  {
+    "id": "support-needs",
+    "name": "Support needs",
+    "assets": [],
+    "vulnerabilities": [
+      {
+        "text": "Active case with other services (e.g. Adult Social Care, Childrens)"
+      },
+      { "text": "Frailty" },
+      { "text": "Literacy" },
+      { "text": "Language barrier" },
+      { "text": "Learning difficulties" }
+    ]
+  },
+  {
+    "id": "behaviour-and-engagement",
+    "name": "Behaviour and engagement",
+    "assets": [
+      { "text": "Taken steps to resolve their situation" },
+      { "text": "Organised and/or engaged" }
+    ],
+    "vulnerabilities": [
+      { "text": "Antisocial / aggressive behaviour" },
+      { "text": "Non-engagement" }
+    ]
+  },
+  {
+    "id": "relationships-and-support-network",
+    "name": "Relationships and support network",
+    "assets": [
+      { "text": "Close relationships with family / friends" },
+      { "text": "Strong religious / faith community" }
+    ],
+    "vulnerabilities": [
+      { "text": "Domestive violence" },
+      { "text": "Carer" },
+      { "text": "Single parent" },
+      { "text": "Child with SEND" },
+      { "text": "Social isolation" }
+    ]
+  },
+  {
+    "id": "life-events and transitions",
+    "name": "Life events and transitions",
+    "assets": [],
+    "vulnerabilities": [
+      { "text": "Living in TA" },
+      { "text": "Loss of a job" },
+      { "text": "Recently in prison" },
+      { "text": "Recent hospital discharge" },
+      { "text": "Care leaver" },
+      { "text": "Recent emotional shock (e.g. bereavement, divorce)" }
+    ]
   }
 ]
