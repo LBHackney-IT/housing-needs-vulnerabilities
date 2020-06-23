@@ -42,6 +42,19 @@ describe('SnapshotSummary', () => {
       ).toBeInTheDocument();
     });
 
+    it('shows the dob', () => {
+      const d = new Date();
+      const snapshot = {
+        dob: d.setFullYear(d.getFullYear() - 45),
+        vulnerabilities: [],
+        assets: []
+      };
+      const { getByText } = render(
+        <SnapshotSummary initialSnapshot={snapshot} />
+      );
+      expect(getByText(/Aged 45/)).toBeInTheDocument();
+    });
+
     it('shows the vulnerabilities grid', () => {
       const snapshot = {
         vulnerabilities: [],
