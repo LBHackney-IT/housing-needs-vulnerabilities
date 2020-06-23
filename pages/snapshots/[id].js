@@ -5,6 +5,7 @@ import HttpStatusError from 'lib/api/domain/HttpStatusError';
 import { getToken } from 'lib/utils/token';
 import { Button, TextArea } from 'components/Form';
 import VulnerabilitiesGrid from 'components/Feature/VulnerabilitiesGrid';
+import { convertIsoDateToString, convertIsoDateToYears } from 'lib/utils/date';
 
 const SnapshotSummary = ({ initialSnapshot, token }) => {
   const { snapshot, loading, updateSnapshot } = useSnapshot(
@@ -34,12 +35,18 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
     snapshot.notes = notes;
   };
 
-  const { firstName, lastName } = snapshot;
+  const { dob, firstName, lastName, assets, vulnerabilities, notes } = snapshot;
+
   return (
     <>
       <h1>
         {firstName} {lastName}
       </h1>
+      {dob && (
+        <span className="govuk-body govuk-!-font-weight-bold">
+          Aged {convertIsoDateToYears(dob)} ({convertIsoDateToString(dob)})
+        </span>
+      )}
       {editSnapshot && (
         <>
           <VulnerabilitiesGrid onUpdate={updateSelected} />
@@ -61,9 +68,9 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
         <>
           <div>
             <h2>Vulnerabilities</h2>
-            {snapshot.vulnerabilities.length > 0 ? (
+            {vulnerabilities.length > 0 ? (
               <ul>
-                {snapshot.vulnerabilities.map((v, i) => (
+                {vulnerabilities.map((v, i) => (
                   <li key={`vuln-${i}`}>{v}</li>
                 ))}
               </ul>
@@ -73,9 +80,9 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
           </div>
           <div>
             <h2>Assets</h2>
-            {snapshot.assets.length > 0 ? (
+            {assets.length > 0 ? (
               <ul>
-                {snapshot.assets.map((a, i) => (
+                {assets.map((a, i) => (
                   <li key={`asset-${i}`}>{a}</li>
                 ))}
               </ul>
@@ -85,7 +92,7 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
           </div>
           <div>
             <h2>Notes</h2>
-            {snapshot.notes ? snapshot.notes : 'None captured'}
+            {notes ? notes : 'None captured'}
           </div>
         </>
       )}
