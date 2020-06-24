@@ -1,30 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
+# Understanding vulnerability
+Allows staff to capture vulnerability and assets and have them surfaced in Single View.
 
-## Getting Started
+## Getting started
+This project uses **yarn** for dependency management and is built with Next.js.
 
-First, run the development server:
+1. Install the project dependencies
+   ```
+   yarn
+   ```
+2. Create a `.env` file based off of the `.env.sample` that exists.
+2. Start running your local copy of understanding vulnerability.
+   ```
+   yarn dev
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
+## Testing
+
+### Unit tests
+Unit tests are written with Jest, we are using `@testing-library/react` for React component testing.
+
+```(bash)
+yarn unit-test
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Integration tests
+Integration tests are written with Cypress.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```(bash)
+yarn int-test # starts a local copy and runs all tests
+yarn cypress-open # opens Cypress for local development
+```
 
-## Learn More
+## Deployment
+Infrastructure and code are deployed to AWS using Serverless.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Automated deployments
+Merging into `master` triggers an automated deployment into the staging environment.
+To promote this to production you will need to manually approve the deployment in CircleCI.
