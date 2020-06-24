@@ -9,10 +9,23 @@ This project uses **yarn** for dependency management and is built with Next.js.
    yarn
    ```
 2. Create a `.env` file based off of the `.env.sample` that exists.
-2. Start running your local copy of understanding vulnerability.
+3. [Set up DynamoDB Local](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
+4. Create local DynamoDB plans table
+   ```bash
+   aws dynamodb create-table --cli-input-json file://./config/tables/vulnerabilities.json --endpoint-url http://localhost:8000
+   ```
+5. Start running your local copy of understanding vulnerability.
    ```
    yarn dev
    ```
+
+## Working with DynamoDB locally
+If you need to view, edit or delete data from your local copy of DynamoDB when working on a feature
+there is a useful admin tool you can run.
+
+```(bash)
+yarn dynamo-admin
+```
 
 ## Testing
 
