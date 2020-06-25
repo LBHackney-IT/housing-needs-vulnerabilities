@@ -1,10 +1,13 @@
+import cookie from 'cookie';
+import CookieBanner from '../CookieBanner';
 import Footer from './Footer';
 import Header from './Header';
 import SkipLink from './SkipLink';
 import PhaseBanner from './PhaseBanner';
 
-const Layout = ({ children }) => (
+const Layout = ({ children, cookies }) => (
   <>
+    <CookieBanner cookies={cookies || cookie.parse(document.cookie)} />
     <SkipLink />
     <Header serviceName="Vulnerabilities" />
     <div className="govuk-width-container app-width-container">

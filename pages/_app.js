@@ -1,4 +1,5 @@
 import App from 'next/app';
+import cookie from 'cookie';
 import Layout from 'components/Layout';
 import './stylesheets/all.scss';
 
@@ -8,10 +9,10 @@ export default class MyApp extends App {
   };
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, cookies, pageProps } = this.props;
     return (
       <>
-        <Layout>
+        <Layout cookies={cookies}>
           <Component {...pageProps} />
         </Layout>
         <script src="/js/govuk.js"></script>
@@ -19,3 +20,9 @@ export default class MyApp extends App {
     );
   }
 }
+
+MyApp.getInitialProps = async context => {
+  const baseProps = await App.getInitialProps(context);
+  const cookies = cookie.parse(context.ctx.req.headers.cookie);
+  return { cookies, ...baseProps };
+};
