@@ -10,16 +10,33 @@ import groups from './grid.json';
 const VulnerabilitiesGrid = ({ onUpdate }) => {
   const [grid, setGrid] = useState({ assets: {}, vulnerabilities: {} });
 
+  const addItem = (obj, key, value) => {
+    obj[key] = value;
+    return obj;
+  };
+
+  const removeItem = (obj, key) => {
+    return Object.fromEntries(Object.entries(obj).filter(([k]) => k != key));
+  };
+
   const updateAssets = (id, text) => {
-    grid.assets[id] ? delete grid.assets[id] : (grid.assets[id] = text);
-    updateGrid(grid);
+    updateGrid(
+      Object.assign({}, grid, {
+        assets: grid.assets[id]
+          ? removeItem(grid.assets, id)
+          : addItem(grid.assets, id, text)
+      })
+    );
   };
 
   const updateVulnerabilities = (id, text) => {
-    grid.vulnerabilities[id]
-      ? delete grid.vulnerabilities[id]
-      : (grid.vulnerabilities[id] = text);
-    updateGrid(grid);
+    updateGrid(
+      Object.assign({}, grid, {
+        vulnerabilities: grid.vulnerabilities[id]
+          ? removeItem(grid.vulnerabilities, id)
+          : addItem(grid.vulnerabilities, id, text)
+      })
+    );
   };
 
   const updateGrid = newGrid => {
@@ -37,26 +54,32 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
           <div className="govuk-grid-row">
             <div className="govuk-grid-column-one-half">
               <CheckboxList className="vulnerability">
-                {vulnerabilities.map(({ text }, j) => (
-                  <Checkbox
-                    key={`${id}-v-${j}`}
-                    label={text}
-                    name={`${id}-v-${j}`}
-                    onClick={() => updateVulnerabilities(`${id}-v-${j}`, text)}
-                  />
-                ))}
+                {vulnerabilities.map(({ text }, j) => {
+                  return (
+                    <Checkbox
+                      key={`${id}-v-${j}`}
+                      label={text}
+                      name={`${id}-v-${j}`}
+                      onClick={() =>
+                        updateVulnerabilities(`${id}-v-${j}`, text)
+                      }
+                    />
+                  );
+                })}
               </CheckboxList>
             </div>
             <div className="govuk-grid-column-one-half">
               <CheckboxList className="asset">
-                {assets.map(({ text }, j) => (
-                  <Checkbox
-                    key={`${id}-a-${j}`}
-                    label={text}
-                    name={`${id}-a-${j}`}
-                    onClick={() => updateAssets(`${id}-a-${j}`, text)}
-                  />
-                ))}
+                {assets.map(({ text }, j) => {
+                  return (
+                    <Checkbox
+                      key={`${id}-a-${j}`}
+                      label={text}
+                      name={`${id}-a-${j}`}
+                      onClick={() => updateAssets(`${id}-a-${j}`, text)}
+                    />
+                  );
+                })}
               </CheckboxList>
             </div>
           </div>
