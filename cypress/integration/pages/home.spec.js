@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 context('Home page', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('/');
     cy.injectAxe();
   });
 

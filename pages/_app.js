@@ -23,6 +23,6 @@ export default class MyApp extends App {
 
 MyApp.getInitialProps = async context => {
   const baseProps = await App.getInitialProps(context);
-  const cookies = cookie.parse(context.ctx.req.headers.cookie);
+  const cookies = cookie.parse(context.ctx.req.headers.cookie ?? '');
   return { cookies, ...baseProps };
 };
