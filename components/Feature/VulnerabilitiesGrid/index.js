@@ -58,25 +58,26 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
                 {vulnerabilities.map(({ label, textinputs }, j) => {
                   const cbId = `${id}-v-${j}`;
                   return (
-                    <>
+                    <React.Fragment key={cbId}>
                       <Checkbox
-                        key={cbId}
                         label={label}
                         name={cbId}
                         onClick={() => updateVulnerabilities(cbId, label)}
                       />
                       {textinputs &&
                         grid.vulnerabilities[cbId] &&
-                        textinputs.map(({ label }, k) => (
-                          <TextInput
-                            key={`${cbId}-${k}`}
-                            label={label}
-                            onChange={val =>
-                              updateVulnerabilities(`${cbId}-${k}`, val)
-                            }
-                          />
-                        ))}
-                    </>
+                        textinputs.map(({ label }, k) => {
+                          return (
+                            <TextInput
+                              key={`${cbId}-${k}`}
+                              label={label}
+                              onChange={val =>
+                                updateVulnerabilities(`${cbId}-${k}`, val)
+                              }
+                            />
+                          );
+                        })}
+                    </React.Fragment>
                   );
                 })}
               </CheckboxList>
@@ -86,7 +87,7 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
                 {assets.map(({ label, textinputs }, j) => {
                   const cbId = `${id}-a-${j}`;
                   return (
-                    <>
+                    <React.Fragment key={cbId}>
                       <Checkbox
                         key={cbId}
                         label={label}
@@ -102,7 +103,7 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
                             onChange={val => updateAssets(`${cbId}-${k}`, val)}
                           />
                         ))}
-                    </>
+                    </React.Fragment>
                   );
                 })}
               </CheckboxList>

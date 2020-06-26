@@ -92,7 +92,7 @@
     "id": "life-events and transitions",
     "name": "Life events and transitions",
     "assets": [
-      { "label":  "Other", "textinputs":  [{"label": ""}]}
+      { "label":  "Other", "textinputs": [{"label": ""}]}
     ],
     "vulnerabilities": [
       { "label": "Living in TA" },

@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
 
-const TextInput = ({ label, name, onChange, validate, value, autoComplete }) => {
+const TextInput = ({
+  label,
+  name,
+  onChange,
+  validate,
+  value,
+  autoComplete
+}) => {
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
