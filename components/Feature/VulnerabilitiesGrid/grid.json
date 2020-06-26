@@ -2,7 +2,10 @@
   {
     "id": "financial-stability",
     "name": "Financial stability",
-    "assets": [{ "label": "Stable job" }, {"label": "Other", "textinputs": [{"label":  ""}]}],
+    "assets": [
+      { "label": "Stable job" },
+      { "label": "Other", "textinputs": [{"label":  ""}]}
+    ],
     "vulnerabilities": [
       { "label": "Rent arrears" },
       { "label": "Benefits shortfall" },
@@ -12,27 +15,37 @@
   {
     "id": "physical-health",
     "name": "Physical health",
-    "assets": [{ "label": "In good physical health" }],
+    "assets": [
+      { "label": "In good physical health" },
+      { "label":  "Other", "textinputs":  [{"label": ""}]}
+    ],
     "vulnerabilities": [
       { "label": "Health condition" },
       { "label": "Disability" },
-      { "label": "Drugs and alcohol" }
+      { "label": "Drugs and alcohol" },
+      { "label":  "Other", "textinputs":  [{"label": ""}]}
     ]
   },
   {
     "id": "mental-health",
     "name": "Mental health",
-    "assets": [{ "label": "In good mental health" }],
+    "assets": [
+      { "label": "In good mental health" },
+      { "label":  "Other", "textinputs":  [{"label": ""}]}
+    ],
     "vulnerabilities": [
       { "label": "Diagnosed mental health problem" },
       { "label": "Depression / anxiety" },
-      { "label": "Mental health medication" }
+      { "label": "Mental health medication" },
+      { "label":  "Other", "textinputs":  [{"label": ""}]}
     ]
   },
   {
     "id": "support-needs",
     "name": "Support needs",
-    "assets": [],
+    "assets": [
+      { "label":  "Other", "textinputs":  [{"label": ""}]}
+    ],
     "vulnerabilities": [
       {
         "label": "Active case with other services (e.g. Adult Social Care, Childrens)"
@@ -40,7 +53,8 @@
       { "label": "Frailty" },
       { "label": "Literacy" },
       { "label": "Language barrier" },
-      { "label": "Learning difficulties" }
+      { "label": "Learning difficulties" },
+      { "label":  "Other", "textinputs":  [{"label": ""}]}
     ]
   },
   {
@@ -48,11 +62,13 @@
     "name": "Behaviour and engagement",
     "assets": [
       { "label": "Taken steps to resolve their situation" },
-      { "label": "Organised and/or engaged" }
+      { "label": "Organised and/or engaged" },
+      { "label":  "Other", "textinputs":  [{"label": ""}]}
     ],
     "vulnerabilities": [
       { "label": "Antisocial / aggressive behaviour" },
-      { "label": "Non-engagement" }
+      { "label": "Non-engagement" },
+      { "label":  "Other", "textinputs":  [{"label": ""}]}
     ]
   },
   {
@@ -60,27 +76,32 @@
     "name": "Relationships and support network",
     "assets": [
       { "label": "Close relationships with family / friends" },
-      { "label": "Strong religious / faith community" }
+      { "label": "Strong religious / faith community" },
+      { "label":  "Other", "textinputs":  [{"label": ""}]}
     ],
     "vulnerabilities": [
       { "label": "Domestive violence" },
       { "label": "Carer" },
       { "label": "Single parent" },
       { "label": "Child with SEND" },
-      { "label": "Social isolation" }
+      { "label": "Social isolation" },
+      { "label":  "Other", "textinputs":  [{"label": ""}]}
     ]
   },
   {
     "id": "life-events and transitions",
     "name": "Life events and transitions",
-    "assets": [],
+    "assets": [
+      { "label":  "Other", "textinputs":  [{"label": ""}]}
+    ],
     "vulnerabilities": [
       { "label": "Living in TA" },
       { "label": "Loss of a job" },
       { "label": "Recently in prison" },
       { "label": "Recent hospital discharge" },
       { "label": "Care leaver" },
-      { "label": "Recent emotional shock (e.g. bereavement, divorce)" }
+      { "label": "Recent emotional shock (e.g. bereavement, divorce)" },
+      { "label":  "Other", "textinputs":  [{"label": ""}]}
     ]
   }
 ]

@@ -71,7 +71,9 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
                           <TextInput
                             key={`${cbId}-${k}`}
                             label={label}
-                            onChange={(val) => updateVulnerabilities(`${cbId}-${k}`, val)}
+                            onChange={val =>
+                              updateVulnerabilities(`${cbId}-${k}`, val)
+                            }
                           />
                         ))}
                     </>
@@ -81,14 +83,26 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
             </div>
             <div className="govuk-grid-column-one-half">
               <CheckboxList className="asset">
-                {assets.map(({ text }, j) => {
+                {assets.map(({ label, textinputs }, j) => {
+                  const cbId = `${id}-a-${j}`;
                   return (
-                    <Checkbox
-                      key={`${id}-a-${j}`}
-                      label={text}
-                      name={`${id}-a-${j}`}
-                      onClick={() => updateAssets(`${id}-a-${j}`, text)}
-                    />
+                    <>
+                      <Checkbox
+                        key={cbId}
+                        label={label}
+                        name={cbId}
+                        onClick={() => updateAssets(cbId, label)}
+                      />
+                      {textinputs &&
+                        grid.assets[cbId] &&
+                        textinputs.map(({ label }, k) => (
+                          <TextInput
+                            key={`${cbId}-${k}`}
+                            label={label}
+                            onChange={val => updateAssets(`${cbId}-${k}`, val)}
+                          />
+                        ))}
+                    </>
                   );
                 })}
               </CheckboxList>
