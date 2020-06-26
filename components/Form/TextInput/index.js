@@ -2,9 +2,14 @@ import { useEffect, useState } from 'react';
 
 const TextInput = ({ label, name, onChange, validate, value, autoComplete }) => {
   const [hasError, setHasError] = useState(false);
+
   useEffect(() => {
     if (validate) setHasError(!value);
   });
+
+  const updateValue = e => {
+    onChange(e.currentTarget.value);
+  };
 
   return (
     <div
@@ -27,9 +32,7 @@ const TextInput = ({ label, name, onChange, validate, value, autoComplete }) => 
         name={name}
         type="text"
         autoComplete={autoComplete}
-        onChange={e => {
-          onChange(e);
-        }}
+        onChange={updateValue}
         value={value}
         aria-describedby={hasError ? `${name}-error` : ''}
       />

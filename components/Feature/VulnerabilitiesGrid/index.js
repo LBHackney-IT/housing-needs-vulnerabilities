@@ -3,7 +3,8 @@ import {
   Accordion,
   AccordionItem,
   Checkbox,
-  CheckboxList
+  CheckboxList,
+  TextInput
 } from 'components/Form';
 import groups from './grid.json';
 
@@ -54,16 +55,26 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
           <div className="govuk-grid-row">
             <div className="govuk-grid-column-one-half">
               <CheckboxList className="vulnerability">
-                {vulnerabilities.map(({ text }, j) => {
+                {vulnerabilities.map(({ label, textinputs }, j) => {
+                  const cbId = `${id}-v-${j}`;
                   return (
-                    <Checkbox
-                      key={`${id}-v-${j}`}
-                      label={text}
-                      name={`${id}-v-${j}`}
-                      onClick={() =>
-                        updateVulnerabilities(`${id}-v-${j}`, text)
-                      }
-                    />
+                    <>
+                      <Checkbox
+                        key={cbId}
+                        label={label}
+                        name={cbId}
+                        onClick={() => updateVulnerabilities(cbId, label)}
+                      />
+                      {textinputs &&
+                        grid.vulnerabilities[cbId] &&
+                        textinputs.map(({ label }, k) => (
+                          <TextInput
+                            key={`${cbId}-${k}`}
+                            label={label}
+                            onChange={(val) => updateVulnerabilities(`${cbId}-${k}`, val)}
+                          />
+                        ))}
+                    </>
                   );
                 })}
               </CheckboxList>
