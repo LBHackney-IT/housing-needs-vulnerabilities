@@ -35,6 +35,7 @@ context('Snapshot summary', () => {
 
   afterEach(() => {
     cy.task('deleteSnapshot', '2');
+    cy.task('deleteSnapshot', '3');
   });
   describe('View snapshot', () => {
     it('Displays a read only view of a snapshot', () => {

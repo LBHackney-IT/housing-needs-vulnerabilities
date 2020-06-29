@@ -16,7 +16,7 @@ context('Edit snapshot', () => {
   });
 
   afterEach(() => {
-    cy.task('deleteSnapshot', '2');
+    cy.task('deleteSnapshot', '1');
   });
 
   describe('Edit snapshot', () => {
@@ -69,6 +69,22 @@ context('Edit snapshot', () => {
         .type('Note');
 
       cy.get('[data-testid=finish-and-save-button]').click();
+
+      cy.get('[data-testid=vulnerabilities-summary]')
+        .should('contain', 'Vulnerabilities')
+        .and('contain', 'Rent arrears');
+
+      cy.get('[data-testid=assets-summary]')
+        .should('contain', 'Assets')
+        .and('contain', 'Organised and/or engaged');
+
+      cy.get('[data-testid=notes-summary]')
+        .should('contain', 'Notes')
+        .and('contain', 'Note');
+    });
+
+    it('Persists the snapshot', () => {
+      cy.visit(`http://localhost:3000/snapshots/1`);
 
       cy.get('[data-testid=vulnerabilities-summary]')
         .should('contain', 'Vulnerabilities')
