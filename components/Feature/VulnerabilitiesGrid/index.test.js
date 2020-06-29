@@ -102,30 +102,4 @@ describe('VulnerabilitiesGrid', () => {
 
     expect(onUpdate).toHaveBeenCalledWith(expected);
   });
-
-  it('filters out selections with the value "Other"', () => {
-    const onUpdate = jest.fn();
-    const expected = expect.objectContaining({
-      assets: ['some text'],
-      vulnerabilities: []
-    });
-    const { container } = render(<VulnerabilitiesGrid onUpdate={onUpdate} />);
-
-    fireEvent(
-      container.querySelector('#financial-stability-a-other'),
-      new MouseEvent('click', {
-        bubbles: true,
-        cancelable: true
-      })
-    );
-
-    fireEvent.change(
-      container.querySelector('#financial-stability-a-other--i'),
-      {
-        target: { value: 'some text' }
-      }
-    );
-
-    expect(onUpdate).toHaveBeenCalledWith(expected);
-  });
 });
