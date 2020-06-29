@@ -1,5 +1,5 @@
 context('Edit snapshot', () => {
-  beforeEach(() => {
+  before(() => {
     cy.task('createSnapshot', {
       firstName: 'Phineas',
       lastName: 'Flynn',
@@ -15,7 +15,7 @@ context('Edit snapshot', () => {
     cy.setHackneyCookie(true);
   });
 
-  afterEach(() => {
+  after(() => {
     cy.task('deleteSnapshot', '1');
   });
 
