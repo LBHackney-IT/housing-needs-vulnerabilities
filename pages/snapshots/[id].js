@@ -54,6 +54,7 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
             name="notes"
             label="Any other notes you'd like to add?"
             onChange={updateNotes}
+            datatestid="notes-input"
           />
           <Button
             text="Finish &amp; save"
@@ -61,12 +62,13 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
               await updateSnapshot(snapshot);
               setEditSnapshot(false);
             }}
+            data-testid="finish-and-save-button"
           />
         </>
       )}
       {!editSnapshot && (
         <>
-          <div>
+          <div data-testid="vulnerabilities-summary">
             <h2>Vulnerabilities</h2>
             {vulnerabilities.length > 0 ? (
               <ul>
@@ -78,7 +80,7 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
               'None captured'
             )}
           </div>
-          <div>
+          <div data-testid="assets-summary">
             <h2>Assets</h2>
             {assets.length > 0 ? (
               <ul>
@@ -90,7 +92,7 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
               'None captured'
             )}
           </div>
-          <div>
+          <div data-testid="notes-summary">
             <h2>Notes</h2>
             {notes ? notes : 'None captured'}
           </div>

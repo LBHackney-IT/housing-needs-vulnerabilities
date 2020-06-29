@@ -50,7 +50,12 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
   return (
     <Accordion title="Things to explore with the resident">
       {groups.map(({ id, name, assets, vulnerabilities }, i) => (
-        <AccordionItem key={`${id}-${i}`} id={`${id}-${i}`} heading={name}>
+        <AccordionItem
+          key={`${id}-${i}`}
+          id={`${id}-${i}`}
+          heading={name}
+          datatestid="accordion-item"
+        >
           <div className="govuk-grid-row">
             <div className="govuk-grid-column-one-half">
               <CheckboxList className="vulnerability">

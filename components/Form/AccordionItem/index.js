@@ -1,7 +1,7 @@
 import styles from './index.module.scss';
 
-const AccordionItem = ({ children, heading, id }) => (
-  <div className="govuk-accordion__section">
+const AccordionItem = ({ children, heading, id, datatestid }) => (
+  <div className="govuk-accordion__section" data-testid={datatestid}>
     <div
       className={`govuk-accordion__section-header ${styles['lbh-accordion__section-header']}`}
     >
