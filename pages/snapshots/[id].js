@@ -6,6 +6,7 @@ import { getTokenFromCookieHeader } from 'lib/utils/token';
 import { Button, TextArea } from 'components/Form';
 import VulnerabilitiesGrid from 'components/Feature/VulnerabilitiesGrid';
 import { convertIsoDateToString, convertIsoDateToYears } from 'lib/utils/date';
+import { goBack } from 'lib/utils/goBack';
 
 const SnapshotSummary = ({ initialSnapshot, token }) => {
   const { snapshot, loading, updateSnapshot } = useSnapshot(
@@ -39,6 +40,11 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
 
   return (
     <>
+      <div>
+        <button onClick={goBack} className="govuk-back-link">
+          Back
+        </button>
+      </div>
       <h1>
         {firstName} {lastName}
       </h1>
