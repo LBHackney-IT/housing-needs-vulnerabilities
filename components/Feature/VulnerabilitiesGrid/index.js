@@ -43,20 +43,22 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
   const updateGrid = newGrid => {
     setGrid(newGrid);
     onUpdate({
-      assets: Object.values(newGrid.assets),
-      vulnerabilities: Object.values(newGrid.vulnerabilities)
+      assets: Object.values(newGrid.assets).filter(a => a !== 'Other'),
+      vulnerabilities: Object.values(newGrid.vulnerabilities).filter(v => v !== 'Other')
     });
   };
 
+  const labelToId = label => label.replace(' ', '-').toLowerCase();
+
   return (
     <Accordion title="Things to explore with the resident">
-      {groups.map(({ id, name, assets, vulnerabilities }, i) => (
-        <AccordionItem key={`${id}-${i}`} id={`${id}-${i}`} heading={name}>
+      {groups.map(({ id, name, assets, vulnerabilities }) => (
+        <AccordionItem key={id} id={id} heading={name}>
           <div className="govuk-grid-row">
             <div className="govuk-grid-column-one-half">
               <CheckboxList className="vulnerability">
-                {vulnerabilities.map(({ label, textinputs }, j) => {
-                  const cbId = `${id}-v-${j}`;
+                {vulnerabilities.map(({ label, textinputs }) => {
+                  const cbId = `${id}-v-${labelToId(label)}`;
                   return (
                     <React.Fragment key={cbId}>
                       <Checkbox
@@ -66,13 +68,15 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
                       />
                       {textinputs &&
                         grid.vulnerabilities[cbId] &&
-                        textinputs.map(({ label }, k) => {
+                        textinputs.map(({ label }) => {
+                          const inputId = `${cbId}-${labelToId(label)}-i`;
                           return (
                             <TextInput
-                              key={`${cbId}-${k}`}
+                              name={inputId}
+                              key={inputId}
                               label={label}
                               onChange={val =>
-                                updateVulnerabilities(`${cbId}-${k}`, val)
+                                updateVulnerabilities(inputId, val)
                               }
                             />
                           );
@@ -84,8 +88,8 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
             </div>
             <div className="govuk-grid-column-one-half">
               <CheckboxList className="asset">
-                {assets.map(({ label, textinputs }, j) => {
-                  const cbId = `${id}-a-${j}`;
+                {assets.map(({ label, textinputs }) => {
+                  const cbId = `${id}-a-${labelToId(label)}`;
                   return (
                     <React.Fragment key={cbId}>
                       <Checkbox
@@ -96,13 +100,17 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
                       />
                       {textinputs &&
                         grid.assets[cbId] &&
-                        textinputs.map(({ label }, k) => (
-                          <TextInput
-                            key={`${cbId}-${k}`}
-                            label={label}
-                            onChange={val => updateAssets(`${cbId}-${k}`, val)}
-                          />
-                        ))}
+                        textinputs.map(({ label }) => {
+                          const inputId = `${cbId}-${labelToId(label)}-i`;
+                          return (
+                            <TextInput
+                              name={inputId}
+                              key={inputId}
+                              label={label}
+                              onChange={val => updateAssets(inputId, val)}
+                            />
+                          );
+                        })}
                     </React.Fragment>
                   );
                 })}
