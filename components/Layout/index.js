@@ -11,7 +11,10 @@ const Layout = ({ children, cookies }) => (
     <SkipLink />
     <Header serviceName="Vulnerabilities" />
     <div className="govuk-width-container app-width-container">
-      <PhaseBanner phase="beta" />
+      <PhaseBanner
+        phase="alpha"
+        feedbackUrl="https://forms.gle/PX7Ra2tePBnC3RrX9"
+      />
       <main
         className="govuk-main-wrapper app-main-class"
         id="content"
