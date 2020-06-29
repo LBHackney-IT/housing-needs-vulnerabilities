@@ -1,4 +1,4 @@
-context('Create snapshot', () => {
+context('Edit snapshot', () => {
   beforeEach(() => {
     cy.task('createSnapshot', {
       firstName: 'Phineas',
@@ -12,24 +12,10 @@ context('Create snapshot', () => {
       id: '1'
     });
 
-    cy.task('createSnapshot', {
-      firstName: 'Ferb',
-      lastName: 'Flynn',
-      assets: ['Asset'],
-      notes: ['Notes notes'],
-      createdBy: 'Kat',
-      systemIds: [],
-      created: '2020-06-09T15:46:47.857Z',
-      dob: '2000-06-09',
-      vulnerabilities: ['Vulnerability'],
-      id: '2'
-    });
-
     cy.setHackneyCookie(true);
   });
 
   afterEach(() => {
-    cy.task('deleteSnapshot', '1');
     cy.task('deleteSnapshot', '2');
   });
 
@@ -83,15 +69,18 @@ context('Create snapshot', () => {
         .type('Note');
 
       cy.get('[data-testid=finish-and-save-button]').click();
+
       cy.get('[data-testid=vulnerabilities-summary]')
         .should('contain', 'Vulnerabilities')
         .and('contain', 'Rent arrears');
-    });
 
-    describe('Get snapshot', () => {
-      it('Displays a read only view of a snapshot', () => {
-        cy.visit(`http://localhost:3000/snapshots/2`);
-      });
+      cy.get('[data-testid=assets-summary]')
+        .should('contain', 'Assets')
+        .and('contain', 'Organised and/or engaged');
+
+      cy.get('[data-testid=notes-summary]')
+        .should('contain', 'Notes')
+        .and('contain', 'Note');
     });
   });
 });

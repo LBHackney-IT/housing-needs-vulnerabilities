@@ -43,7 +43,10 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
         {firstName} {lastName}
       </h1>
       {dob && (
-        <span className="govuk-body govuk-!-font-weight-bold">
+        <span
+          className="govuk-body govuk-!-font-weight-bold"
+          data-testid="age-and-date-of-birth"
+        >
           Aged {convertIsoDateToYears(dob)} ({convertIsoDateToString(dob)})
         </span>
       )}
