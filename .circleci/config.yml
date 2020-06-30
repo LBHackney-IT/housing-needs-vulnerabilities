@@ -74,7 +74,7 @@ jobs:
             export AIRTABLE_TABLE_NAMES=xx  
             export CYPRESS_ALLOWED_GROUPS=xx  
             export CYPRESS_AIRTABLE_TABLE_NAMES=xx                
-            export CYPRESS_CACHE_FOLDER=~/repo/cypress_cache yarn run int-test
+            CYPRESS_CACHE_FOLDER=~/repo/cypress_cache yarn run int-test
 
       - store_artifacts:
           path: ~/repo/cypress/screenshots
