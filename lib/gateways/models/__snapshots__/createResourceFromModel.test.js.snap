@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createResourceFromModel maps properties from an Airtable record 1`] = `
+Resource {
+  "address": "42 Wallaby Way, Sydney",
+  "description": "This is a description",
+  "id": "dakjhksd8283",
+  "name": "Resource name",
+  "tags": Array [],
+  "websites": Array [
+    "https://www.example.com",
+  ],
+}
+`;
