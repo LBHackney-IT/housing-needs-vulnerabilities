@@ -18,8 +18,7 @@ describe('TextInput', () => {
   });
 
   it('performs an action onChange', () => {
-    let newValue = '';
-    const myAction = jest.fn(e => (newValue = e.target.value));
+    const myAction = jest.fn();
     const { getByLabelText } = render(
       <TextInput name={'my-input'} label={'My Input'} onChange={myAction} />
     );
@@ -28,7 +27,7 @@ describe('TextInput', () => {
       target: { value: 'hello' }
     });
 
-    expect(newValue).toEqual('hello');
+    expect(myAction).toHaveBeenCalledWith('hello');
   });
 
   it('shows an error message if validation is required and input has no value', () => {

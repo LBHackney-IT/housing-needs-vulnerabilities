@@ -57,12 +57,16 @@ context('Edit snapshot', () => {
       cy.get('[data-testid=accordion-item]')
         .eq(0)
         .click();
-      cy.get('[data-testid=financial-stability-v-0-checkbox]').click();
+      cy.get(
+        '[data-testid=financial-stability-v-rent-arrears-checkbox]'
+      ).click();
 
       cy.get('[data-testid=accordion-item]')
         .eq(4)
         .click();
-      cy.get('[data-testid=behaviour-and-engagement-a-1-checkbox]').click();
+      cy.get(
+        '[data-testid=behaviour-and-engagement-a-organised-and-or-engaged-checkbox]'
+      ).click();
 
       cy.get('textarea')
         .click()
