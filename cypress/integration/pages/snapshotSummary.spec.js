@@ -10,7 +10,7 @@ context('Snapshot summary', () => {
       assets: ['Asset'],
       notes: ['Notes notes'],
       createdBy: 'Kat',
-      systemIds: [],
+      systemIds: ['dub'],
       created: '2020-06-09T15:46:47.857Z',
       dob,
       vulnerabilities: ['Vulnerability'],
@@ -23,7 +23,7 @@ context('Snapshot summary', () => {
       assets: [],
       notes: ['Notes notes'],
       createdBy: 'Kat',
-      systemIds: [],
+      systemIds: ['dub'],
       created: '2020-06-09T15:46:47.857Z',
       dob: '2000-06-09T15:46:47.857Z',
       vulnerabilities: [],
@@ -39,7 +39,7 @@ context('Snapshot summary', () => {
   });
   describe('View snapshot', () => {
     it('Displays a read only view of a snapshot', () => {
-      cy.visit(`http://localhost:3000/snapshots/2`);
+      cy.visit(`/snapshots/2`);
 
       cy.get('h1').should('contain', 'Ferb Flynn');
 
@@ -62,7 +62,7 @@ context('Snapshot summary', () => {
     });
 
     it('Displays none captured if there are no vulnerabilities or assets', () => {
-      cy.visit(`http://localhost:3000/snapshots/3`);
+      cy.visit(`/snapshots/3`);
 
       cy.get('h1').should('contain', 'Candace Flynn');
 

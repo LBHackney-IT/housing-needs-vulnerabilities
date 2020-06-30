@@ -5,7 +5,7 @@ context('Edit snapshot', () => {
       lastName: 'Flynn',
       assets: [],
       createdBy: 'Dat',
-      systemIds: [],
+      systemIds: ['wub'],
       created: '2019-06-09T15:46:47.857Z',
       dob: '2000-06-09',
       vulnerabilities: [],
@@ -21,7 +21,7 @@ context('Edit snapshot', () => {
 
   describe('Edit snapshot', () => {
     it('Displays editable snapshot if there are no assets, vulnerabilites and notes added', () => {
-      cy.visit(`http://localhost:3000/snapshots/1`);
+      cy.visit(`/snapshots/1`);
 
       cy.get('h1').should('contain', 'Phineas Flynn');
 
@@ -49,7 +49,7 @@ context('Edit snapshot', () => {
     });
 
     it('Adds vulnerabilities, assets and notes', () => {
-      cy.visit(`http://localhost:3000/snapshots/1`);
+      cy.visit(`/snapshots/1`);
 
       cy.get('[data-testid=accordion-item]')
         .eq(0)
@@ -85,7 +85,7 @@ context('Edit snapshot', () => {
     });
 
     it('Persists the snapshot', () => {
-      cy.visit(`http://localhost:3000/snapshots/1`);
+      cy.visit(`/snapshots/1`);
 
       cy.get('[data-testid=vulnerabilities-summary]')
         .should('contain', 'Vulnerabilities')
