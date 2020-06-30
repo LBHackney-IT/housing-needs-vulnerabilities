@@ -70,7 +70,8 @@ jobs:
             export NEXT_PUBLIC_API_URL=http://localhost:3000/api
             VULNERABILITIES_TABLE_NAME=vulnerabilities
             AIRTABLE_API_KEY=xx
-            AIRTABLE_TABLE_NAMES=xx         
+            ALLOWED_GROUPS=xx  
+            AIRTABLE_TABLE_NAMES=xx                
             CYPRESS_CACHE_FOLDER=~/repo/cypress_cache yarn run int-test
 
       - store_artifacts:
