@@ -6,7 +6,6 @@ import { getTokenFromCookieHeader } from 'lib/utils/token';
 import { Button, TextArea } from 'components/Form';
 import VulnerabilitiesGrid from 'components/Feature/VulnerabilitiesGrid';
 import { convertIsoDateToString, convertIsoDateToYears } from 'lib/utils/date';
-import { goBack } from 'lib/utils/goBack';
 
 const SnapshotSummary = ({ initialSnapshot, token }) => {
   const { snapshot, loading, updateSnapshot } = useSnapshot(
@@ -37,13 +36,18 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
   };
 
   const { dob, firstName, lastName, assets, vulnerabilities, notes } = snapshot;
+  const customerId = snapshot.systemIds?.[0];
 
   return (
     <>
       <div>
-        <button onClick={goBack} className="govuk-back-link">
-          Back
-        </button>
+        <a
+          href={`${process.env.NEXT_PUBLIC_SINGLEVIEW_URL}/customers/${customerId}/view`}
+          className="govuk-back-link back-button"
+          data-testid="back-link-test"
+        >
+          Back to Singleview
+        </a>
       </div>
       <h1>
         {firstName} {lastName}

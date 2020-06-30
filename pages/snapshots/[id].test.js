@@ -124,5 +124,20 @@ describe('SnapshotSummary', () => {
       ).not.toBeInTheDocument();
       expect(getByText('some notes')).toBeInTheDocument();
     });
+
+    it('sends back to Singlewview when Back button is clicked', () => {
+      const snapshot = {
+        vulnerabilities: [],
+        assets: [],
+        systemIds: ['123']
+      };
+      const { container, getByTestId } = render(
+        <SnapshotSummary initialSnapshot={snapshot} />
+      );
+      expect(getByTestId('back-link-test')).toHaveAttribute(
+        'href',
+        'https://staging-singleview.hackney.gov.uk/customers/123/view'
+      );
+    })
   });
 });
