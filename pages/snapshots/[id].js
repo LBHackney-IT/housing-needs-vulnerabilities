@@ -57,7 +57,6 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
             name="notes"
             label="Any other notes you'd like to add?"
             onChange={updateNotes}
-            datatestid="notes-input"
           />
           <Button
             text="Finish &amp; save"

@@ -35,8 +35,8 @@ context('Edit snapshot', () => {
         .and('contain', 'Relationships and support network')
         .and('contain', 'Life events and transitions');
 
-      cy.get('[data-testid=notes-input]').should('exist');
-      cy.get('[data-testid=notes-input] > textarea').should(
+      cy.get('[data-testid=notes]').should('exist');
+      cy.get('[data-testid=notes] > textarea').should(
         'have.attr',
         'id',
         'notes'
