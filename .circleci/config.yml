@@ -71,7 +71,9 @@ jobs:
             VULNERABILITIES_TABLE_NAME=vulnerabilities
             AIRTABLE_API_KEY=xx
             ALLOWED_GROUPS=xx  
-            AIRTABLE_TABLE_NAMES=xx                
+            AIRTABLE_TABLE_NAMES=xx  
+            CYPRESS_ALLOWED_GROUPS=xx  
+            CYPRESS_AIRTABLE_TABLE_NAMES=xx                
             CYPRESS_CACHE_FOLDER=~/repo/cypress_cache yarn run int-test
 
       - store_artifacts:
