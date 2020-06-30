@@ -12,7 +12,7 @@ executors:
     docker:
       - image: circleci/node:12.13-browsers
       - image: circleci/dynamodb
-        entrypoint: ["java", "-Xmx1G", "-jar", "DynamoDBLocal.jar", "-sharedDb"]
+        entrypoint: ['java', '-Xmx1G', '-jar', 'DynamoDBLocal.jar', '-sharedDb']
     working_directory: ~/repo
 
 jobs:
@@ -68,6 +68,7 @@ jobs:
           name: Run integration tests
           command: |
             export NEXT_PUBLIC_API_URL=http://localhost:3000/api
+            CYPRESS_ALLOWED_GROUPS=test
             CYPRESS_CACHE_FOLDER=~/repo/cypress_cache yarn run int-test
 
       - store_artifacts:
