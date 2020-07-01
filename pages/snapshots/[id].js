@@ -25,14 +25,25 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
       snapshot.vulnerabilities.length === 0 &&
       !snapshot.notes
   );
+  const [hasValue, setHasValue] = useState(false);
 
   const updateSelected = selected => {
     snapshot.assets = selected.assets;
     snapshot.vulnerabilities = selected.vulnerabilities;
+    setHasValue(
+      snapshot.assets.length > 0 ||
+        snapshot.vulnerabilities.length > 0 ||
+        snapshot.notes
+    );
   };
 
   const updateNotes = notes => {
     snapshot.notes = notes;
+    setHasValue(
+      snapshot.assets.length > 0 ||
+        snapshot.vulnerabilities.length > 0 ||
+        snapshot.notes
+    );
   };
 
   const { dob, firstName, lastName, assets, vulnerabilities, notes } = snapshot;
@@ -74,6 +85,7 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
               await updateSnapshot(snapshot);
               setEditSnapshot(false);
             }}
+            disabled={!hasValue}
             data-testid="finish-and-save-button"
           />
         </>
