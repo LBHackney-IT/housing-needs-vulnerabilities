@@ -46,7 +46,7 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
           className="govuk-back-link back-button"
           data-testid="back-link-test"
         >
-          Back to Singleview
+          Back to Single View
         </a>
       </div>
       <h1>
