@@ -11,7 +11,7 @@ context('Edit snapshot', () => {
       vulnerabilities: [],
       id: '1'
     });
-
+    cy.visit(`/snapshots/1`);
     cy.setHackneyCookie(true);
   });
 
@@ -21,7 +21,6 @@ context('Edit snapshot', () => {
 
   describe('Edit snapshot', () => {
     it('Displays editable snapshot if there are no assets, vulnerabilites and notes added', () => {
-      cy.visit(`/snapshots/1`);
 
       cy.get('h1').should('contain', 'Phineas Flynn');
 
@@ -49,7 +48,6 @@ context('Edit snapshot', () => {
     });
 
     it('Adds vulnerabilities, assets and notes', () => {
-      cy.visit(`/snapshots/1`);
 
       cy.get('[data-testid=accordion-item]')
         .eq(0)
@@ -85,7 +83,6 @@ context('Edit snapshot', () => {
     });
 
     it('Persists the snapshot', () => {
-      cy.visit(`/snapshots/1`);
 
       cy.get('[data-testid=vulnerabilities-summary]')
         .should('contain', 'Vulnerabilities')
@@ -98,6 +95,18 @@ context('Edit snapshot', () => {
       cy.get('[data-testid=notes-summary]')
         .should('contain', 'Notes')
         .and('contain', 'Note');
+    });
+  });
+
+  describe('Back button', () => {
+    it('Sends the user back to Single View', () => {
+      cy.get('[data-testid=back-link-test]')
+        .should('contain', 'Back to Single View')
+        .and(
+          'have.attr',
+          'href',
+          'https://staging-singleview.hackney.gov.uk/customers/wub/view'
+        );
     });
   });
 });
