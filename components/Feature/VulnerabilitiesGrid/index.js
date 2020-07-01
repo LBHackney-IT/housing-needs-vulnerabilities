@@ -70,7 +70,11 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
     });
   };
 
-  const labelToId = label => label.replace(' ', '-').toLowerCase();
+  const labelToId = label =>
+    label
+      .replace(/ /g, '-')
+      .replace(/\//g, '-')
+      .toLowerCase();
 
   return (
     <Accordion title="Things to explore with the resident">

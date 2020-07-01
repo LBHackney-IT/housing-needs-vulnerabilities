@@ -9,6 +9,7 @@ const Checkbox = ({ checked, label, name, onClick, ...others }) => {
         onClick={onClick}
         defaultChecked={checked}
         {...others}
+        data-testid={`${name}-checkbox`}
       />
       <label className="govuk-label govuk-checkboxes__label" htmlFor={name}>
         {label}

@@ -43,7 +43,10 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
         {firstName} {lastName}
       </h1>
       {dob && (
-        <span className="govuk-body govuk-!-font-weight-bold">
+        <span
+          className="govuk-body govuk-!-font-weight-bold"
+          data-testid="age-and-date-of-birth"
+        >
           Aged {convertIsoDateToYears(dob)} ({convertIsoDateToString(dob)})
         </span>
       )}
@@ -61,12 +64,13 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
               await updateSnapshot(snapshot);
               setEditSnapshot(false);
             }}
+            data-testid="finish-and-save-button"
           />
         </>
       )}
       {!editSnapshot && (
         <>
-          <div>
+          <div data-testid="vulnerabilities-summary">
             <h2>Vulnerabilities</h2>
             {vulnerabilities.length > 0 ? (
               <ul>
@@ -78,7 +82,7 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
               'None captured'
             )}
           </div>
-          <div>
+          <div data-testid="assets-summary">
             <h2>Assets</h2>
             {assets.length > 0 ? (
               <ul>
@@ -90,7 +94,7 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
               'None captured'
             )}
           </div>
-          <div>
+          <div data-testid="notes-summary">
             <h2>Notes</h2>
             {notes ? notes : 'None captured'}
           </div>

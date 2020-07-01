@@ -22,7 +22,7 @@ module.exports = (on, config) => {
     region: 'localhost',
     endpoint: 'http://localhost:8000',
     accessKeyId: 'foo',
-    secretAccessKey: 'bar',
+    secretAccessKey: 'bar'
   });
 
   // `on` is used to hook into various events Cypress emits
@@ -38,6 +38,22 @@ module.exports = (on, config) => {
 
       return null;
     },
+    createSnapshot(snapshot) {
+      return client
+        .put({
+          TableName: 'vulnerabilities',
+          Item: snapshot
+        })
+        .promise();
+    },
+    deleteSnapshot(id) {
+      return client
+        .delete({
+          TableName: 'vulnerabilities',
+          Key: { id }
+        })
+        .promise();
+    }
   });
   config.ignoreTestFiles = '**/examples/*.spec.js';
   return config;

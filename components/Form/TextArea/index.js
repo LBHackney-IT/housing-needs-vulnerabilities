@@ -3,7 +3,7 @@ const TextArea = ({ label, name, onChange, value }) => {
     onChange(e.currentTarget.value);
   };
   return (
-    <div className="govuk-form-group">
+    <div className="govuk-form-group" data-testid={name}>
       <label className="govuk-label" htmlFor={`${name}`}>
         {label}
       </label>
@@ -11,7 +11,6 @@ const TextArea = ({ label, name, onChange, value }) => {
         className="govuk-textarea"
         id={name}
         name={name}
-        data-testid={name}
         rows="5"
         onChange={updateValue}
         value={value}
