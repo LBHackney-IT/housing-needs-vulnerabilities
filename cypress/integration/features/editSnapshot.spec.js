@@ -85,19 +85,24 @@ context('Edit snapshot', () => {
     });
 
     it('Persists the snapshot', () => {
-      cy.visit(`/snapshots/1`);
+      cy.task('createSnapshot', {
+        firstName: 'Phineas',
+        lastName: 'Flynn',
+        assets: [],
+        createdBy: 'Dat',
+        systemIds: ['wub'],
+        created: '2019-06-09T15:46:47.857Z',
+        dob: '2000-06-09',
+        vulnerabilities: ['yup'],
+        id: '2'
+      });
+      cy.visit(`/snapshots/2`);
 
       cy.get('[data-testid=vulnerabilities-summary]')
         .should('contain', 'Vulnerabilities')
-        .and('contain', 'Rent arrears');
+        .and('contain', 'yup');
 
-      cy.get('[data-testid=assets-summary]')
-        .should('contain', 'Assets')
-        .and('contain', 'Organised and/or engaged');
-
-      cy.get('[data-testid=notes-summary]')
-        .should('contain', 'Notes')
-        .and('contain', 'Note');
+      cy.task('deleteSnapshot', '2');
     });
   });
 });
