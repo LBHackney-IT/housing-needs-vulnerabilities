@@ -84,7 +84,7 @@ describe('SnapshotSummary', () => {
 
     it('hides the edit view if a vulnerability exists', () => {
       const snapshot = {
-        vulnerabilities: ['v1'],
+        vulnerabilities: [{ name: 'v1', data: {} }],
         assets: []
       };
       const { container, getByText } = render(
@@ -99,7 +99,7 @@ describe('SnapshotSummary', () => {
     it('hides the edit view if a asset exists', () => {
       const snapshot = {
         vulnerabilities: [],
-        assets: ['a1']
+        assets: [{ name: 'a1', data: {} }]
       };
       const { container, getByText } = render(
         <SnapshotSummary initialSnapshot={snapshot} />
@@ -138,6 +138,6 @@ describe('SnapshotSummary', () => {
         'href',
         'https://staging-singleview.hackney.gov.uk/customers/123/view'
       );
-    })
+    });
   });
 });

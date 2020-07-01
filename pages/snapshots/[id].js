@@ -85,7 +85,15 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
             {vulnerabilities.length > 0 ? (
               <ul>
                 {vulnerabilities.map((v, i) => (
-                  <li key={`vuln-${i}`}>{v}</li>
+                  <li key={`vuln-${i}`}>
+                    {v.name}
+                    <ul>
+                      {v.data &&
+                        Object.entries(v.data).map(([id, value], i) => (
+                          <li key={`vuln-${i}-${id}`}>{value}</li>
+                        ))}
+                    </ul>
+                  </li>
                 ))}
               </ul>
             ) : (
@@ -97,7 +105,15 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
             {assets.length > 0 ? (
               <ul>
                 {assets.map((a, i) => (
-                  <li key={`asset-${i}`}>{a}</li>
+                  <li key={`asset-${i}`}>
+                    {a.name}
+                    <ul>
+                      {a.data &&
+                        Object.entries(a.data).map(([id, value], i) => (
+                          <li key={`asset-${i}-${id}`}>{value}</li>
+                        ))}
+                    </ul>
+                  </li>
                 ))}
               </ul>
             ) : (

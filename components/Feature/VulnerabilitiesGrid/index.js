@@ -12,7 +12,18 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
   const [grid, setGrid] = useState({ assets: {}, vulnerabilities: {} });
 
   const addItem = (obj, key, value) => {
-    obj[key] = value;
+    obj[key] = { name: value, data: {} };
+    return obj;
+  };
+
+  const addTextItem = (obj, value, cbId, label) => {
+    obj[cbId] = {
+      ...obj[cbId],
+      data: {
+        ...obj[cbId].data,
+        [label]: value
+      }
+    };
     return obj;
   };
 
@@ -20,13 +31,18 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
     return Object.fromEntries(Object.entries(obj).filter(([k]) => k != key));
   };
 
-  const updateAssets = (key, value, isTextInput) => {
+  const removeTextItem = (obj, cbId, label) => {
+    delete obj[cbId].data[label];
+    return obj;
+  };
+
+  const updateAssets = (key, value, isTextInput, cbId, label) => {
     let newAssets;
 
     if (isTextInput) {
       newAssets = value
-        ? addItem(grid.assets, key, value)
-        : removeItem(grid.assets, key);
+        ? addTextItem(grid.assets, value, cbId, label)
+        : removeTextItem(grid.assets, cbId);
     } else {
       newAssets = grid.assets[key]
         ? removeItem(grid.assets, key)
@@ -40,17 +56,17 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
     );
   };
 
-  const updateVulnerabilities = (key, value, isTextInput) => {
+  const updateVulnerabilities = (key, value, isTextInput, cbId, label) => {
     let newVulns;
-
+    console.log({ value });
     if (isTextInput) {
       newVulns = value
-        ? addItem(grid.vulnerabilities, key, value)
-        : removeItem(grid.vulnerabilities, key);
+        ? addTextItem(grid.vulnerabilities, value, cbId, label)
+        : removeTextItem(grid.vulnerabilities, cbId);
     } else {
       newVulns = grid.vulnerabilities[key]
         ? removeItem(grid.vulnerabilities, key)
-        : addItem(grid.vulnerabilities, key, value);
+        : addItem(grid.vulnerabilities, key, value, label);
     }
 
     updateGrid(
@@ -104,7 +120,13 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
                               key={inputId}
                               label={label}
                               onChange={val =>
-                                updateVulnerabilities(inputId, val, true)
+                                updateVulnerabilities(
+                                  inputId,
+                                  val,
+                                  true,
+                                  cbId,
+                                  label
+                                )
                               }
                             />
                           );
@@ -135,7 +157,9 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
                               name={inputId}
                               key={inputId}
                               label={label}
-                              onChange={val => updateAssets(inputId, val, true)}
+                              onChange={val =>
+                                updateAssets(inputId, val, true, cbId, label)
+                              }
                             />
                           );
                         })}

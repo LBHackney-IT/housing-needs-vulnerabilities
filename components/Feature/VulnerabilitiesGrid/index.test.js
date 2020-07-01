@@ -26,7 +26,7 @@ describe('VulnerabilitiesGrid', () => {
     const onUpdate = jest.fn();
     const expected = expect.objectContaining({
       assets: [],
-      vulnerabilities: [expect.any(String)]
+      vulnerabilities: [{ name: 'Rent arrears', data: {} }]
     });
 
     const { container } = render(<VulnerabilitiesGrid onUpdate={onUpdate} />);
@@ -47,14 +47,14 @@ describe('VulnerabilitiesGrid', () => {
     );
 
     expect(
-      container.querySelector('#financial-stability-a-other--i')
+      container.querySelector('#financial-stability-a-other-other-i')
     ).toBeInTheDocument();
   });
 
   it('saves "Other" assets', () => {
     const onUpdate = jest.fn();
     const expected = expect.objectContaining({
-      assets: ['some text'],
+      assets: [{ name: 'Other', data: { Other: 'some text' } }],
       vulnerabilities: []
     });
     const { container } = render(<VulnerabilitiesGrid onUpdate={onUpdate} />);
@@ -68,7 +68,7 @@ describe('VulnerabilitiesGrid', () => {
     );
 
     fireEvent.change(
-      container.querySelector('#financial-stability-a-other--i'),
+      container.querySelector('#financial-stability-a-other-other-i'),
       {
         target: { value: 'some text' }
       }
@@ -79,10 +79,10 @@ describe('VulnerabilitiesGrid', () => {
 
   it('saves "Other" vulnerabilities', () => {
     const onUpdate = jest.fn();
-    const expected = expect.objectContaining({
+    const expected = {
       assets: [],
-      vulnerabilities: ['some text']
-    });
+      vulnerabilities: [{ name: 'Other', data: { Other: 'some text' } }]
+    };
     const { container } = render(<VulnerabilitiesGrid onUpdate={onUpdate} />);
 
     fireEvent(
@@ -94,7 +94,7 @@ describe('VulnerabilitiesGrid', () => {
     );
 
     fireEvent.change(
-      container.querySelector('#financial-stability-v-other--i'),
+      container.querySelector('#financial-stability-v-other-other-i'),
       {
         target: { value: 'some text' }
       }
