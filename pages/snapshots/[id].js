@@ -36,9 +36,19 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
   };
 
   const { dob, firstName, lastName, assets, vulnerabilities, notes } = snapshot;
+  const customerId = snapshot.systemIds?.[0];
 
   return (
     <>
+      <div>
+        <a
+          href={`${process.env.NEXT_PUBLIC_SINGLEVIEW_URL}/customers/${customerId}/view`}
+          className="govuk-back-link back-button"
+          data-testid="back-link-test"
+        >
+          Back to Single View
+        </a>
+      </div>
       <h1>
         {firstName} {lastName}
       </h1>

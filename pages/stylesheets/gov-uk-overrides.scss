@@ -9,3 +9,14 @@
 .govuk-accordion__open-all {
   color: $hackney-green !important;
 }
+
+.back-button {
+  border: 0px;
+  background-color: transparent;
+  font-weight: bold;
+
+  &:before {
+    border-width: 2px 2px 0 0;
+    border-color: black;
+  }
+}
