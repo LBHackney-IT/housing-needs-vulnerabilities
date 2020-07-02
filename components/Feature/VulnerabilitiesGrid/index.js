@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import {
   Accordion,
   AccordionItem,
@@ -6,14 +6,37 @@ import {
   CheckboxList,
   TextInput
 } from 'components/Form';
+import ResourceCard from './ResourceCard';
 import groups from './grid.json';
 
-const VulnerabilitiesGrid = ({ onUpdate }) => {
+function createLookup(resources) {
+  const lookup = new Map();
+
+  groups.forEach(group => {
+    const { name, assets, vulnerabilities } = group;
+    const values = new Set();
+
+    assets
+      .concat(vulnerabilities)
+      .map(item => item.label)
+      .concat(group.name)
+      .forEach(value => values.add(value));
+
+    lookup.set(name, values);
+  });
+
+  return lookup;
+}
+
+const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
   const [grid, setGrid] = useState({ assets: {}, vulnerabilities: {} });
+  const groupItems = useMemo(() => createLookup(resources), resources);
 
   const addItem = (obj, key, value) => {
-    obj[key] = value;
-    return obj;
+    return {
+      ...obj,
+      [key]: value
+    };
   };
 
   const removeItem = (obj, key) => {
@@ -33,11 +56,7 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
         : addItem(grid.assets, key, value);
     }
 
-    updateGrid(
-      Object.assign({}, grid, {
-        assets: newAssets
-      })
-    );
+    updateGrid({ assets: newAssets });
   };
 
   const updateVulnerabilities = (key, value, isTextInput) => {
@@ -53,18 +72,14 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
         : addItem(grid.vulnerabilities, key, value);
     }
 
-    updateGrid(
-      Object.assign({}, grid, {
-        vulnerabilities: newVulns
-      })
-    );
+    updateGrid({ vulnerabilities: newVulns });
   };
 
-  const updateGrid = newGrid => {
-    setGrid(newGrid);
+  const updateGrid = patch => {
+    setGrid(grid => ({ ...grid, ...patch }));
     onUpdate({
-      assets: Object.values(newGrid.assets).filter(a => a !== 'Other'),
-      vulnerabilities: Object.values(newGrid.vulnerabilities).filter(
+      assets: Object.values(grid.assets).filter(a => a !== 'Other'),
+      vulnerabilities: Object.values(grid.vulnerabilities).filter(
         v => v !== 'Other'
       )
     });
@@ -76,12 +91,28 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
       .replace(/\//g, '-')
       .toLowerCase();
 
+  const filterResources = groupName => {
+    const group = groupItems.get(groupName);
+
+    const targets = Object.values({
+      ...grid.assets,
+      ...grid.vulnerabilities
+    }).filter(value => group.has(value));
+
+    return resources.filter(resource => {
+      return (
+        resource.tags.find(tag => targets.includes(tag)) ||
+        (targets.length > 0 && resource.tags.includes(groupName))
+      );
+    });
+  };
+
   return (
     <Accordion title="Things to explore with the resident">
       {groups.map(({ id, name, assets, vulnerabilities }) => (
         <AccordionItem key={id} id={id} heading={name}>
           <div className="govuk-grid-row">
-            <div className="govuk-grid-column-one-half">
+            <div className="govuk-grid-column-one-third">
               <CheckboxList className="vulnerability">
                 {vulnerabilities.map(({ label, textinputs }) => {
                   const cbId = `${id}-v-${labelToId(label)}`;
@@ -114,7 +145,7 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
                 })}
               </CheckboxList>
             </div>
-            <div className="govuk-grid-column-one-half">
+            <div className="govuk-grid-column-one-third">
               <CheckboxList className="asset">
                 {assets.map(({ label, textinputs }) => {
                   const cbId = `${id}-a-${labelToId(label)}`;
@@ -143,6 +174,11 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
                   );
                 })}
               </CheckboxList>
+            </div>
+            <div className="govuk-grid-column-one-third">
+              {filterResources(name).map(resource => (
+                <ResourceCard {...resource} />
+              ))}
             </div>
           </div>
         </AccordionItem>
