@@ -177,7 +177,7 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
             </div>
             <div className="govuk-grid-column-one-third">
               {filterResources(name).map(resource => (
-                <ResourceCard {...resource} />
+                <ResourceCard key={resource.id} {...resource} />
               ))}
             </div>
           </div>
