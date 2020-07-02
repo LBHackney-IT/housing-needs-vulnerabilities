@@ -1,8 +1,11 @@
 import { fireEvent, render } from '@testing-library/react';
 import VulnerabilitiesGrid from './index';
 import groups from './grid.json';
+import { act } from 'react-dom/test-utils';
 
 describe('VulnerabilitiesGrid', () => {
+  const resources = [];
+
   it('renders the vulnerabilities grid', () => {
     const numberOfGroups = groups.length;
     const totalAssets = groups.reduce((total, g) => {
@@ -12,7 +15,9 @@ describe('VulnerabilitiesGrid', () => {
       return total + g.vulnerabilities.length;
     }, 0);
 
-    const { container } = render(<VulnerabilitiesGrid />);
+    const { container } = render(
+      <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources} />
+    );
 
     expect(
       container.querySelectorAll('.govuk-accordion__section').length
@@ -29,14 +34,18 @@ describe('VulnerabilitiesGrid', () => {
       vulnerabilities: [expect.any(String)]
     });
 
-    const { container } = render(<VulnerabilitiesGrid onUpdate={onUpdate} />);
-    await container.querySelector('.govuk-checkboxes__input').click();
+    const { container } = render(
+      <VulnerabilitiesGrid onUpdate={onUpdate} resources={resources} />
+    );
 
+    act(() => container.querySelector('.govuk-checkboxes__input').click());
     expect(onUpdate).toHaveBeenCalledWith(expected);
   });
 
   it('creates a textinput when checkbox is checked', () => {
-    const { container } = render(<VulnerabilitiesGrid onUpdate={() => {}} />);
+    const { container } = render(
+      <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources} />
+    );
 
     fireEvent(
       container.querySelector('#financial-stability-a-other'),
@@ -57,7 +66,9 @@ describe('VulnerabilitiesGrid', () => {
       assets: ['some text'],
       vulnerabilities: []
     });
-    const { container } = render(<VulnerabilitiesGrid onUpdate={onUpdate} />);
+    const { container } = render(
+      <VulnerabilitiesGrid onUpdate={onUpdate} resources={resources} />
+    );
 
     fireEvent(
       container.querySelector('#financial-stability-a-other'),
@@ -83,7 +94,9 @@ describe('VulnerabilitiesGrid', () => {
       assets: [],
       vulnerabilities: ['some text']
     });
-    const { container } = render(<VulnerabilitiesGrid onUpdate={onUpdate} />);
+    const { container } = render(
+      <VulnerabilitiesGrid onUpdate={onUpdate} resources={resources} />
+    );
 
     fireEvent(
       container.querySelector('#financial-stability-v-other'),

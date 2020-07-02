@@ -3,6 +3,8 @@ import { render } from '@testing-library/react';
 import SnapshotSummary from 'pages/snapshots/[id]';
 
 describe('SnapshotSummary', () => {
+  const resources = [];
+
   const expectedResponse = {
     id: '1',
     firstName: 'Wayne',
@@ -38,7 +40,7 @@ describe('SnapshotSummary', () => {
         assets: []
       };
       const { getByText } = render(
-        <SnapshotSummary initialSnapshot={snapshot} />
+        <SnapshotSummary initialSnapshot={snapshot} resources={resources} />
       );
       expect(
         getByText(`${snapshot.firstName} ${snapshot.lastName}`)
@@ -53,7 +55,7 @@ describe('SnapshotSummary', () => {
         assets: []
       };
       const { getByText } = render(
-        <SnapshotSummary initialSnapshot={snapshot} />
+        <SnapshotSummary initialSnapshot={snapshot} resources={resources} />
       );
       expect(getByText(/Aged 45/)).toBeInTheDocument();
     });
@@ -64,7 +66,7 @@ describe('SnapshotSummary', () => {
         assets: []
       };
       const { container } = render(
-        <SnapshotSummary initialSnapshot={snapshot} />
+        <SnapshotSummary initialSnapshot={snapshot} resources={resources} />
       );
       expect(container.querySelector('.govuk-accordion')).toBeInTheDocument();
     });
@@ -75,7 +77,7 @@ describe('SnapshotSummary', () => {
         assets: []
       };
       const { getByLabelText } = render(
-        <SnapshotSummary initialSnapshot={snapshot} />
+        <SnapshotSummary initialSnapshot={snapshot} resources={resources} />
       );
       expect(
         getByLabelText(`Any other notes you'd like to add?`)
@@ -88,7 +90,7 @@ describe('SnapshotSummary', () => {
         assets: []
       };
       const { container, getByText } = render(
-        <SnapshotSummary initialSnapshot={snapshot} />
+        <SnapshotSummary initialSnapshot={snapshot} resources={resources} />
       );
       expect(
         container.querySelector('.govuk-accordion')
@@ -102,7 +104,7 @@ describe('SnapshotSummary', () => {
         assets: ['a1']
       };
       const { container, getByText } = render(
-        <SnapshotSummary initialSnapshot={snapshot} />
+        <SnapshotSummary initialSnapshot={snapshot} resources={resources} />
       );
       expect(
         container.querySelector('.govuk-accordion')
@@ -117,7 +119,7 @@ describe('SnapshotSummary', () => {
         notes: 'some notes'
       };
       const { container, getByText } = render(
-        <SnapshotSummary initialSnapshot={snapshot} />
+        <SnapshotSummary initialSnapshot={snapshot} resources={resources} />
       );
       expect(
         container.querySelector('.govuk-accordion')
@@ -132,7 +134,7 @@ describe('SnapshotSummary', () => {
         systemIds: ['123']
       };
       const { container, getByTestId } = render(
-        <SnapshotSummary initialSnapshot={snapshot} />
+        <SnapshotSummary initialSnapshot={snapshot} resources={resources} />
       );
       expect(getByTestId('back-link-test')).toHaveAttribute(
         'href',

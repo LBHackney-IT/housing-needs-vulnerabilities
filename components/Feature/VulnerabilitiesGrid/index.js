@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import {
   Accordion,
   AccordionItem,
@@ -75,15 +75,16 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
     updateGrid({ vulnerabilities: newVulns });
   };
 
-  const updateGrid = patch => {
-    setGrid(grid => ({ ...grid, ...patch }));
+  useEffect(() => {
     onUpdate({
       assets: Object.values(grid.assets).filter(a => a !== 'Other'),
       vulnerabilities: Object.values(grid.vulnerabilities).filter(
         v => v !== 'Other'
       )
     });
-  };
+  }, [grid]);
+
+  const updateGrid = patch => setGrid(grid => ({ ...grid, ...patch }));
 
   const labelToId = label =>
     label
