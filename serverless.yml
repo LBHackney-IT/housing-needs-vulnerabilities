@@ -99,7 +99,7 @@ resources:
                 - id
                 - systemIds
         TimeToLiveSpecification:
-          AttributeName: ttl
+          AttributeName: expires
           Enabled: true
 
     CloudFrontDistribution:
