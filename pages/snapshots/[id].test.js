@@ -140,6 +140,6 @@ describe('SnapshotSummary', () => {
         'href',
         'https://staging-singleview.hackney.gov.uk/customers/123/view'
       );
-    })
+    });
   });
 });

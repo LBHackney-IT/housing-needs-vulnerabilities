@@ -6,7 +6,7 @@ provider:
   region: eu-west-2
   stage: ${opt:stage}
   environment:
-    VULNERABILITIES_TABLE: "${self:service}-${self:provider.stage}-vulnerabilities"
+    VULNERABILITIES_TABLE: '${self:service}-${self:provider.stage}-vulnerabilities'
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -16,7 +16,7 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: "*"
+      Resource: '*'
 
 package:
   individually: true
@@ -45,7 +45,7 @@ functions:
       - http: ANY /{proxy+}
     environment:
       ENV: ${self:provider.stage}
-      ALLOWED_GROUPS: "housingneeds-singleview-beta"
+      ALLOWED_GROUPS: 'housingneeds-singleview-beta'
       JWT_SECRET: ${ssm:/common/hackney-jwt-secret}
       VULNERABILITIES_TABLE_NAME: ${self:provider.environment.VULNERABILITIES_TABLE}
       NEXT_PUBLIC_API_URL: https://${self:custom.aliases.${self:provider.stage}}/api
@@ -62,7 +62,7 @@ functions:
         - authorizer.js
         - node_modules/**
     environment:
-      ALLOWED_GROUPS: "housingneeds-singleview-beta"
+      ALLOWED_GROUPS: 'housingneeds-singleview-beta'
       JWT_SECRET: ${ssm:/common/hackney-jwt-secret}
 
 resources:
@@ -98,6 +98,9 @@ resources:
               NonKeyAttributes:
                 - id
                 - systemIds
+        TimeToLiveSpecification:
+          AttributeName: expires
+          Enabled: true
 
     CloudFrontDistribution:
       Type: AWS::CloudFront::Distribution
@@ -112,7 +115,7 @@ resources:
             SslSupportMethod: sni-only
           DefaultCacheBehavior:
             TargetOriginId: ${self:service}-${self:provider.stage}-custom-origin
-            ViewerProtocolPolicy: "redirect-to-https"
+            ViewerProtocolPolicy: 'redirect-to-https'
             AllowedMethods:
               - GET
               - HEAD
@@ -145,11 +148,11 @@ custom:
     hn-vulnerabilities-authorizer:
       name: ${self:service}-authorizer
       type: request
-      identitySource: ""
+      identitySource: ''
       resultTtlInSeconds: 0
   domain-name:
     Fn::Join:
-      - "."
+      - '.'
       - - Ref: ApiGatewayRestApi
         - execute-api
         - eu-west-2

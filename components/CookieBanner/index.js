@@ -9,8 +9,8 @@ const cookieNames = {
   optedIn: 'cookie_opt_in'
 };
 
-const CookieBanner = ({ cookies }) => {
-  const [cookieState, setCookieState] = useState('unread');
+const CookieBanner = () => {
+  const [cookieState, setCookieState] = useState('read');
 
   const deleteCookies = () => {
     document.cookie = '_ga= ; expires = Thu, 01 Jan 1970 00:00:00 GMT;';
@@ -51,17 +51,18 @@ const CookieBanner = ({ cookies }) => {
   });
 
   useEffect(() => {
+    const cookies = cookie.parse(document.cookie ?? {});
     const hasReadMessage = cookies[cookieNames.seen] === 'true';
     const hasCookieOptIn = cookies[cookieNames.optedIn] === 'true';
 
     if (hasReadMessage) {
-      setCookieState('read');
-
       if (hasCookieOptIn) {
         initTagManager();
       } else {
         deleteCookies();
       }
+    } else {
+      setCookieState('unread');
     }
   }, []);
 
