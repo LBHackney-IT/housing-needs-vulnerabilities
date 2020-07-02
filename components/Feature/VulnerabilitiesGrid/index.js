@@ -9,7 +9,7 @@ import {
 import ResourceCard from './ResourceCard';
 import groups from './grid.json';
 
-function createLookup(resources) {
+function createLookup() {
   const lookup = new Map();
 
   groups.forEach(group => {
@@ -30,7 +30,7 @@ function createLookup(resources) {
 
 const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
   const [grid, setGrid] = useState({ assets: {}, vulnerabilities: {} });
-  const groupItems = useMemo(() => createLookup(resources), resources);
+  const groupItems = useMemo(() => createLookup());
 
   const addItem = (obj, key, value) => {
     return {
@@ -178,7 +178,11 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
             </div>
             <div className="govuk-grid-column-one-third">
               {filterResources(name).map(resource => (
-                <ResourceCard key={resource.id} {...resource} />
+                <ResourceCard
+                  key={resource.id}
+                  data-testid={`resource-${resource.id}`}
+                  {...resource}
+                />
               ))}
             </div>
           </div>

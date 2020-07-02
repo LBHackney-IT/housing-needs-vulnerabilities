@@ -115,4 +115,54 @@ describe('VulnerabilitiesGrid', () => {
 
     expect(onUpdate).toHaveBeenCalledWith(expected);
   });
+
+  describe('resources', () => {
+    it('shows links to resources tagged with current selections', () => {
+      const resources = [
+        {
+          id: 'hq',
+          name: 'Hackney Quest',
+          description:
+            'We provide mentoring for young people and families over the phone or by video call.',
+          websites: [
+            'https://twitter.com/HackneyQuest',
+            'http://www.hackneyquest.org.uk/'
+          ],
+          address: '1 Poole Rd, London E9 7AE',
+          tags: ['Social isolation']
+        }
+      ];
+
+      const { getByLabelText, queryByTestId } = render(
+        <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources} />
+      );
+
+      expect(queryByTestId('resource-hq')).not.toBeInTheDocument();
+
+      act(() => getByLabelText('Social isolation').click());
+      expect(queryByTestId('resource-hq')).toBeInTheDocument();
+    });
+  });
+
+  it('shows links to resources tagged with current group', () => {
+    const resources = [
+      {
+        id: 'hs',
+        name: 'Hackney Shine',
+        description:
+          'We offer free online and over the phone advice service to ...',
+        websites: ['https://hackney.gov.uk/shine'],
+        tags: ['Financial stability']
+      }
+    ];
+
+    const { getByLabelText, queryByTestId } = render(
+      <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources} />
+    );
+
+    expect(queryByTestId('resource-hs')).not.toBeInTheDocument();
+
+    act(() => getByLabelText('Rent arrears').click());
+    expect(queryByTestId('resource-hs')).toBeInTheDocument();
+  });
 });

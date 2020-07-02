@@ -1,7 +1,7 @@
 import css from './index.module.scss';
 
-const ResourceCard = ({ name, description, websites, address }) => (
-  <div className={`govuk-details__text ${css.resource}`}>
+const ResourceCard = ({ name, description, websites, address, ...others }) => (
+  <div className={`govuk-details__text ${css.resource}`} {...others}>
     <h3>{name}</h3>
     {websites && websites.length > 0 && (
       <>
