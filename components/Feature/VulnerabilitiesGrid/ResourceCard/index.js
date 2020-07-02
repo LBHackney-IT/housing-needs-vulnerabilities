@@ -3,10 +3,8 @@ import css from './index.module.scss';
 const ResourceCard = ({ name, description, websites, address }) => (
   <div className={`govuk-details__text ${css.resource}`}>
     <h3>{name}</h3>
-    <p>{description}</p>
     {websites && websites.length > 0 && (
       <>
-        <h4>Links</h4>
         <ul className={css.websites}>
           {websites.map(website => (
             <li key={website}>
@@ -18,12 +16,18 @@ const ResourceCard = ({ name, description, websites, address }) => (
         </ul>
       </>
     )}
-    {address && (
-      <>
-        <h4>Address</h4>
-        <p>{address}</p>
-      </>
-    )}
+    <details className="govuk-details" data-module="govuk-details">
+      <summary className="">View more</summary>
+      <div className={css.details}>
+        <p>{description}</p>
+        {address && (
+          <>
+            <h4>Address</h4>
+            <p>{address}</p>
+          </>
+        )}
+      </div>
+    </details>
   </div>
 );
 
