@@ -7,13 +7,13 @@ context('Snapshot summary', () => {
     cy.task('createSnapshot', {
       firstName: 'Ferb',
       lastName: 'Flynn',
-      assets: ['Asset'],
+      assets: [{ name: 'Asset', data: {} }],
       notes: ['Notes notes'],
       createdBy: 'Kat',
       systemIds: ['dub'],
       created: '2020-06-09T15:46:47.857Z',
       dob,
-      vulnerabilities: ['Vulnerability'],
+      vulnerabilities: [{ name: 'Vulnerability', data: {} }],
       id: '2'
     });
 
