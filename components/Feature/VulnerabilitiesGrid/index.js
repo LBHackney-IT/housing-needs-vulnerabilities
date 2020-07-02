@@ -32,14 +32,16 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
   };
 
   const removeTextItem = (obj, cbId, label) => {
-    delete obj[cbId].data[label];
+    obj[cbId].data = Object.fromEntries(
+      Object.entries(obj[cbId].data).filter(([k]) => k.label !== label)
+    );
     return obj;
   };
 
-  const updateAssets = (key, value, isTextInput, cbId, label) => {
+  const updateAssets = (key, value, cbId, label) => {
     let newAssets;
 
-    if (isTextInput) {
+    if (label) {
       newAssets = value
         ? addTextItem(grid.assets, value, cbId, label)
         : removeTextItem(grid.assets, cbId);
@@ -56,17 +58,17 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
     );
   };
 
-  const updateVulnerabilities = (key, value, isTextInput, cbId, label) => {
+  const updateVulnerabilities = (key, value, cbId, label) => {
     let newVulns;
     console.log({ value });
-    if (isTextInput) {
+    if (label) {
       newVulns = value
         ? addTextItem(grid.vulnerabilities, value, cbId, label)
         : removeTextItem(grid.vulnerabilities, cbId);
     } else {
       newVulns = grid.vulnerabilities[key]
         ? removeItem(grid.vulnerabilities, key)
-        : addItem(grid.vulnerabilities, key, value, label);
+        : addItem(grid.vulnerabilities, key, value);
     }
 
     updateGrid(
@@ -106,9 +108,7 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
                       <Checkbox
                         label={label}
                         name={cbId}
-                        onClick={() =>
-                          updateVulnerabilities(cbId, label, false)
-                        }
+                        onClick={() => updateVulnerabilities(cbId, label)}
                       />
                       {textinputs &&
                         grid.vulnerabilities[cbId] &&
@@ -120,13 +120,7 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
                               key={inputId}
                               label={label}
                               onChange={val =>
-                                updateVulnerabilities(
-                                  inputId,
-                                  val,
-                                  true,
-                                  cbId,
-                                  label
-                                )
+                                updateVulnerabilities(inputId, val, cbId, label)
                               }
                             />
                           );
@@ -146,7 +140,7 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
                         key={cbId}
                         label={label}
                         name={cbId}
-                        onClick={() => updateAssets(cbId, label, false)}
+                        onClick={() => updateAssets(cbId, label)}
                       />
                       {textinputs &&
                         grid.assets[cbId] &&
@@ -158,7 +152,7 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
                               key={inputId}
                               label={label}
                               onChange={val =>
-                                updateAssets(inputId, val, true, cbId, label)
+                                updateAssets(inputId, val, cbId, label)
                               }
                             />
                           );
