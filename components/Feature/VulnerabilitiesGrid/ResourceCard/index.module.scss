@@ -1,0 +1,48 @@
+@import '../../../../pages/stylesheets/vars.scss';
+
+.resource {
+  margin-bottom: 0.5em;
+
+  h3 {
+    margin-top: 0;
+  }
+
+  h4 {
+    margin: 1em 0 0.5em 0;
+    font-size: 0.9em;
+  }
+
+  .websites {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin-bottom: 0.5em;
+
+      a {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  details {
+    font-size: 1em;
+
+    .details {
+      margin-top: 1em;
+
+      p {
+        margin-bottom: 0;
+      }
+    }
+
+    summary {
+      margin: 1em 0 0;
+      color: $hackney-green;
+    }
+  }
+}
