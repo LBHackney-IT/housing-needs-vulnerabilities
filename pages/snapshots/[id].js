@@ -90,7 +90,9 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
                     <ul>
                       {v.data &&
                         Object.entries(v.data).map(([id, value], i) => (
-                          <li key={`vuln-${i}-${id}`}>{value}</li>
+                          <li key={`vuln-${i}-${id}`}>
+                            {id}: {value}
+                          </li>
                         ))}
                     </ul>
                   </li>
@@ -110,7 +112,9 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
                     <ul>
                       {a.data &&
                         Object.entries(a.data).map(([id, value], i) => (
-                          <li key={`asset-${i}-${id}`}>{value}</li>
+                          <li key={`asset-${i}-${id}`}>
+                            {id}: {value}
+                          </li>
                         ))}
                     </ul>
                   </li>
