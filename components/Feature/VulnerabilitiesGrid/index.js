@@ -35,7 +35,7 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
   const addItem = (obj, key, value) => {
     return {
       ...obj,
-      [key]: value
+      [key]: { name: value, data: [] }
     };
   };
 
@@ -77,9 +77,9 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
 
   useEffect(() => {
     onUpdate({
-      assets: Object.values(grid.assets).filter(a => a !== 'Other'),
+      assets: Object.values(grid.assets).filter(a => a.name !== 'Other'),
       vulnerabilities: Object.values(grid.vulnerabilities).filter(
-        v => v !== 'Other'
+        v => v.name !== 'Other'
       )
     });
   }, [grid]);
@@ -98,7 +98,9 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
     const targets = Object.values({
       ...grid.assets,
       ...grid.vulnerabilities
-    }).filter(value => group.has(value));
+    })
+      .filter(value => group.has(value.name))
+      .map(value => value.name);
 
     return resources.filter(resource => {
       return (

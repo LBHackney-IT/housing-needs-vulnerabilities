@@ -31,7 +31,7 @@ describe('VulnerabilitiesGrid', () => {
     const onUpdate = jest.fn();
     const expected = expect.objectContaining({
       assets: [],
-      vulnerabilities: [expect.any(String)]
+      vulnerabilities: [{ name: 'Rent arrears', data: [] }]
     });
 
     const { container } = render(
@@ -63,7 +63,7 @@ describe('VulnerabilitiesGrid', () => {
   it('saves "Other" assets', () => {
     const onUpdate = jest.fn();
     const expected = expect.objectContaining({
-      assets: ['some text'],
+      assets: [{ name: 'some text', data: [] }],
       vulnerabilities: []
     });
     const { container } = render(
@@ -92,7 +92,7 @@ describe('VulnerabilitiesGrid', () => {
     const onUpdate = jest.fn();
     const expected = expect.objectContaining({
       assets: [],
-      vulnerabilities: ['some text']
+      vulnerabilities: [{ data: [], name: 'some text' }]
     });
     const { container } = render(
       <VulnerabilitiesGrid onUpdate={onUpdate} resources={resources} />

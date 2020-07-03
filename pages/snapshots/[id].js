@@ -100,7 +100,7 @@ const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
             {vulnerabilities.length > 0 ? (
               <ul>
                 {vulnerabilities.map((v, i) => (
-                  <li key={`vuln-${i}`}>{v}</li>
+                  <li key={`vuln-${i}`}>{v.name}</li>
                 ))}
               </ul>
             ) : (
@@ -112,7 +112,7 @@ const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
             {assets.length > 0 ? (
               <ul>
                 {assets.map((a, i) => (
-                  <li key={`asset-${i}`}>{a}</li>
+                  <li key={`asset-${i}`}>{a.name}</li>
                 ))}
               </ul>
             ) : (
