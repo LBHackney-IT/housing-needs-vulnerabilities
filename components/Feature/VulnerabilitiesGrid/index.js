@@ -68,7 +68,6 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
 
   const updateVulnerabilities = (key, value, cbId, label) => {
     let newVulns;
-    console.log({ value });
     if (label) {
       newVulns = value
         ? addTextItem(grid.vulnerabilities, value, cbId, label)
