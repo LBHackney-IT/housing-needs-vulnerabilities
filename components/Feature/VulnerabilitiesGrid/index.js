@@ -12,7 +12,7 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
   const [grid, setGrid] = useState({ assets: {}, vulnerabilities: {} });
 
   const addItem = (obj, key, value) => {
-    obj[key] = value;
+    obj[key] = { name: value, data: [] };
     return obj;
   };
 
@@ -63,9 +63,9 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
   const updateGrid = newGrid => {
     setGrid(newGrid);
     onUpdate({
-      assets: Object.values(newGrid.assets).filter(a => a !== 'Other'),
+      assets: Object.values(newGrid.assets).filter(a => a.name !== 'Other'),
       vulnerabilities: Object.values(newGrid.vulnerabilities).filter(
-        v => v !== 'Other'
+        v => v.name !== 'Other'
       )
     });
   };
