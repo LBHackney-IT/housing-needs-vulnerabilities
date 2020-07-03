@@ -3,6 +3,8 @@ context('Edit snapshot', () => {
     cy.task('createSnapshot', {
       firstName: 'Phineas',
       lastName: 'Flynn',
+      queryFirstName: 'phineas',
+      queryLastName: 'flynn',
       assets: [],
       createdBy: 'Dat',
       systemIds: ['wub'],

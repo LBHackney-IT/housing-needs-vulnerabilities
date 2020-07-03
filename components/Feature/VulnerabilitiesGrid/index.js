@@ -12,18 +12,26 @@ const VulnerabilitiesGrid = ({ onUpdate }) => {
   const [grid, setGrid] = useState({ assets: {}, vulnerabilities: {} });
 
   const addItem = (obj, key, value) => {
-    obj[key] = { name: value, data: {} };
+    obj[key] = { name: value, data: [] };
     return obj;
   };
 
   const addTextItem = (obj, value, cbId, label) => {
-    obj[cbId] = {
-      ...obj[cbId],
-      data: {
-        ...obj[cbId].data,
-        [label]: value
+    let exists = false;
+
+    obj[cbId].data.forEach(entry => {
+      if (entry.id === label) {
+        entry.value = value;
+        exists = true;
       }
-    };
+    });
+
+    if (!exists) {
+      obj[cbId] = {
+        ...obj[cbId],
+        data: obj[cbId].data.concat([{ id: label, value }])
+      };
+    }
     return obj;
   };
 
