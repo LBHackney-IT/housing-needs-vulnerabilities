@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import useSnapshot from 'lib/api/utils/useSnapshot';
-import { requestSnapshot } from 'lib/api';
+import { requestSnapshot, requestResources } from 'lib/api';
 import HttpStatusError from 'lib/api/domain/HttpStatusError';
 import { getTokenFromCookieHeader } from 'lib/utils/token';
 import { Button, TextArea } from 'components/Form';
 import VulnerabilitiesGrid from 'components/Feature/VulnerabilitiesGrid';
 import { convertIsoDateToString, convertIsoDateToYears } from 'lib/utils/date';
 
-const SnapshotSummary = ({ initialSnapshot, token }) => {
+const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
   const { snapshot, loading, updateSnapshot } = useSnapshot(
     initialSnapshot.snapshotId,
     {
@@ -22,17 +22,28 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
 
   const [editSnapshot, setEditSnapshot] = useState(
     snapshot.assets.length === 0 &&
-      snapshot.vulnerabilities.length === 0 &&
-      !snapshot.notes
+    snapshot.vulnerabilities.length === 0 &&
+    !snapshot.notes
   );
+  const [hasValue, setHasValue] = useState(false);
 
   const updateSelected = selected => {
     snapshot.assets = selected.assets;
     snapshot.vulnerabilities = selected.vulnerabilities;
+    setHasValue(
+      snapshot.assets.length > 0 ||
+        snapshot.vulnerabilities.length > 0 ||
+        snapshot.notes
+    );
   };
 
   const updateNotes = notes => {
     snapshot.notes = notes;
+    setHasValue(
+      snapshot.assets.length > 0 ||
+        snapshot.vulnerabilities.length > 0 ||
+        snapshot.notes
+    );
   };
 
   const { dob, firstName, lastName, assets, vulnerabilities, notes } = snapshot;
@@ -62,7 +73,10 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
       )}
       {editSnapshot && (
         <>
-          <VulnerabilitiesGrid onUpdate={updateSelected} />
+          <VulnerabilitiesGrid
+            onUpdate={updateSelected}
+            resources={resources}
+          />
           <TextArea
             name="notes"
             label="Any other notes you'd like to add?"
@@ -74,6 +88,7 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
               await updateSnapshot(snapshot);
               setEditSnapshot(false);
             }}
+            disabled={!hasValue}
             data-testid="finish-and-save-button"
           />
         </>
@@ -89,8 +104,8 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
                 ))}
               </ul>
             ) : (
-              'None captured'
-            )}
+                'None captured'
+              )}
           </div>
           <div data-testid="assets-summary">
             <h2>Assets</h2>
@@ -101,8 +116,8 @@ const SnapshotSummary = ({ initialSnapshot, token }) => {
                 ))}
               </ul>
             ) : (
-              'None captured'
-            )}
+                'None captured'
+              )}
           </div>
           <div data-testid="notes-summary">
             <h2>Notes</h2>
@@ -122,7 +137,9 @@ SnapshotSummary.getInitialProps = async ({
   try {
     const token = getTokenFromCookieHeader(headers);
     const initialSnapshot = await requestSnapshot(id, { token });
+    const resources = await requestResources({ token });
     return {
+      resources,
       initialSnapshot,
       token
     };
