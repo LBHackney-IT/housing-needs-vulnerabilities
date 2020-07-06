@@ -13,7 +13,7 @@ context('Snapshot summary', () => {
       systemIds: ['dub'],
       created: '2020-06-09T15:46:47.857Z',
       dob,
-      vulnerabilities: [{ name: 'Vulnerability' }],
+      vulnerabilities: [{ name: 'Vulnerability', data: [] }],
       id: '2'
     });
 
