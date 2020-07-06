@@ -6,7 +6,8 @@ const TextInput = ({
   onChange,
   validate,
   value,
-  autoComplete
+  autoComplete,
+  aria
 }) => {
   const [hasError, setHasError] = useState(false);
 
@@ -41,7 +42,7 @@ const TextInput = ({
         autoComplete={autoComplete}
         onChange={updateValue}
         value={value}
-        aria-describedby={hasError ? `${name}-error` : ''}
+        aria-describedby={hasError ? `${name}-error` : aria}
       />
     </div>
   );

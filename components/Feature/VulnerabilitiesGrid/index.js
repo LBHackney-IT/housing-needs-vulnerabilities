@@ -149,6 +149,7 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
               <CheckboxList className="vulnerability">
                 {vulnerabilities.map(({ label, textinputs }) => {
                   const cbId = `${id}-v-${labelToId(label)}`;
+                  const cbLabel = label;
                   return (
                     <React.Fragment key={cbId}>
                       <Checkbox
@@ -163,20 +164,26 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
                         textinputs.map(({ label }) => {
                           const inputId = `${cbId}-${labelToId(label)}-i`;
                           return (
-                            <TextInput
-                              name={inputId}
-                              key={inputId}
-                              label={label}
-                              onChange={val =>
-                                updateVulnerabilities(
-                                  inputId,
-                                  val,
-                                  true,
-                                  label,
-                                  cbId
-                                )
-                              }
-                            />
+                            <>
+                              <p id={`${inputId}-aria`} hidden>
+                                {cbLabel}: {label}
+                              </p>
+                              <TextInput
+                                name={inputId}
+                                key={inputId}
+                                label={label}
+                                onChange={val =>
+                                  updateVulnerabilities(
+                                    inputId,
+                                    val,
+                                    true,
+                                    label,
+                                    cbId
+                                  )
+                                }
+                                aria={`${inputId}-aria`}
+                              />
+                            </>
                           );
                         })}
                     </React.Fragment>
