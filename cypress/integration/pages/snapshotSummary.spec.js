@@ -13,7 +13,12 @@ context('Snapshot summary', () => {
       systemIds: ['dub'],
       created: '2020-06-09T15:46:47.857Z',
       dob,
-      vulnerabilities: [{ name: 'Vulnerability', data: [] }],
+      vulnerabilities: [
+        {
+          name: 'Vulnerability',
+          data: [{ id: 'one', label: 'One', value: 'the value' }]
+        }
+      ],
       id: '2'
     });
 
@@ -50,7 +55,8 @@ context('Snapshot summary', () => {
 
       cy.get('[data-testid=vulnerabilities-summary]')
         .should('contain', 'Vulnerabilities')
-        .and('contain', 'Vulnerability');
+        .and('contain', 'Vulnerability')
+        .and('contain', 'One: the value');
 
       cy.get('[data-testid=assets-summary]')
         .should('contain', 'Assets')

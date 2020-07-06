@@ -107,6 +107,38 @@ context('Edit snapshot', () => {
     });
   });
 
+  describe('Text input', () => {
+    it.only('Adds text input values to the active case vulnerability', () => {
+      const baseServicesSelector =
+        'support-needs-v-active-case-with-other-services-\\(e\\.g\\.-adult-social-care\\,-childrens\\)';
+      cy.visit(`/snapshots/1`);
+      cy.get('[data-testid=accordion-item]')
+        .eq(3)
+        .click();
+      cy.get(`#${baseServicesSelector}`).click();
+
+      cy.get(`#${baseServicesSelector}-service-i`)
+        .click()
+        .type('sample');
+
+      cy.get(`#${baseServicesSelector}-contact-name-i`)
+        .click()
+        .type('wubwub');
+
+      cy.get(`#${baseServicesSelector}-phone-number-i`)
+        .click()
+        .type('0700000000000');
+
+      cy.get('[data-testid=finish-and-save-button]').click();
+
+      cy.get('[data-testid=vulnerabilities-summary]')
+        .should('contain', 'Vulnerabilities')
+        .and('contain', 'Service: sample')
+        .and('contain', 'Contact name: wubwub')
+        .and('contain', 'Phone number: 0700000000000');
+    });
+  });
+
   describe('Back button', () => {
     it('Sends the user back to Single View', () => {
       cy.visit(`/snapshots/1`);
