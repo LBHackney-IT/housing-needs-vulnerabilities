@@ -3,6 +3,8 @@ context('Edit snapshot', () => {
     cy.task('createSnapshot', {
       firstName: 'Phineas',
       lastName: 'Flynn',
+      queryFirstName: 'phineas',
+      queryLastName: 'flynn',
       assets: [],
       createdBy: 'Dat',
       systemIds: ['wub'],
@@ -85,12 +87,14 @@ context('Edit snapshot', () => {
       cy.task('createSnapshot', {
         firstName: 'Phineas',
         lastName: 'Flynn',
+        queryFirstName: 'phineas',
+        queryLastName: 'flynn',
         assets: [],
         createdBy: 'Dat',
         systemIds: ['wub'],
         created: '2019-06-09T15:46:47.857Z',
         dob: '2000-06-09',
-        vulnerabilities: [{ name: 'yup' }],
+        vulnerabilities: [{ name: 'yup', data: [] }],
         id: '2'
       });
       cy.visit(`/snapshots/2`);

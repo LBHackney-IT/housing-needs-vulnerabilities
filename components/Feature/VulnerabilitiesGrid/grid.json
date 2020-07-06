@@ -1,266 +1,277 @@
 [
   {
-    "id":"financial-stability",
-    "name":"Financial stability",
-    "assets":[
+    "id": "financial-stability",
+    "name": "Financial stability",
+    "assets": [
       {
-        "label":"Stable job"
+        "label": "Stable job"
       },
       {
-        "label":"Other",
-        "textinputs":[
+        "label": "Other",
+        "textinputs": [
           {
-            "label":""
+            "label": ""
           }
         ]
       }
     ],
-    "vulnerabilities":[
+    "vulnerabilities": [
       {
-        "label":"Rent arrears"
+        "label": "Rent arrears"
       },
       {
-        "label":"Benefits shortfall"
+        "label": "Benefits shortfall"
       },
       {
-        "label":"Other",
-        "textinputs":[
+        "label": "Other",
+        "textinputs": [
           {
-            "label":""
+            "label": ""
           }
         ]
       }
     ]
   },
   {
-    "id":"physical-health",
-    "name":"Physical health",
-    "assets":[
+    "id": "physical-health",
+    "name": "Physical health",
+    "assets": [
       {
-        "label":"In good physical health"
+        "label": "In good physical health"
       },
       {
-        "label":"Other",
-        "textinputs":[
+        "label": "Other",
+        "textinputs": [
           {
-            "label":""
+            "label": ""
           }
         ]
       }
     ],
-    "vulnerabilities":[
+    "vulnerabilities": [
       {
-        "label":"Health condition"
+        "label": "Health condition"
       },
       {
-        "label":"Disability"
+        "label": "Disability"
       },
       {
-        "label":"Drugs and alcohol"
+        "label": "Drugs and alcohol"
       },
       {
-        "label":"Other",
-        "textinputs":[
+        "label": "Other",
+        "textinputs": [
           {
-            "label":""
+            "label": ""
           }
         ]
       }
     ]
   },
   {
-    "id":"mental-health",
-    "name":"Mental health",
-    "assets":[
+    "id": "mental-health",
+    "name": "Mental health",
+    "assets": [
       {
-        "label":"In good mental health"
+        "label": "In good mental health"
       },
       {
-        "label":"Other",
-        "textinputs":[
+        "label": "Other",
+        "textinputs": [
           {
-            "label":""
+            "label": ""
           }
         ]
       }
     ],
-    "vulnerabilities":[
+    "vulnerabilities": [
       {
-        "label":"Diagnosed mental health problem"
+        "label": "Diagnosed mental health problem"
       },
       {
-        "label":"Depression / anxiety"
+        "label": "Depression / anxiety"
       },
       {
-        "label":"Mental health medication"
+        "label": "Mental health medication"
       },
       {
-        "label":"Other",
-        "textinputs":[
+        "label": "Other",
+        "textinputs": [
           {
-            "label":""
+            "label": ""
           }
         ]
       }
     ]
   },
   {
-    "id":"support-needs",
-    "name":"Support needs",
-    "assets":[
+    "id": "support-needs",
+    "name": "Support needs",
+    "assets": [
       {
-        "label":"Other",
-        "textinputs":[
+        "label": "Other",
+        "textinputs": [
           {
-            "label":""
+            "label": ""
           }
         ]
       }
     ],
-    "vulnerabilities":[
+    "vulnerabilities": [
       {
-        "label":"Active case with other services (e.g. Adult Social Care, Childrens)"
-      },
-      {
-        "label":"Frailty"
-      },
-      {
-        "label":"Literacy"
-      },
-      {
-        "label":"Language barrier"
-      },
-      {
-        "label":"Learning difficulties"
-      },
-      {
-        "label":"Other",
-        "textinputs":[
+        "label": "Active case with other services (e.g. Adult Social Care, Childrens)",
+        "textinputs": [
           {
-            "label":""
+            "label": "Service"
+          },
+          {
+            "label": "Contact name"
+          },
+          {
+            "label": "Phone number"
+          }
+        ]
+      },
+      {
+        "label": "Frailty"
+      },
+      {
+        "label": "Literacy"
+      },
+      {
+        "label": "Language barrier"
+      },
+      {
+        "label": "Learning difficulties"
+      },
+      {
+        "label": "Other",
+        "textinputs": [
+          {
+            "label": ""
           }
         ]
       }
     ]
   },
   {
-    "id":"behaviour-and-engagement",
-    "name":"Behaviour and engagement",
-    "assets":[
+    "id": "behaviour-and-engagement",
+    "name": "Behaviour and engagement",
+    "assets": [
       {
-        "label":"Taken steps to resolve their situation"
+        "label": "Taken steps to resolve their situation"
       },
       {
-        "label":"Organised and/or engaged"
+        "label": "Organised and/or engaged"
       },
       {
-        "label":"Other",
-        "textinputs":[
+        "label": "Other",
+        "textinputs": [
           {
-            "label":""
+            "label": ""
           }
         ]
       }
     ],
-    "vulnerabilities":[
+    "vulnerabilities": [
       {
-        "label":"Antisocial / aggressive behaviour"
+        "label": "Antisocial / aggressive behaviour"
       },
       {
-        "label":"Non-engagement"
+        "label": "Non-engagement"
       },
       {
-        "label":"Other",
-        "textinputs":[
+        "label": "Other",
+        "textinputs": [
           {
-            "label":""
+            "label": ""
           }
         ]
       }
     ]
   },
   {
-    "id":"relationships-and-support-network",
-    "name":"Relationships and support network",
-    "assets":[
+    "id": "relationships-and-support-network",
+    "name": "Relationships and support network",
+    "assets": [
       {
-        "label":"Close relationships with family / friends"
+        "label": "Close relationships with family / friends"
       },
       {
-        "label":"Strong religious / faith community"
+        "label": "Strong religious / faith community"
       },
       {
-        "label":"Other",
-        "textinputs":[
+        "label": "Other",
+        "textinputs": [
           {
-            "label":""
+            "label": ""
           }
         ]
       }
     ],
-    "vulnerabilities":[
+    "vulnerabilities": [
       {
-        "label":"Domestive violence"
+        "label": "Domestive violence"
       },
       {
-        "label":"Carer"
+        "label": "Carer"
       },
       {
-        "label":"Single parent"
+        "label": "Single parent"
       },
       {
-        "label":"Child with SEND"
+        "label": "Child with SEND"
       },
       {
-        "label":"Social isolation"
+        "label": "Social isolation"
       },
       {
-        "label":"Other",
-        "textinputs":[
+        "label": "Other",
+        "textinputs": [
           {
-            "label":""
+            "label": ""
           }
         ]
       }
     ]
   },
   {
-    "id":"life-events and transitions",
-    "name":"Life events and transitions",
-    "assets":[
+    "id": "life-events and transitions",
+    "name": "Life events and transitions",
+    "assets": [
       {
-        "label":"Other",
-        "textinputs":[
+        "label": "Other",
+        "textinputs": [
           {
-            "label":""
+            "label": ""
           }
         ]
       }
     ],
-    "vulnerabilities":[
+    "vulnerabilities": [
       {
-        "label":"Living in TA"
+        "label": "Living in TA"
       },
       {
-        "label":"Loss of a job"
+        "label": "Loss of a job"
       },
       {
-        "label":"Recently in prison"
+        "label": "Recently in prison"
       },
       {
-        "label":"Recent hospital discharge"
+        "label": "Recent hospital discharge"
       },
       {
-        "label":"Care leaver"
+        "label": "Care leaver"
       },
       {
-        "label":"Recent emotional shock (e.g. bereavement, divorce)"
+        "label": "Recent emotional shock (e.g. bereavement, divorce)"
       },
       {
-        "label":"Other",
-        "textinputs":[
+        "label": "Other",
+        "textinputs": [
           {
-            "label":""
+            "label": ""
           }
         ]
       }

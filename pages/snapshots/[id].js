@@ -22,8 +22,8 @@ const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
 
   const [editSnapshot, setEditSnapshot] = useState(
     snapshot.assets.length === 0 &&
-    snapshot.vulnerabilities.length === 0 &&
-    !snapshot.notes
+      snapshot.vulnerabilities.length === 0 &&
+      !snapshot.notes
   );
   const [hasValue, setHasValue] = useState(false);
 
@@ -100,12 +100,23 @@ const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
             {vulnerabilities.length > 0 ? (
               <ul>
                 {vulnerabilities.map((v, i) => (
-                  <li key={`vuln-${i}`}>{v.name}</li>
+                  <li key={`vuln-${i}`}>
+                    {v.name}
+                    {v.data.length > 0 && (
+                      <ul>
+                        {v.data.map((data, n) => (
+                          <li key={`vuln-${i}-data-${n}`}>
+                            {data.label}: {data.value}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
                 ))}
               </ul>
             ) : (
-                'None captured'
-              )}
+              'None captured'
+            )}
           </div>
           <div data-testid="assets-summary">
             <h2>Assets</h2>
@@ -116,8 +127,8 @@ const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
                 ))}
               </ul>
             ) : (
-                'None captured'
-              )}
+              'None captured'
+            )}
           </div>
           <div data-testid="notes-summary">
             <h2>Notes</h2>

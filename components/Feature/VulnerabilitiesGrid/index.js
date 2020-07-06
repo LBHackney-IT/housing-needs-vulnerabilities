@@ -43,6 +43,32 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
     return Object.fromEntries(Object.entries(obj).filter(([k]) => k != key));
   };
 
+  const addTextItem = (obj, key, value, label, cbId) => {
+    let exists = false;
+
+    obj[cbId].data.forEach(entry => {
+      if (entry.id === key) {
+        entry.value = value;
+        entry.label = label;
+        exists = true;
+      }
+    });
+
+    if (!exists) {
+      obj[cbId] = {
+        ...obj[cbId],
+        data: obj[cbId].data.concat([{ id: key, label, value }])
+      };
+    }
+    return obj;
+  };
+
+  const removeTextItem = (obj, cbId, key) => {
+    obj[cbId].data = obj[cbId].data.filter(k => k.id !== key);
+
+    return obj;
+  };
+
   const updateAssets = (key, value, isTextInput) => {
     let newAssets;
 
@@ -59,13 +85,17 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
     updateGrid({ assets: newAssets });
   };
 
-  const updateVulnerabilities = (key, value, isTextInput) => {
+  const updateVulnerabilities = (key, value, isTextInput, label, cbId) => {
     let newVulns;
 
     if (isTextInput) {
       newVulns = value
-        ? addItem(grid.vulnerabilities, key, value)
-        : removeItem(grid.vulnerabilities, key);
+        ? label === ''
+          ? addItem(grid.vulnerabilities, key, value)
+          : addTextItem(grid.vulnerabilities, key, value, label, cbId)
+        : label === ''
+        ? removeItem(grid.vulnerabilities, key)
+        : removeTextItem(grid.vulnerabilities, cbId, key);
     } else {
       newVulns = grid.vulnerabilities[key]
         ? removeItem(grid.vulnerabilities, key)
@@ -138,7 +168,13 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
                               key={inputId}
                               label={label}
                               onChange={val =>
-                                updateVulnerabilities(inputId, val, true)
+                                updateVulnerabilities(
+                                  inputId,
+                                  val,
+                                  true,
+                                  label,
+                                  cbId
+                                )
                               }
                             />
                           );
