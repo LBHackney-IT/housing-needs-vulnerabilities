@@ -29,13 +29,17 @@ function createLookup() {
 }
 
 const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
-  const [grid, setGrid] = useState({ assets: {}, vulnerabilities: {} });
+  const [grid, setGrid] = useState({
+    assets: {},
+    vulnerabilities: {},
+    data: {}
+  });
   const groupItems = useMemo(() => createLookup());
 
   const addItem = (obj, key, value) => {
     return {
       ...obj,
-      [key]: { name: value, data: [] }
+      [key]: { name: value, data: {} }
     };
   };
 
@@ -43,29 +47,18 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
     return Object.fromEntries(Object.entries(obj).filter(([k]) => k != key));
   };
 
-  const addTextItem = (obj, key, value, label, cbId) => {
-    let exists = false;
-
-    obj[cbId].data.forEach(entry => {
-      if (entry.id === key) {
-        entry.value = value;
-        entry.label = label;
-        exists = true;
-      }
-    });
-
-    if (!exists) {
-      obj[cbId] = {
-        ...obj[cbId],
-        data: obj[cbId].data.concat([{ id: key, label, value }])
-      };
-    }
+  const addDataItem = (obj, key, value, label, cbId) => {
+    obj[cbId].data[key] = {
+      label,
+      value
+    };
     return obj;
   };
 
-  const removeTextItem = (obj, cbId, key) => {
-    obj[cbId].data = obj[cbId].data.filter(k => k.id !== key);
-
+  const removeDataItem = (obj, cbId, key) => {
+    obj[cbId].data = Object.fromEntries(
+      Object.entries(obj[cbId].data).filter(([k]) => k != key)
+    );
     return obj;
   };
 
@@ -85,32 +78,50 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
     updateGrid({ assets: newAssets });
   };
 
-  const updateVulnerabilities = (key, value, isTextInput, label, cbId) => {
+  const updateVulnerabilities = ({
+    key,
+    value,
+    isTextInput,
+    label,
+    parentId,
+    type
+  }) => {
     let newVulns;
 
     if (isTextInput) {
-      newVulns = value
-        ? label === ''
-          ? addItem(grid.vulnerabilities, key, value)
-          : addTextItem(grid.vulnerabilities, key, value, label, cbId)
-        : label === ''
-        ? removeItem(grid.vulnerabilities, key)
-        : removeTextItem(grid.vulnerabilities, cbId, key);
+      if (value) {
+        if (type === 'other') {
+          newVulns = addItem(grid.vulnerabilities, key, value);
+        } else {
+          newVulns = addDataItem(
+            grid.vulnerabilities,
+            key,
+            value,
+            label,
+            parentId
+          );
+        }
+      } else {
+        if (type === 'other') {
+          newVulns = removeItem(grid.vulnerabilities, key);
+        } else {
+          newVulns = removeDataItem(grid.vulnerabilities, parentId, key);
+        }
+      }
     } else {
       newVulns = grid.vulnerabilities[key]
         ? removeItem(grid.vulnerabilities, key)
         : addItem(grid.vulnerabilities, key, value);
     }
-
     updateGrid({ vulnerabilities: newVulns });
   };
 
   useEffect(() => {
     onUpdate({
       assets: Object.values(grid.assets).filter(a => a.name !== 'Other'),
-      vulnerabilities: Object.values(grid.vulnerabilities).filter(
-        v => v.name !== 'Other'
-      )
+      vulnerabilities: Object.values(grid.vulnerabilities)
+        .filter(v => v.name !== 'Other')
+        .map(v => ({ ...v, data: Object.values(v.data) }))
     });
   }, [grid]);
 
@@ -156,34 +167,38 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
                         label={label}
                         name={cbId}
                         onClick={() =>
-                          updateVulnerabilities(cbId, label, false)
+                          updateVulnerabilities({
+                            key: cbId,
+                            value: label,
+                            isTextInput: false
+                          })
                         }
                       />
                       {textinputs &&
                         grid.vulnerabilities[cbId] &&
-                        textinputs.map(({ label }) => {
+                        textinputs.map(({ label, type }) => {
                           const inputId = `${cbId}-${labelToId(label)}-i`;
                           return (
-                            <>
+                            <React.Fragment key={inputId}>
                               <p id={`${inputId}-aria`} hidden>
-                                {cbLabel}: {label}
+                                This is a text input for {cbLabel}: {label}
                               </p>
                               <TextInput
                                 name={inputId}
-                                key={inputId}
                                 label={label}
-                                onChange={val =>
-                                  updateVulnerabilities(
-                                    inputId,
-                                    val,
-                                    true,
+                                onChange={value =>
+                                  updateVulnerabilities({
+                                    key: inputId,
+                                    value,
+                                    isTextInput: true,
                                     label,
-                                    cbId
-                                  )
+                                    parentId: cbId,
+                                    type
+                                  })
                                 }
                                 aria={`${inputId}-aria`}
                               />
-                            </>
+                            </React.Fragment>
                           );
                         })}
                     </React.Fragment>
@@ -198,7 +213,6 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
                   return (
                     <React.Fragment key={cbId}>
                       <Checkbox
-                        key={cbId}
                         label={label}
                         name={cbId}
                         onClick={() => updateAssets(cbId, label, false)}

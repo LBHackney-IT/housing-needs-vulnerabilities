@@ -157,8 +157,6 @@ describe('VulnerabilitiesGrid', () => {
         {
           data: [
             {
-              id:
-                'support-needs-v-active-case-with-other-services-(e.g.-adult-social-care,-childrens)-service-i',
               label: 'Service',
               value: 'test'
             }
@@ -188,6 +186,53 @@ describe('VulnerabilitiesGrid', () => {
       ),
       {
         target: { value: 'test' }
+      }
+    );
+
+    expect(onUpdate).toHaveBeenCalledWith(expected);
+  });
+
+  it('does not save the input if it is deleted', () => {
+    const onUpdate = jest.fn();
+    const expected = expect.objectContaining({
+      assets: [],
+      vulnerabilities: [
+        {
+          data: [],
+          name:
+            'Active case with other services (e.g. Adult Social Care, Childrens)'
+        }
+      ]
+    });
+    const { container } = render(
+      <VulnerabilitiesGrid onUpdate={onUpdate} resources={resources} />
+    );
+
+    fireEvent(
+      container.querySelector(
+        '#support-needs-v-active-case-with-other-services-\\(e\\.g\\.-adult-social-care\\,-childrens\\)'
+      ),
+      new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true
+      })
+    );
+
+    fireEvent.change(
+      container.querySelector(
+        '#support-needs-v-active-case-with-other-services-\\(e\\.g\\.-adult-social-care\\,-childrens\\)-service-i'
+      ),
+      {
+        target: { value: 'test' }
+      }
+    );
+
+    fireEvent.change(
+      container.querySelector(
+        '#support-needs-v-active-case-with-other-services-\\(e\\.g\\.-adult-social-care\\,-childrens\\)-service-i'
+      ),
+      {
+        target: { value: '' }
       }
     );
 

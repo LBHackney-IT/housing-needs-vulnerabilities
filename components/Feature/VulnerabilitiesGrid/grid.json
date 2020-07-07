@@ -8,11 +8,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [
-          {
-            "label": ""
-          }
-        ]
+        "textinputs": [{ "type": "other", "label": "" }]
       }
     ],
     "vulnerabilities": [
@@ -24,11 +20,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [
-          {
-            "label": ""
-          }
-        ]
+        "textinputs": [{ "type": "other", "label": "" }]
       }
     ]
   },
@@ -41,11 +33,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [
-          {
-            "label": ""
-          }
-        ]
+        "textinputs": [{ "type": "other", "label": "" }]
       }
     ],
     "vulnerabilities": [
@@ -60,11 +48,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [
-          {
-            "label": ""
-          }
-        ]
+        "textinputs": [{ "type": "other", "label": "" }]
       }
     ]
   },
@@ -77,11 +61,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [
-          {
-            "label": ""
-          }
-        ]
+        "textinputs": [{ "type": "other", "label": "" }]
       }
     ],
     "vulnerabilities": [
@@ -96,11 +76,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [
-          {
-            "label": ""
-          }
-        ]
+        "textinputs": [{ "type": "other", "label": "" }]
       }
     ]
   },
@@ -110,11 +86,7 @@
     "assets": [
       {
         "label": "Other",
-        "textinputs": [
-          {
-            "label": ""
-          }
-        ]
+        "textinputs": [{ "type": "other", "label": "" }]
       }
     ],
     "vulnerabilities": [
@@ -122,12 +94,15 @@
         "label": "Active case with other services (e.g. Adult Social Care, Childrens)",
         "textinputs": [
           {
+            "type": "data",
             "label": "Service"
           },
           {
+            "type": "data",
             "label": "Contact name"
           },
           {
+            "type": "data",
             "label": "Phone number"
           }
         ]
@@ -146,11 +121,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [
-          {
-            "label": ""
-          }
-        ]
+        "textinputs": [{ "type": "other", "label": "" }]
       }
     ]
   },
@@ -166,11 +137,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [
-          {
-            "label": ""
-          }
-        ]
+        "textinputs": [{ "type": "other", "label": "" }]
       }
     ],
     "vulnerabilities": [
@@ -182,11 +149,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [
-          {
-            "label": ""
-          }
-        ]
+        "textinputs": [{ "type": "other", "label": "" }]
       }
     ]
   },
@@ -202,11 +165,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [
-          {
-            "label": ""
-          }
-        ]
+        "textinputs": [{ "type": "other", "label": "" }]
       }
     ],
     "vulnerabilities": [
@@ -227,11 +186,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [
-          {
-            "label": ""
-          }
-        ]
+        "textinputs": [{ "type": "other", "label": "" }]
       }
     ]
   },
@@ -241,11 +196,7 @@
     "assets": [
       {
         "label": "Other",
-        "textinputs": [
-          {
-            "label": ""
-          }
-        ]
+        "textinputs": [{ "type": "other", "label": "" }]
       }
     ],
     "vulnerabilities": [
@@ -269,11 +220,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [
-          {
-            "label": ""
-          }
-        ]
+        "textinputs": [{ "type": "other", "label": "" }]
       }
     ]
   }
