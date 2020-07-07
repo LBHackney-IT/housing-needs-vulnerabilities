@@ -76,7 +76,6 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
   };
 
   useEffect(() => {
-    console.log(JSON.stringify(grid.vulnerabilities));
     onUpdate({
       assets: Object.values(grid.assets).filter(a => a.name !== 'Other'),
       vulnerabilities: Object.values(grid.vulnerabilities).filter(
