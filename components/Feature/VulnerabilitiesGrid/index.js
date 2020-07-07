@@ -36,89 +36,68 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
   });
   const groupItems = useMemo(() => createLookup());
 
-  const addItem = (obj, key, value) => {
+  const addItem = ({ obj, key, value }) => {
     return {
       ...obj,
       [key]: { name: value, data: {} }
     };
   };
 
-  const removeItem = (obj, key) => {
+  const removeItem = ({ obj, key }) => {
     return Object.fromEntries(Object.entries(obj).filter(([k]) => k != key));
   };
 
-  const addDataItem = (obj, key, value, label, cbId) => {
-    obj[cbId].data[key] = {
+  const addDataItem = ({ obj, key, value, label, parentKey }) => {
+    obj[parentKey].data[key] = {
       label,
       value
     };
     return obj;
   };
 
-  const removeDataItem = (obj, cbId, key) => {
-    obj[cbId].data = Object.fromEntries(
-      Object.entries(obj[cbId].data).filter(([k]) => k != key)
+  const removeDataItem = ({ obj, parentKey, key }) => {
+    obj[parentKey].data = Object.fromEntries(
+      Object.entries(obj[parentKey].data).filter(([k]) => k != key)
     );
     return obj;
   };
 
-  const updateAssets = (key, value, isTextInput) => {
-    let newAssets;
-
-    if (isTextInput) {
-      newAssets = value
-        ? addItem(grid.assets, key, value)
-        : removeItem(grid.assets, key);
-    } else {
-      newAssets = grid.assets[key]
-        ? removeItem(grid.assets, key)
-        : addItem(grid.assets, key, value);
-    }
-
-    updateGrid({ assets: newAssets });
+  const updateSelectedCheckboxes = ({ gridType, key, value }) => {
+    updateGrid({
+      [gridType]: grid[gridType][key]
+        ? removeItem({ obj: grid[gridType], key })
+        : addItem({ obj: grid[gridType], key, value })
+    });
   };
 
-  const updateVulnerabilities = ({
+  const updateTextData = ({
+    gridType,
     key,
-    value,
-    isTextInput,
+    parentKey,
     label,
-    parentId,
-    type
+    value,
+    inputType
   }) => {
-    let newVulns;
-
-    if (isTextInput) {
-      if (value) {
-        if (type === 'other') {
-          newVulns = addItem(grid.vulnerabilities, key, value);
-        } else {
-          newVulns = addDataItem(
-            grid.vulnerabilities,
-            key,
-            value,
-            label,
-            parentId
-          );
-        }
-      } else {
-        if (type === 'other') {
-          newVulns = removeItem(grid.vulnerabilities, key);
-        } else {
-          newVulns = removeDataItem(grid.vulnerabilities, parentId, key);
-        }
-      }
+    if (inputType === 'other') {
+      updateGrid({
+        [gridType]: value
+          ? addItem({ obj: grid[gridType], key, value })
+          : removeItem({ obj: grid[gridType], key })
+      });
     } else {
-      newVulns = grid.vulnerabilities[key]
-        ? removeItem(grid.vulnerabilities, key)
-        : addItem(grid.vulnerabilities, key, value);
+      updateGrid({
+        [gridType]: value
+          ? addDataItem({ obj: grid[gridType], key, value, label, parentKey })
+          : removeDataItem({ obj: grid[gridType], parentKey, key })
+      });
     }
-    updateGrid({ vulnerabilities: newVulns });
   };
 
   useEffect(() => {
     onUpdate({
-      assets: Object.values(grid.assets).filter(a => a.name !== 'Other'),
+      assets: Object.values(grid.assets)
+        .filter(a => a.name !== 'Other')
+        .map(a => ({ ...a, data: Object.values(a.data) })),
       vulnerabilities: Object.values(grid.vulnerabilities)
         .filter(v => v.name !== 'Other')
         .map(v => ({ ...v, data: Object.values(v.data) }))
@@ -167,10 +146,10 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
                         label={label}
                         name={cbId}
                         onClick={() =>
-                          updateVulnerabilities({
+                          updateSelectedCheckboxes({
+                            gridType: 'vulnerabilities',
                             key: cbId,
-                            value: label,
-                            isTextInput: false
+                            value: label
                           })
                         }
                       />
@@ -187,13 +166,13 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
                                 name={inputId}
                                 label={label}
                                 onChange={value =>
-                                  updateVulnerabilities({
+                                  updateTextData({
                                     key: inputId,
                                     value,
-                                    isTextInput: true,
                                     label,
-                                    parentId: cbId,
-                                    type
+                                    parentKey: cbId,
+                                    inputType: type,
+                                    gridType: 'vulnerabilities'
                                   })
                                 }
                                 aria={`${inputId}-aria`}
@@ -215,18 +194,33 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
                       <Checkbox
                         label={label}
                         name={cbId}
-                        onClick={() => updateAssets(cbId, label, false)}
+                        onClick={() =>
+                          updateSelectedCheckboxes({
+                            gridType: 'assets',
+                            key: cbId,
+                            value: label
+                          })
+                        }
                       />
                       {textinputs &&
                         grid.assets[cbId] &&
-                        textinputs.map(({ label }) => {
+                        textinputs.map(({ label, type }) => {
                           const inputId = `${cbId}-${labelToId(label)}-i`;
                           return (
                             <TextInput
                               name={inputId}
                               key={inputId}
                               label={label}
-                              onChange={val => updateAssets(inputId, val, true)}
+                              onChange={value =>
+                                updateTextData({
+                                  key: inputId,
+                                  value,
+                                  label,
+                                  parentKey: cbId,
+                                  inputType: type,
+                                  gridType: 'assets'
+                                })
+                              }
                             />
                           );
                         })}

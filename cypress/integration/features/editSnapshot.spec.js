@@ -108,7 +108,7 @@ context('Edit snapshot', () => {
   });
 
   describe('Text input', () => {
-    it.only('Adds text input values to the active case vulnerability', () => {
+    it('Adds text input values to the active case vulnerability', () => {
       const baseServicesSelector =
         'support-needs-v-active-case-with-other-services-\\(e\\.g\\.-adult-social-care\\,-childrens\\)';
       cy.visit(`/snapshots/1`);
