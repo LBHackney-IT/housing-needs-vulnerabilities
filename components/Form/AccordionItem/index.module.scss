@@ -3,3 +3,22 @@
 .lbh-accordion__section-header {
   color: $hackney-green !important;
 }
+
+.assets-dot,
+.vulnerabilities-dot {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  display: inline-block;
+  float: right;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+.vulnerabilities-dot {
+  background-color: #013687;
+}
+
+.assets-dot {
+  background-color: #ff6912;
+}

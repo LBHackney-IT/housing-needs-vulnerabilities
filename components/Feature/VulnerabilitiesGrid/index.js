@@ -132,38 +132,97 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
 
   return (
     <Accordion title="Things to explore with the resident">
-      {groups.map(({ id, name, assets, vulnerabilities }) => (
-        <AccordionItem key={id} id={id} heading={name}>
-          <div className="govuk-grid-row">
-            <div className="govuk-grid-column-one-third">
-              <CheckboxList className="vulnerability">
-                {vulnerabilities.map(({ label, textinputs }) => {
-                  const cbId = `${id}-v-${labelToId(label)}`;
-                  const cbLabel = label;
-                  return (
-                    <React.Fragment key={cbId}>
-                      <Checkbox
-                        label={label}
-                        name={cbId}
-                        onClick={() =>
-                          updateSelectedCheckboxes({
-                            gridType: 'vulnerabilities',
-                            key: cbId,
-                            value: label
-                          })
-                        }
-                      />
-                      {textinputs &&
-                        grid.vulnerabilities[cbId] &&
-                        textinputs.map(({ label, type }) => {
-                          const inputId = `${cbId}-${labelToId(label)}-i`;
-                          return (
-                            <React.Fragment key={inputId}>
-                              <p id={`${inputId}-aria`} hidden>
-                                This is a text input for {cbLabel}: {label}
-                              </p>
+      {groups.map(({ id, name, assets, vulnerabilities }) => {
+        const selectedVulnerabilities = Object.keys(
+          grid.vulnerabilities
+        ).some(key => key.includes(id));
+        const selectedAssets = Object.keys(grid.assets).some(key =>
+          key.includes(id)
+        );
+        return (
+          <AccordionItem
+            key={id}
+            id={id}
+            heading={name}
+            selectedVulnerabilities={selectedVulnerabilities}
+            selectedAssets={selectedAssets}
+          >
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-one-third">
+                <CheckboxList className="vulnerability">
+                  {vulnerabilities.map(({ label, textinputs }) => {
+                    const cbId = `${id}-v-${labelToId(label)}`;
+                    const cbLabel = label;
+                    return (
+                      <React.Fragment key={cbId}>
+                        <Checkbox
+                          label={label}
+                          name={cbId}
+                          onClick={() =>
+                            updateSelectedCheckboxes({
+                              gridType: 'vulnerabilities',
+                              key: cbId,
+                              value: label
+                            })
+                          }
+                        />
+                        {textinputs &&
+                          grid.vulnerabilities[cbId] &&
+                          textinputs.map(({ label, type }) => {
+                            const inputId = `${cbId}-${labelToId(label)}-i`;
+                            return (
+                              <React.Fragment key={inputId}>
+                                <p id={`${inputId}-aria`} hidden>
+                                  This is a text input for {cbLabel}: {label}
+                                </p>
+                                <TextInput
+                                  name={inputId}
+                                  label={label}
+                                  onChange={value =>
+                                    updateTextData({
+                                      key: inputId,
+                                      value,
+                                      label,
+                                      parentKey: cbId,
+                                      inputType: type,
+                                      gridType: 'vulnerabilities'
+                                    })
+                                  }
+                                  aria={`${inputId}-aria`}
+                                />
+                              </React.Fragment>
+                            );
+                          })}
+                      </React.Fragment>
+                    );
+                  })}
+                </CheckboxList>
+              </div>
+              <div className="govuk-grid-column-one-third">
+                <CheckboxList className="asset">
+                  {assets.map(({ label, textinputs }) => {
+                    const cbId = `${id}-a-${labelToId(label)}`;
+                    return (
+                      <React.Fragment key={cbId}>
+                        <Checkbox
+                          label={label}
+                          name={cbId}
+                          onClick={() =>
+                            updateSelectedCheckboxes({
+                              gridType: 'assets',
+                              key: cbId,
+                              value: label
+                            })
+                          }
+                        />
+                        {textinputs &&
+                          grid.assets[cbId] &&
+                          textinputs.map(({ label, type }) => {
+                            const inputId = `${cbId}-${labelToId(label)}-i`;
+                            return (
                               <TextInput
                                 name={inputId}
+                                key={inputId}
                                 label={label}
                                 onChange={value =>
                                   updateTextData({
@@ -172,75 +231,30 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
                                     label,
                                     parentKey: cbId,
                                     inputType: type,
-                                    gridType: 'vulnerabilities'
+                                    gridType: 'assets'
                                   })
                                 }
-                                aria={`${inputId}-aria`}
                               />
-                            </React.Fragment>
-                          );
-                        })}
-                    </React.Fragment>
-                  );
-                })}
-              </CheckboxList>
+                            );
+                          })}
+                      </React.Fragment>
+                    );
+                  })}
+                </CheckboxList>
+              </div>
+              <div className="govuk-grid-column-one-third">
+                {filterResources(name).map(resource => (
+                  <ResourceCard
+                    key={resource.id}
+                    data-testid={`resource-${resource.id}`}
+                    {...resource}
+                  />
+                ))}
+              </div>
             </div>
-            <div className="govuk-grid-column-one-third">
-              <CheckboxList className="asset">
-                {assets.map(({ label, textinputs }) => {
-                  const cbId = `${id}-a-${labelToId(label)}`;
-                  return (
-                    <React.Fragment key={cbId}>
-                      <Checkbox
-                        label={label}
-                        name={cbId}
-                        onClick={() =>
-                          updateSelectedCheckboxes({
-                            gridType: 'assets',
-                            key: cbId,
-                            value: label
-                          })
-                        }
-                      />
-                      {textinputs &&
-                        grid.assets[cbId] &&
-                        textinputs.map(({ label, type }) => {
-                          const inputId = `${cbId}-${labelToId(label)}-i`;
-                          return (
-                            <TextInput
-                              name={inputId}
-                              key={inputId}
-                              label={label}
-                              onChange={value =>
-                                updateTextData({
-                                  key: inputId,
-                                  value,
-                                  label,
-                                  parentKey: cbId,
-                                  inputType: type,
-                                  gridType: 'assets'
-                                })
-                              }
-                            />
-                          );
-                        })}
-                    </React.Fragment>
-                  );
-                })}
-              </CheckboxList>
-            </div>
-            <div className="govuk-grid-column-one-third">
-              {filterResources(name).map(resource => (
-                <ResourceCard
-                  key={resource.id}
-                  data-testid={`resource-${resource.id}`}
-                  {...resource}
-                />
-              ))}
-            </div>
-          </div>
-        </AccordionItem>
-      ))}
+          </AccordionItem>
+        );
+      })}
     </Accordion>
   );
 };
