@@ -76,6 +76,7 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
   };
 
   useEffect(() => {
+    console.log(JSON.stringify(grid.vulnerabilities));
     onUpdate({
       assets: Object.values(grid.assets).filter(a => a.name !== 'Other'),
       vulnerabilities: Object.values(grid.vulnerabilities).filter(
@@ -112,84 +113,100 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
 
   return (
     <Accordion title="Things to explore with the resident">
-      {groups.map(({ id, name, assets, vulnerabilities }) => (
-        <AccordionItem key={id} id={id} heading={name}>
-          <div className="govuk-grid-row">
-            <div className="govuk-grid-column-one-third">
-              <CheckboxList className="vulnerability">
-                {vulnerabilities.map(({ label, textinputs }) => {
-                  const cbId = `${id}-v-${labelToId(label)}`;
-                  return (
-                    <React.Fragment key={cbId}>
-                      <Checkbox
-                        label={label}
-                        name={cbId}
-                        onClick={() =>
-                          updateVulnerabilities(cbId, label, false)
-                        }
-                      />
-                      {textinputs &&
-                        grid.vulnerabilities[cbId] &&
-                        textinputs.map(({ label }) => {
-                          const inputId = `${cbId}-${labelToId(label)}-i`;
-                          return (
-                            <TextInput
-                              name={inputId}
-                              key={inputId}
-                              label={label}
-                              onChange={val =>
-                                updateVulnerabilities(inputId, val, true)
-                              }
-                            />
-                          );
-                        })}
-                    </React.Fragment>
-                  );
-                })}
-              </CheckboxList>
+      {groups.map(({ id, name, assets, vulnerabilities }) => {
+        const selectedVulnerabilities = Object.keys(
+          grid.vulnerabilities
+        ).some(key => key.includes(id));
+        const selectedAssets = Object.keys(grid.assets).some(key =>
+          key.includes(id)
+        );
+        return (
+          <AccordionItem
+            key={id}
+            id={id}
+            heading={name}
+            selectedVulnerabilities={selectedVulnerabilities}
+            selectedAssets={selectedAssets}
+          >
+            <div className="govuk-grid-row">
+              <div className="govuk-grid-column-one-third">
+                <CheckboxList className="vulnerability">
+                  {vulnerabilities.map(({ label, textinputs }) => {
+                    const cbId = `${id}-v-${labelToId(label)}`;
+                    return (
+                      <React.Fragment key={cbId}>
+                        <Checkbox
+                          label={label}
+                          name={cbId}
+                          onClick={() =>
+                            updateVulnerabilities(cbId, label, false)
+                          }
+                        />
+                        {textinputs &&
+                          grid.vulnerabilities[cbId] &&
+                          textinputs.map(({ label }) => {
+                            const inputId = `${cbId}-${labelToId(label)}-i`;
+                            return (
+                              <TextInput
+                                name={inputId}
+                                key={inputId}
+                                label={label}
+                                onChange={val =>
+                                  updateVulnerabilities(inputId, val, true)
+                                }
+                              />
+                            );
+                          })}
+                      </React.Fragment>
+                    );
+                  })}
+                </CheckboxList>
+              </div>
+              <div className="govuk-grid-column-one-third">
+                <CheckboxList className="asset">
+                  {assets.map(({ label, textinputs }) => {
+                    const cbId = `${id}-a-${labelToId(label)}`;
+                    return (
+                      <React.Fragment key={cbId}>
+                        <Checkbox
+                          key={cbId}
+                          label={label}
+                          name={cbId}
+                          onClick={() => updateAssets(cbId, label, false)}
+                        />
+                        {textinputs &&
+                          grid.assets[cbId] &&
+                          textinputs.map(({ label }) => {
+                            const inputId = `${cbId}-${labelToId(label)}-i`;
+                            return (
+                              <TextInput
+                                name={inputId}
+                                key={inputId}
+                                label={label}
+                                onChange={val =>
+                                  updateAssets(inputId, val, true)
+                                }
+                              />
+                            );
+                          })}
+                      </React.Fragment>
+                    );
+                  })}
+                </CheckboxList>
+              </div>
+              <div className="govuk-grid-column-one-third">
+                {filterResources(name).map(resource => (
+                  <ResourceCard
+                    key={resource.id}
+                    data-testid={`resource-${resource.id}`}
+                    {...resource}
+                  />
+                ))}
+              </div>
             </div>
-            <div className="govuk-grid-column-one-third">
-              <CheckboxList className="asset">
-                {assets.map(({ label, textinputs }) => {
-                  const cbId = `${id}-a-${labelToId(label)}`;
-                  return (
-                    <React.Fragment key={cbId}>
-                      <Checkbox
-                        key={cbId}
-                        label={label}
-                        name={cbId}
-                        onClick={() => updateAssets(cbId, label, false)}
-                      />
-                      {textinputs &&
-                        grid.assets[cbId] &&
-                        textinputs.map(({ label }) => {
-                          const inputId = `${cbId}-${labelToId(label)}-i`;
-                          return (
-                            <TextInput
-                              name={inputId}
-                              key={inputId}
-                              label={label}
-                              onChange={val => updateAssets(inputId, val, true)}
-                            />
-                          );
-                        })}
-                    </React.Fragment>
-                  );
-                })}
-              </CheckboxList>
-            </div>
-            <div className="govuk-grid-column-one-third">
-              {filterResources(name).map(resource => (
-                <ResourceCard
-                  key={resource.id}
-                  data-testid={`resource-${resource.id}`}
-                  {...resource}
-                />
-              ))}
-            </div>
-          </div>
-        </AccordionItem>
-      ))}
+          </AccordionItem>
+        );
+      })}
     </Accordion>
   );
 };
