@@ -3,3 +3,14 @@
 .lbh-accordion__section-header {
   color: $hackney-green !important;
 }
+
+.govuk-accordion__section-button::after {
+  content: '●';
+  font-size: 1.2em;
+  display: inline-block;
+  margin-right: 0.5em;
+}
+
+.dis {
+  float: right;
+}

@@ -9,6 +9,12 @@ const AccordionItem = ({ children, heading, id }) => (
         <span className="govuk-accordion__section-button" id={id}>
           {heading}
         </span>
+        <img
+          src="https://i.ytimg.com/vi/Bor5lkRyeGo/hqdefault.jpg"
+          alt="dot"
+          width="20"
+          className={`${styles['dis']}`}
+        />
       </h3>
     </div>
     <div className="govuk-accordion__section-content" aria-labelledby={id}>
