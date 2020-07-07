@@ -15,13 +15,13 @@ const AccordionItem = ({
         <span className="govuk-accordion__section-button" id={id}>
           {heading}
         </span>
+        {selectedAssets && <span className={`${styles['assets-dot']}`}></span>}
         {selectedVulnerabilities && (
           <span
             hidden={true}
             className={`${styles['vulnerabilities-dot']}`}
           ></span>
         )}
-        {selectedAssets && <span className={`${styles['assets-dot']}`}></span>}
       </h3>
     </div>
     <div className="govuk-accordion__section-content" aria-labelledby={id}>
