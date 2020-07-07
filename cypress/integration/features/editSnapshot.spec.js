@@ -3,6 +3,8 @@ context('Edit snapshot', () => {
     cy.task('createSnapshot', {
       firstName: 'Phineas',
       lastName: 'Flynn',
+      queryFirstName: 'phineas',
+      queryLastName: 'flynn',
       assets: [],
       createdBy: 'Dat',
       systemIds: ['wub'],
@@ -85,12 +87,14 @@ context('Edit snapshot', () => {
       cy.task('createSnapshot', {
         firstName: 'Phineas',
         lastName: 'Flynn',
+        queryFirstName: 'phineas',
+        queryLastName: 'flynn',
         assets: [],
         createdBy: 'Dat',
         systemIds: ['wub'],
         created: '2019-06-09T15:46:47.857Z',
         dob: '2000-06-09',
-        vulnerabilities: [{ name: 'yup' }],
+        vulnerabilities: [{ name: 'yup', data: [] }],
         id: '2'
       });
       cy.visit(`/snapshots/2`);
@@ -100,6 +104,38 @@ context('Edit snapshot', () => {
         .and('contain', 'yup');
 
       cy.task('deleteSnapshot', '2');
+    });
+  });
+
+  describe('Text input', () => {
+    it('Adds text input values to the active case vulnerability', () => {
+      const baseServicesSelector =
+        'support-needs-v-active-case-with-other-services-\\(e\\.g\\.-adult-social-care\\,-childrens\\)';
+      cy.visit(`/snapshots/1`);
+      cy.get('[data-testid=accordion-item]')
+        .eq(3)
+        .click();
+      cy.get(`#${baseServicesSelector}`).click();
+
+      cy.get(`#${baseServicesSelector}-service-i`)
+        .click()
+        .type('sample');
+
+      cy.get(`#${baseServicesSelector}-contact-name-i`)
+        .click()
+        .type('wubwub');
+
+      cy.get(`#${baseServicesSelector}-phone-number-i`)
+        .click()
+        .type('0700000000000');
+
+      cy.get('[data-testid=finish-and-save-button]').click();
+
+      cy.get('[data-testid=vulnerabilities-summary]')
+        .should('contain', 'Vulnerabilities')
+        .and('contain', 'Service: sample')
+        .and('contain', 'Contact name: wubwub')
+        .and('contain', 'Phone number: 0700000000000');
     });
   });
 
