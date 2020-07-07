@@ -116,6 +116,129 @@ describe('VulnerabilitiesGrid', () => {
     expect(onUpdate).toHaveBeenCalledWith(expected);
   });
 
+  it('creates text inputs when active case checkbox is checked', () => {
+    const { container } = render(
+      <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources} />
+    );
+
+    fireEvent(
+      container.querySelector(
+        '#support-needs-v-active-case-with-other-services-\\(e\\.g\\.-adult-social-care\\,-childrens\\)'
+      ),
+      new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true
+      })
+    );
+    expect(
+      container.querySelector(
+        '#support-needs-v-active-case-with-other-services-\\(e\\.g\\.-adult-social-care\\,-childrens\\)-service-i'
+      )
+    ).toBeInTheDocument();
+
+    expect(
+      container.querySelector(
+        '#support-needs-v-active-case-with-other-services-\\(e\\.g\\.-adult-social-care\\,-childrens\\)-contact-name-i'
+      )
+    ).toBeInTheDocument();
+
+    expect(
+      container.querySelector(
+        '#support-needs-v-active-case-with-other-services-\\(e\\.g\\.-adult-social-care\\,-childrens\\)-phone-number-i'
+      )
+    ).toBeInTheDocument();
+  });
+
+  it('saves "Active case" vulnerability text inputs', () => {
+    const onUpdate = jest.fn();
+    const expected = expect.objectContaining({
+      assets: [],
+      vulnerabilities: [
+        {
+          data: [
+            {
+              label: 'Service',
+              value: 'test'
+            }
+          ],
+          name:
+            'Active case with other services (e.g. Adult Social Care, Childrens)'
+        }
+      ]
+    });
+    const { container } = render(
+      <VulnerabilitiesGrid onUpdate={onUpdate} resources={resources} />
+    );
+
+    fireEvent(
+      container.querySelector(
+        '#support-needs-v-active-case-with-other-services-\\(e\\.g\\.-adult-social-care\\,-childrens\\)'
+      ),
+      new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true
+      })
+    );
+
+    fireEvent.change(
+      container.querySelector(
+        '#support-needs-v-active-case-with-other-services-\\(e\\.g\\.-adult-social-care\\,-childrens\\)-service-i'
+      ),
+      {
+        target: { value: 'test' }
+      }
+    );
+
+    expect(onUpdate).toHaveBeenCalledWith(expected);
+  });
+
+  it('does not save the input if it is deleted', () => {
+    const onUpdate = jest.fn();
+    const expected = expect.objectContaining({
+      assets: [],
+      vulnerabilities: [
+        {
+          data: [],
+          name:
+            'Active case with other services (e.g. Adult Social Care, Childrens)'
+        }
+      ]
+    });
+    const { container } = render(
+      <VulnerabilitiesGrid onUpdate={onUpdate} resources={resources} />
+    );
+
+    fireEvent(
+      container.querySelector(
+        '#support-needs-v-active-case-with-other-services-\\(e\\.g\\.-adult-social-care\\,-childrens\\)'
+      ),
+      new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true
+      })
+    );
+
+    fireEvent.change(
+      container.querySelector(
+        '#support-needs-v-active-case-with-other-services-\\(e\\.g\\.-adult-social-care\\,-childrens\\)-service-i'
+      ),
+      {
+        target: { value: 'test' }
+      }
+    );
+
+    fireEvent.change(
+      container.querySelector(
+        '#support-needs-v-active-case-with-other-services-\\(e\\.g\\.-adult-social-care\\,-childrens\\)-service-i'
+      ),
+      {
+        target: { value: '' }
+      }
+    );
+
+    expect(onUpdate).toHaveBeenCalledWith(expected);
+  });
+
   describe('resources', () => {
     it('shows links to resources tagged with current selections', () => {
       const resources = [

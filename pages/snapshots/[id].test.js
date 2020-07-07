@@ -86,7 +86,7 @@ describe('SnapshotSummary', () => {
 
     it('hides the edit view if a vulnerability exists', () => {
       const snapshot = {
-        vulnerabilities: [{ name: 'v1' }],
+        vulnerabilities: [{ name: 'v1', data: [] }],
         assets: []
       };
       const { container, getByText } = render(
@@ -101,7 +101,7 @@ describe('SnapshotSummary', () => {
     it('hides the edit view if a asset exists', () => {
       const snapshot = {
         vulnerabilities: [],
-        assets: [{ name: 'a1' }]
+        assets: [{ name: 'a1', data: [] }]
       };
       const { container, getByText } = render(
         <SnapshotSummary initialSnapshot={snapshot} resources={resources} />
