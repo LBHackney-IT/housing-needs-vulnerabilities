@@ -8,7 +8,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "" }]
+        "textinputs": [{ "type": "other", "label": "Other assets" }]
       }
     ],
     "vulnerabilities": [
@@ -20,7 +20,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "" }]
+        "textinputs": [{ "type": "other", "label": "Other vulnerabilities" }]
       }
     ]
   },
@@ -33,7 +33,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "" }]
+        "textinputs": [{ "type": "other", "label": "Other assets" }]
       }
     ],
     "vulnerabilities": [
@@ -48,7 +48,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "" }]
+        "textinputs": [{ "type": "other", "label": "Other vulnerabilities" }]
       }
     ]
   },
@@ -61,7 +61,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "" }]
+        "textinputs": [{ "type": "other", "label": "Other assets" }]
       }
     ],
     "vulnerabilities": [
@@ -76,7 +76,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "" }]
+        "textinputs": [{ "type": "other", "label": "Other vulnerabilities" }]
       }
     ]
   },
@@ -86,7 +86,7 @@
     "assets": [
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "" }]
+        "textinputs": [{ "type": "other", "label": "Other assets" }]
       }
     ],
     "vulnerabilities": [
@@ -121,7 +121,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "" }]
+        "textinputs": [{ "type": "other", "label": "Other vulnerabilities" }]
       }
     ]
   },
@@ -137,7 +137,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "" }]
+        "textinputs": [{ "type": "other", "label": "Other assets" }]
       }
     ],
     "vulnerabilities": [
@@ -149,7 +149,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "" }]
+        "textinputs": [{ "type": "other", "label": "Other vulnerabilities" }]
       }
     ]
   },
@@ -165,7 +165,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "" }]
+        "textinputs": [{ "type": "other", "label": "Other assets" }]
       }
     ],
     "vulnerabilities": [
@@ -186,7 +186,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "" }]
+        "textinputs": [{ "type": "other", "label": "Other vulnerabilities" }]
       }
     ]
   },
@@ -196,7 +196,7 @@
     "assets": [
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "" }]
+        "textinputs": [{ "type": "other", "label": "Other assets" }]
       }
     ],
     "vulnerabilities": [
@@ -220,7 +220,7 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "" }]
+        "textinputs": [{ "type": "other", "label": "Other vulnerabilities" }]
       }
     ]
   }
