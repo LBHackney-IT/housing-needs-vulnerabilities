@@ -191,7 +191,6 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
                                     gridType: 'vulnerabilities'
                                   })
                                 }
-                                aria={`${inputId}-aria`}
                               />
                             );
                           })}
