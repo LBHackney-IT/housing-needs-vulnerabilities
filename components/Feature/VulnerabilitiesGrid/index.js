@@ -153,6 +153,7 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
                   {vulnerabilities.map(({ label, textinputs }) => {
                     const cbId = `${id}-v-${labelToId(label)}`;
                     const cbLabel = label;
+
                     return (
                       <React.Fragment key={cbId}>
                         <Checkbox
@@ -165,32 +166,33 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
                               value: label
                             })
                           }
+                          aria-expanded={
+                            textinputs
+                              ? selectedVulnerabilities
+                              : undefined
+                          }
                         />
                         {textinputs &&
                           grid.vulnerabilities[cbId] &&
                           textinputs.map(({ label, type }) => {
                             const inputId = `${cbId}-${labelToId(label)}-i`;
                             return (
-                              <React.Fragment key={inputId}>
-                                <p id={`${inputId}-aria`} hidden>
-                                  This is a text input for {cbLabel}: {label}
-                                </p>
-                                <TextInput
-                                  name={inputId}
-                                  label={label}
-                                  onChange={value =>
-                                    updateTextData({
-                                      key: inputId,
-                                      value,
-                                      label,
-                                      parentKey: cbId,
-                                      inputType: type,
-                                      gridType: 'vulnerabilities'
-                                    })
-                                  }
-                                  aria={`${inputId}-aria`}
-                                />
-                              </React.Fragment>
+                              <TextInput
+                                key={inputId}
+                                name={inputId}
+                                label={label}
+                                onChange={value =>
+                                  updateTextData({
+                                    key: inputId,
+                                    value,
+                                    label,
+                                    parentKey: cbId,
+                                    inputType: type,
+                                    gridType: 'vulnerabilities'
+                                  })
+                                }
+                                aria={`${inputId}-aria`}
+                              />
                             );
                           })}
                       </React.Fragment>
@@ -213,6 +215,11 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
                               key: cbId,
                               value: label
                             })
+                          }
+                          aria-expanded={
+                            textinputs
+                              ? selectedAssets
+                              : undefined
                           }
                         />
                         {textinputs &&
