@@ -50,16 +50,12 @@ context('Edit snapshot', () => {
 
     it('Adds vulnerabilities, assets and notes', () => {
       cy.visit(`/snapshots/1`);
-      cy.get('[data-testid=accordion-item]')
-        .eq(0)
-        .click();
+      cy.get('[data-testid=accordion-item]').eq(0);
       cy.get(
         '[data-testid=financial-stability-v-rent-arrears-checkbox]'
       ).click();
 
-      cy.get('[data-testid=accordion-item]')
-        .eq(4)
-        .click();
+      cy.get('[data-testid=accordion-item]').eq(4);
       cy.get(
         '[data-testid=behaviour-and-engagement-a-organised-and-or-engaged-checkbox]'
       ).click();
@@ -136,6 +132,32 @@ context('Edit snapshot', () => {
         .and('contain', 'Service: sample')
         .and('contain', 'Contact name: wubwub')
         .and('contain', 'Phone number: 0700000000000');
+    });
+
+    it('Adds text input values to the Other vulnerabilities and Other assets', () => {
+      const otherVulnerabilityInputSelector =
+        'financial-stability-v-other-other-vulnerabilities-i';
+      const otherAssetInputSelector =
+        'financial-stability-a-other-other-assets-i';
+      cy.visit(`/snapshots/1`);
+      cy.get('[data-testid=accordion-item]')
+        .eq(0)
+        .click();
+      cy.get('[data-testid=financial-stability-v-other-checkbox]').click();
+      cy.get(`#${otherVulnerabilityInputSelector}`).type('new vulnerability');
+      cy.get('[data-testid=accordion-item]')
+        .eq(0)
+        .click();
+      cy.get('[data-testid=financial-stability-a-other-checkbox]').click();
+      cy.get(`#${otherAssetInputSelector}`).type('new asset');
+
+      cy.get('[data-testid=finish-and-save-button]').click();
+      cy.get('[data-testid=vulnerabilities-summary]')
+        .should('contain', 'Vulnerabilities')
+        .and('contain', 'new vulnerability');
+      cy.get('[data-testid=assets-summary]')
+        .should('contain', 'Assets')
+        .and('contain', 'new asset');
     });
   });
 
