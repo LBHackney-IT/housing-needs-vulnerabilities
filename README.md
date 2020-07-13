@@ -50,3 +50,21 @@ Infrastructure and code are deployed to AWS using Serverless.
 ### Automated deployments
 Merging into `master` triggers an automated deployment into the staging environment.
 To promote this to production you will need to manually approve the deployment in CircleCI.
+
+## Pages and API endpoints
+Login is handled by Single View, so long as the Hackney token cookie is set users will be signed in here too.
+
+### GET /api/snapshots/{id}
+Retrieves a vulnerabilities snapshot, given a snapshot id.
+
+### POST /api/snapshots/find
+Used by Single View to find snapshots related to a particular person given their name, an optionally an array of identifiers.
+
+### POST /api/snapshots
+Creates a new, empty, vulnerabilities snapshot for a specified person.
+
+### /loggedout
+The page displayed when a user is logged out.
+
+### /snapshots/{id}
+Displays a vulnerability snapshot, if there is no data saved this will display the edit view - else it displays a readonly view of the snapshot.
