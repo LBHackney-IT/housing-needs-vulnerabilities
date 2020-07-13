@@ -58,7 +58,7 @@ Login is handled by Single View, so long as the Hackney token cookie is set user
 Retrieves a vulnerabilities snapshot, given a snapshot id.
 
 ### POST /api/snapshots/find
-Used by Single View to find snapshots related to a particular person given their name, an optionally an array of identifiers.
+Used by other applications (such as Single View) to find snapshots related to a particular person given their name, an optionally an array of identifiers.
 
 ### POST /api/snapshots
 Creates a new, empty, vulnerabilities snapshot for a specified person.
