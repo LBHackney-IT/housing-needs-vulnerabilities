@@ -8,7 +8,13 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "Other assets" }]
+        "arialabel": "Other assets",
+        "textinputs": [
+          {
+            "type": "other",
+            "label": "Other assets"
+          }
+        ]
       }
     ],
     "vulnerabilities": [
@@ -20,7 +26,13 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "Other vulnerabilities" }]
+        "arialabel": "Other vulnerabilities",
+        "textinputs": [
+          {
+            "type": "other",
+            "label": "Other vulnerabilities"
+          }
+        ]
       }
     ]
   },
@@ -33,7 +45,13 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "Other assets" }]
+        "arialabel": "Other assets",
+        "textinputs": [
+          {
+            "type": "other",
+            "label": "Other assets"
+          }
+        ]
       }
     ],
     "vulnerabilities": [
@@ -48,7 +66,13 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "Other vulnerabilities" }]
+        "arialabel": "Other vulnerabilities",
+        "textinputs": [
+          {
+            "type": "other",
+            "label": "Other vulnerabilities"
+          }
+        ]
       }
     ]
   },
@@ -61,7 +85,13 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "Other assets" }]
+        "arialabel": "Other assets",
+        "textinputs": [
+          {
+            "type": "other",
+            "label": "Other assets"
+          }
+        ]
       }
     ],
     "vulnerabilities": [
@@ -76,7 +106,13 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "Other vulnerabilities" }]
+        "arialabel": "Other vulnerabilities",
+        "textinputs": [
+          {
+            "type": "other",
+            "label": "Other vulnerabilities"
+          }
+        ]
       }
     ]
   },
@@ -86,7 +122,13 @@
     "assets": [
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "Other assets" }]
+        "arialabel": "Other assets",
+        "textinputs": [
+          {
+            "type": "other",
+            "label": "Other assets"
+          }
+        ]
       }
     ],
     "vulnerabilities": [
@@ -121,7 +163,13 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "Other vulnerabilities" }]
+        "arialabel": "Other vulnerabilities",
+        "textinputs": [
+          {
+            "type": "other",
+            "label": "Other vulnerabilities"
+          }
+        ]
       }
     ]
   },
@@ -137,7 +185,13 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "Other assets" }]
+        "arialabel": "Other assets",
+        "textinputs": [
+          {
+            "type": "other",
+            "label": "Other assets"
+          }
+        ]
       }
     ],
     "vulnerabilities": [
@@ -149,7 +203,13 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "Other vulnerabilities" }]
+        "arialabel": "Other vulnerabilities",
+        "textinputs": [
+          {
+            "type": "other",
+            "label": "Other vulnerabilities"
+          }
+        ]
       }
     ]
   },
@@ -165,7 +225,13 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "Other assets" }]
+        "arialabel": "Other assets",
+        "textinputs": [
+          {
+            "type": "other",
+            "label": "Other assets"
+          }
+        ]
       }
     ],
     "vulnerabilities": [
@@ -186,7 +252,13 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "Other vulnerabilities" }]
+        "arialabel": "Other vulnerabilities",
+        "textinputs": [
+          {
+            "type": "other",
+            "label": "Other vulnerabilities"
+          }
+        ]
       }
     ]
   },
@@ -196,7 +268,13 @@
     "assets": [
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "Other assets" }]
+        "arialabel": "Other assets",
+        "textinputs": [
+          {
+            "type": "other",
+            "label": "Other assets"
+          }
+        ]
       }
     ],
     "vulnerabilities": [
@@ -220,7 +298,13 @@
       },
       {
         "label": "Other",
-        "textinputs": [{ "type": "other", "label": "Other vulnerabilities" }]
+        "arialabel": "Other vulnerabilities",
+        "textinputs": [
+          {
+            "type": "other",
+            "label": "Other vulnerabilities"
+          }
+        ]
       }
     ]
   }

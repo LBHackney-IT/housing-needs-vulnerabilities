@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 
 const TextInput = ({
+  autoComplete,
   label,
   name,
   onChange,
   validate,
-  value,
-  autoComplete,
-  aria
+  value
 }) => {
   const [hasError, setHasError] = useState(false);
 
@@ -35,6 +34,7 @@ const TextInput = ({
         </span>
       )}
       <input
+        aria-describedby={hasError ? `${name}-error` : undefined}
         className={`govuk-input${hasError ? ' govuk-input--error' : ''}`}
         id={name}
         name={name}
@@ -42,7 +42,6 @@ const TextInput = ({
         autoComplete={autoComplete}
         onChange={updateValue}
         value={value}
-        aria-describedby={hasError ? `${name}-error` : aria}
       />
     </div>
   );

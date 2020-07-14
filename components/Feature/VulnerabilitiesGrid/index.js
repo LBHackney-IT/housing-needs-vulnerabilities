@@ -14,14 +14,12 @@ function createLookup() {
 
   groups.forEach(group => {
     const { name, assets, vulnerabilities } = group;
-    const values = new Set();
-
-    assets
-      .concat(vulnerabilities)
-      .map(item => item.label)
-      .concat(group.name)
-      .forEach(value => values.add(value));
-
+    const values = new Set(
+      assets
+        .concat(vulnerabilities)
+        .map(item => item.label)
+        .concat(group.name)
+    );
     lookup.set(name, values);
   });
 
@@ -133,27 +131,25 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
   return (
     <Accordion title="Things to explore with the resident">
       {groups.map(({ id, name, assets, vulnerabilities }) => {
-        const selectedVulnerabilities = Object.keys(
+        const hasSelectedVulnerabilities = Object.keys(
           grid.vulnerabilities
-        ).some(key => key.includes(id));
-        const selectedAssets = Object.keys(grid.assets).some(key =>
-          key.includes(id)
+        ).some(key => key.startsWith(id));
+        const hasSelectedAssets = Object.keys(grid.assets).some(key =>
+          key.startsWith(id)
         );
         return (
           <AccordionItem
             key={id}
             id={id}
             heading={name}
-            selectedVulnerabilities={selectedVulnerabilities}
-            selectedAssets={selectedAssets}
+            hasSelectedVulnerabilities={hasSelectedVulnerabilities}
+            hasSelectedAssets={hasSelectedAssets}
           >
             <div className="govuk-grid-row">
               <div className="govuk-grid-column-one-third">
                 <CheckboxList className="vulnerability">
-                  {vulnerabilities.map(({ label, textinputs }) => {
+                  {vulnerabilities.map(({ arialabel, label, textinputs }) => {
                     const cbId = `${id}-v-${labelToId(label)}`;
-                    const cbLabel = label;
-
                     return (
                       <React.Fragment key={cbId}>
                         <Checkbox
@@ -166,34 +162,40 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
                               value: label
                             })
                           }
+                          aria-label={arialabel}
                           aria-expanded={
                             textinputs
-                              ? selectedVulnerabilities
+                              ? grid.vulnerabilities[cbId]
+                                ? 'true'
+                                : 'false'
                               : undefined
                           }
                         />
-                        {textinputs &&
-                          grid.vulnerabilities[cbId] &&
-                          textinputs.map(({ label, type }) => {
-                            const inputId = `${cbId}-${labelToId(label)}-i`;
-                            return (
-                              <TextInput
-                                key={inputId}
-                                name={inputId}
-                                label={label}
-                                onChange={value =>
-                                  updateTextData({
-                                    key: inputId,
-                                    value,
-                                    label,
-                                    parentKey: cbId,
-                                    inputType: type,
-                                    gridType: 'vulnerabilities'
-                                  })
-                                }
-                              />
-                            );
-                          })}
+                        {textinputs && (
+                          <div aria-live="polite">
+                            {grid.vulnerabilities[cbId] &&
+                              textinputs.map(({ label, type }) => {
+                                const inputId = `${cbId}-${labelToId(label)}-i`;
+                                return (
+                                  <TextInput
+                                    key={inputId}
+                                    name={inputId}
+                                    label={label}
+                                    onChange={value =>
+                                      updateTextData({
+                                        key: inputId,
+                                        value,
+                                        label,
+                                        parentKey: cbId,
+                                        inputType: type,
+                                        gridType: 'vulnerabilities'
+                                      })
+                                    }
+                                  />
+                                );
+                              })}
+                          </div>
+                        )}
                       </React.Fragment>
                     );
                   })}
@@ -201,7 +203,7 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
               </div>
               <div className="govuk-grid-column-one-third">
                 <CheckboxList className="asset">
-                  {assets.map(({ label, textinputs }) => {
+                  {assets.map(({ arialabel, label, textinputs }) => {
                     const cbId = `${id}-a-${labelToId(label)}`;
                     return (
                       <React.Fragment key={cbId}>
@@ -215,34 +217,40 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
                               value: label
                             })
                           }
+                          aria-label={arialabel}
                           aria-expanded={
                             textinputs
-                              ? selectedAssets
+                              ? grid.assets[cbId]
+                                ? 'true'
+                                : 'false'
                               : undefined
                           }
                         />
-                        {textinputs &&
-                          grid.assets[cbId] &&
-                          textinputs.map(({ label, type }) => {
-                            const inputId = `${cbId}-${labelToId(label)}-i`;
-                            return (
-                              <TextInput
-                                name={inputId}
-                                key={inputId}
-                                label={label}
-                                onChange={value =>
-                                  updateTextData({
-                                    key: inputId,
-                                    value,
-                                    label,
-                                    parentKey: cbId,
-                                    inputType: type,
-                                    gridType: 'assets'
-                                  })
-                                }
-                              />
-                            );
-                          })}
+                        {textinputs && (
+                          <div aria-live="polite">
+                            {grid.assets[cbId] &&
+                              textinputs.map(({ label, type }) => {
+                                const inputId = `${cbId}-${labelToId(label)}-i`;
+                                return (
+                                  <TextInput
+                                    name={inputId}
+                                    key={inputId}
+                                    label={label}
+                                    onChange={value =>
+                                      updateTextData({
+                                        key: inputId,
+                                        value,
+                                        label,
+                                        parentKey: cbId,
+                                        inputType: type,
+                                        gridType: 'assets'
+                                      })
+                                    }
+                                  />
+                                );
+                              })}
+                          </div>
+                        )}
                       </React.Fragment>
                     );
                   })}
