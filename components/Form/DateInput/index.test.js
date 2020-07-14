@@ -117,21 +117,42 @@ describe('DateInput', () => {
 
   it('shows an error message if validation is required and date is invalid', () => {
     const { container, getByLabelText } = render(
-      <DateInput name={inputName} validate={true} onChange={() => {}} day={99} month={10} year={2021} />
+      <DateInput
+        name={inputName}
+        validate={true}
+        onChange={() => {}}
+        day={99}
+        month={10}
+        year={2021}
+      />
     );
     expect(container.querySelector('.govuk-error-message')).toBeInTheDocument();
   });
 
   it('shows an error message if validation is required and date is in the past', () => {
     const { container, getByLabelText } = render(
-      <DateInput name={inputName} validate={true} onChange={() => {}} day={10} month={10} year={1999}/>
+      <DateInput
+        name={inputName}
+        validate={true}
+        onChange={() => {}}
+        day={10}
+        month={10}
+        year={1999}
+      />
     );
     expect(container.querySelector('.govuk-error-message')).toBeInTheDocument();
   });
 
   it('does not show an error message if validation is required and date is all good', () => {
     const { container, getByLabelText } = render(
-      <DateInput name={inputName} validate={true} onChange={() => {}} day={10} month={10} year={2030} />
+      <DateInput
+        name={inputName}
+        validate={true}
+        onChange={() => {}}
+        day={10}
+        month={10}
+        year={2030}
+      />
     );
 
     expect(

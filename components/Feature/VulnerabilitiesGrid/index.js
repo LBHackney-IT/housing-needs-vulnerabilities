@@ -105,10 +105,7 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
   const updateGrid = patch => setGrid(grid => ({ ...grid, ...patch }));
 
   const labelToId = label =>
-    label
-      .replace(/ /g, '-')
-      .replace(/\//g, '-')
-      .toLowerCase();
+    label.replace(/ /g, '-').replace(/\//g, '-').toLowerCase();
 
   const filterResources = groupName => {
     const group = groupItems.get(groupName);

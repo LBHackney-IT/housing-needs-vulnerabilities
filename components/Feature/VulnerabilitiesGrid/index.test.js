@@ -107,7 +107,9 @@ describe('VulnerabilitiesGrid', () => {
     );
 
     fireEvent.change(
-      container.querySelector('#financial-stability-v-other-other-vulnerabilities-i'),
+      container.querySelector(
+        '#financial-stability-v-other-other-vulnerabilities-i'
+      ),
       {
         target: { value: 'some text' }
       }
