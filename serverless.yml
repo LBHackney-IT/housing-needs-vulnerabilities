@@ -29,13 +29,11 @@ functions:
     handler: router/lambda.handler
     package:
       include:
-        - router/**
-        - next.config.js
-        - lib/**
-        - pages/**
-        - public/**
         - build/_next/**
+        - next.config.js
         - node_modules/**
+        - public/**
+        - router/**
     events:
       - http:
           path: api/{proxy+}
