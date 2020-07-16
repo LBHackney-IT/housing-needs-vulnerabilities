@@ -4,8 +4,8 @@ const AccordionItem = ({
   children,
   heading,
   id,
-  selectedVulnerabilities,
-  selectedAssets
+  hasSelectedVulnerabilities,
+  hasSelectedAssets
 }) => (
   <div className="govuk-accordion__section" data-testid="accordion-item">
     <div
@@ -15,8 +15,10 @@ const AccordionItem = ({
         <span className="govuk-accordion__section-button" id={id}>
           {heading}
         </span>
-        {selectedAssets && <span className={`${styles['assets-dot']}`}></span>}
-        {selectedVulnerabilities && (
+        {hasSelectedAssets && (
+          <span className={`${styles['assets-dot']}`}></span>
+        )}
+        {hasSelectedVulnerabilities && (
           <span
             hidden={true}
             className={`${styles['vulnerabilities-dot']}`}

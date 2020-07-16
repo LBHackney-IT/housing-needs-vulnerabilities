@@ -36,10 +36,7 @@
       ],
       "Projection": {
         "ProjectionType": "INCLUDE",
-        "NonKeyAttributes": [
-          "id",
-          "systemIds"
-        ]
+        "NonKeyAttributes": ["id", "systemIds"]
       },
       "ProvisionedThroughput": {
         "ReadCapacityUnits": 1,

@@ -18,7 +18,7 @@ server.all('/favicon.ico', (req, res) => nextRequestHandler(req, res)); // favic
 
 const authoriseHandler = (req, res, next) => {
   const isAuthenticated = checkAuth.execute({
-    token: req.cookies.hackneyToken,
+    token: req.cookies.hackneyToken
   });
   if (!isAuthenticated && req.url !== '/loggedout') {
     res.writeHead(302, { Location: '/loggedout' });
@@ -35,7 +35,7 @@ server.all(
 );
 
 if (process.env.ENV === 'dev') {
-  server.start(3000).then((s) => {});
+  server.start(3000).then(s => {});
 } else {
   module.exports.handler = require('serverless-http')(server);
 }
