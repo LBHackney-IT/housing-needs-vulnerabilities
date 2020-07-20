@@ -15,8 +15,8 @@ const AccordionItem = ({
       <div
         className={`govuk-accordion__section-header ${styles['lbh-accordion__section-header']}`}
         onClick={() => {
+          onClick(!expanded);
           setExpanded(!expanded);
-          onClick(expanded);
         }}
       >
         <h3 className="govuk-accordion__section-heading">
@@ -33,9 +33,9 @@ const AccordionItem = ({
             ></span>
           )}
         </h3>
-        <div className="govuk-accordion__section-content" aria-labelledby={id}>
-          {children}
-        </div>
+      </div>
+      <div className="govuk-accordion__section-content" aria-labelledby={id}>
+        {children}
       </div>
     </div>
   );

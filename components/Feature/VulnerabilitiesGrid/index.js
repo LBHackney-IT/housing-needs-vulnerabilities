@@ -20,10 +20,11 @@ function createLookup() {
         .map(item => item.label)
         .concat(group.name)
     );
+    values.expandedAccordion = false;
+
     lookup.set(name, values);
   });
 
-  // console.log(lookup);
   return lookup;
 }
 
@@ -34,7 +35,7 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
     data: {}
   });
   const groupItems = useMemo(() => createLookup());
-  const [expandedGroups, updateExpandedGroups] = useState({});
+  const [expandedGroups, setExpandedGroups] = useState({});
 
   const addItem = ({ obj, key, value }) => {
     return {
@@ -130,8 +131,6 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
     });
   };
 
-  const hi = () => alert('HI');
-
   return (
     <>
       <div className="govuk-grid-column-two-thirds">
@@ -151,9 +150,7 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
                 hasSelectedVulnerabilities={hasSelectedVulnerabilities}
                 hasSelectedAssets={hasSelectedAssets}
                 onClick={expanded =>
-                  updateExpandedGroups({
-                    [id]: expanded
-                  })
+                  setExpandedGroups({ ...expandedGroups, [id]: expanded })
                 }
               >
                 <div className="govuk-grid-row">
@@ -281,10 +278,9 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
       </div>
 
       <div className="govuk-grid-column-one-third">
-        {groups.map(({ id, name, assets, vulnerabilities }) => {
-          console.log(groupItems);
+        {groups.map(({ id, name }) => {
           return (
-            <div>
+            <div key={`${id}-resources`}>
               {expandedGroups[id] &&
                 filterResources(name).map(resource => {
                   return (
