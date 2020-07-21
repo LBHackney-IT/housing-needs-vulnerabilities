@@ -20,7 +20,6 @@ function createLookup() {
         .map(item => item.label)
         .concat(group.name)
     );
-    values.expandedAccordion = false;
 
     lookup.set(name, values);
   });
@@ -28,14 +27,18 @@ function createLookup() {
   return lookup;
 }
 
-const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
+const VulnerabilitiesGrid = ({
+  resources,
+  onUpdate,
+  initialExpandedGroups = {}
+}) => {
   const [grid, setGrid] = useState({
     assets: {},
     vulnerabilities: {},
     data: {}
   });
   const groupItems = useMemo(() => createLookup());
-  const [expandedGroups, setExpandedGroups] = useState({});
+  const [expandedGroups, setExpandedGroups] = useState(initialExpandedGroups);
 
   const addItem = ({ obj, key, value }) => {
     return {

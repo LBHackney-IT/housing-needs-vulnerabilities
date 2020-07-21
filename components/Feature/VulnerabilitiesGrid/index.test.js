@@ -259,7 +259,11 @@ describe('VulnerabilitiesGrid', () => {
       ];
 
       const { getByLabelText, queryByTestId } = render(
-        <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources} />
+        <VulnerabilitiesGrid
+          onUpdate={jest.fn()}
+          resources={resources}
+          initialExpandedGroups={{ 'relationships-and-support-network': true }}
+        />
       );
 
       expect(queryByTestId('resource-hq')).not.toBeInTheDocument();
@@ -282,12 +286,42 @@ describe('VulnerabilitiesGrid', () => {
     ];
 
     const { getByLabelText, queryByTestId } = render(
-      <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources} />
+      <VulnerabilitiesGrid
+        onUpdate={jest.fn()}
+        resources={resources}
+        initialExpandedGroups={{ 'financial-stability': true }}
+      />
     );
 
     expect(queryByTestId('resource-hs')).not.toBeInTheDocument();
 
     act(() => getByLabelText('Rent arrears').click());
     expect(queryByTestId('resource-hs')).toBeInTheDocument();
+  });
+
+  it('does not show a resource if accordion is collapsed', () => {
+    const resources = [
+      {
+        id: 'hs',
+        name: 'Hackney Shine',
+        description:
+          'We offer free online and over the phone advice service to ...',
+        websites: ['https://hackney.gov.uk/shine'],
+        tags: ['Financial stability']
+      }
+    ];
+
+    const { getByLabelText, queryByTestId } = render(
+      <VulnerabilitiesGrid
+        onUpdate={jest.fn()}
+        resources={resources}
+        initialExpandedGroups={{ 'financial-stability': false }}
+      />
+    );
+
+    expect(queryByTestId('resource-hs')).not.toBeInTheDocument();
+
+    act(() => getByLabelText('Rent arrears').click());
+    expect(queryByTestId('resource-hs')).not.toBeInTheDocument();
   });
 });
