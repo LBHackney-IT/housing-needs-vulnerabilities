@@ -150,7 +150,7 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
       <div className="govuk-grid-column-two-thirds">
         <Accordion
           title="Things to explore with the resident"
-          onClick={() => {
+          handleExpanded={() => {
             setAllExpandedGroups();
           }}
         >
