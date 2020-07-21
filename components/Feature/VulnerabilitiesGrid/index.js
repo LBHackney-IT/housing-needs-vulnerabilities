@@ -27,18 +27,14 @@ function createLookup() {
   return lookup;
 }
 
-const VulnerabilitiesGrid = ({
-  resources,
-  onUpdate,
-  initialExpandedGroups = {}
-}) => {
+const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
   const [grid, setGrid] = useState({
     assets: {},
     vulnerabilities: {},
     data: {}
   });
   const groupItems = useMemo(() => createLookup());
-  const [expandedGroups, setExpandedGroups] = useState(initialExpandedGroups);
+  const [expandedGroups, setExpandedGroups] = useState({});
 
   const addItem = ({ obj, key, value }) => {
     return {
