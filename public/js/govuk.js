@@ -917,7 +917,8 @@ Accordion.prototype.onOpenOrCloseAllToggle = function () {
   nodeListForEach($sections, function ($section) {
     $module.setExpanded(nowExpanded, $section);
     // Store the state in sessionStorage when a change is triggered
-    $module.storeState($section);
+    // @kosiakkatrina: accordion state not required
+    //$module.storeState($section);
   });
 
   $module.updateOpenAllButton(nowExpanded);

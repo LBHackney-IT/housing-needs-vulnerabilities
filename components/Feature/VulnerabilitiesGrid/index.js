@@ -134,10 +134,30 @@ const VulnerabilitiesGrid = ({
     });
   };
 
+  const setAllExpandedGroups = () => {
+    let expandedGroupsState = false;
+    let values = {};
+    groups.forEach(({ id }) => {
+      if (!expandedGroups[id] || expandedGroups[id] === false) {
+        expandedGroupsState = true;
+        return;
+      }
+    });
+    groups.forEach(({ id }) => {
+      values = Object.assign(values, { [id]: expandedGroupsState });
+    });
+    setExpandedGroups(values);
+  };
+
   return (
     <>
       <div className="govuk-grid-column-two-thirds">
-        <Accordion title="Things to explore with the resident">
+        <Accordion
+          title="Things to explore with the resident"
+          onClick={() => {
+            setAllExpandedGroups();
+          }}
+        >
           {groups.map(({ id, name, assets, vulnerabilities }) => {
             const hasSelectedVulnerabilities = Object.keys(
               grid.vulnerabilities
