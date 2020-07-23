@@ -131,18 +131,16 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
   };
 
   const setAllExpandedGroups = () => {
-    let expandedGroupsState = false;
-    let values = {};
-    groups.forEach(({ id }) => {
-      if (!expandedGroups[id] || expandedGroups[id] === false) {
-        expandedGroupsState = true;
-        return;
-      }
-    });
-    groups.forEach(({ id }) => {
-      values = Object.assign(values, { [id]: expandedGroupsState });
-    });
-    setExpandedGroups(values);
+    const expanded = Object.values(expandedGroups);
+    const allExpanded =
+      expanded.every(Boolean) && expanded.length === groups.length;
+
+    setExpandedGroups(
+      groups.reduce((acc, curr) => {
+        acc[curr.id] = !allExpanded;
+        return acc;
+      }, {})
+    );
   };
 
   return (
@@ -169,7 +167,13 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
                 hasSelectedVulnerabilities={hasSelectedVulnerabilities}
                 hasSelectedAssets={hasSelectedAssets}
                 onClick={expanded =>
-                  setExpandedGroups({ ...expandedGroups, [id]: expanded })
+                  setExpandedGroups({
+                    ...expandedGroups,
+                    [id]:
+                      expandedGroups[id] !== undefined
+                        ? !expandedGroups[id]
+                        : expanded
+                  })
                 }
               >
                 <div className="govuk-grid-row">
