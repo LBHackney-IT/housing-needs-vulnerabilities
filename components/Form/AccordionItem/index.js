@@ -18,6 +18,7 @@ const AccordionItem = ({
           onClick(!expanded);
           setExpanded(!expanded);
         }}
+        data-testid={id}
       >
         <h3 className="govuk-accordion__section-heading">
           <span className="govuk-accordion__section-button" id={id}>
