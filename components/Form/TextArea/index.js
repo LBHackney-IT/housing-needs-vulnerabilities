@@ -4,7 +4,7 @@ const TextArea = ({ label, name, onChange, value }) => {
   };
   return (
     <div className="govuk-form-group" data-testid={name}>
-      <label className="govuk-label" htmlFor={`${name}`}>
+      <label className="govuk-label govuk-grid-column-full" htmlFor={`${name}`}>
         {label}
       </label>
       <textarea

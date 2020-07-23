@@ -20,6 +20,7 @@ function createLookup() {
         .map(item => item.label)
         .concat(group.name)
     );
+
     lookup.set(name, values);
   });
 
@@ -33,6 +34,7 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
     data: {}
   });
   const groupItems = useMemo(() => createLookup());
+  const [expandedGroups, setExpandedGroups] = useState({});
 
   const addItem = ({ obj, key, value }) => {
     return {
@@ -105,7 +107,10 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
   const updateGrid = patch => setGrid(grid => ({ ...grid, ...patch }));
 
   const labelToId = label =>
-    label.replace(/ /g, '-').replace(/\//g, '-').toLowerCase();
+    label
+      .replace(/ /g, '-')
+      .replace(/\//g, '-')
+      .toLowerCase();
 
   const filterResources = groupName => {
     const group = groupItems.get(groupName);
@@ -125,148 +130,195 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
     });
   };
 
+  const setAllExpandedGroups = () => {
+    const expanded = Object.values(expandedGroups);
+    const allExpanded =
+      expanded.every(Boolean) && expanded.length === groups.length;
+
+    setExpandedGroups(
+      groups.reduce((acc, curr) => {
+        acc[curr.id] = !allExpanded;
+        return acc;
+      }, {})
+    );
+  };
+
   return (
-    <Accordion title="Things to explore with the resident">
-      {groups.map(({ id, name, assets, vulnerabilities }) => {
-        const hasSelectedVulnerabilities = Object.keys(
-          grid.vulnerabilities
-        ).some(key => key.startsWith(id));
-        const hasSelectedAssets = Object.keys(grid.assets).some(key =>
-          key.startsWith(id)
-        );
-        return (
-          <AccordionItem
-            key={id}
-            id={id}
-            heading={name}
-            hasSelectedVulnerabilities={hasSelectedVulnerabilities}
-            hasSelectedAssets={hasSelectedAssets}
-          >
-            <div className="govuk-grid-row">
-              <div className="govuk-grid-column-one-third">
-                <CheckboxList className="vulnerability">
-                  {vulnerabilities.map(({ arialabel, label, textinputs }) => {
-                    const cbId = `${id}-v-${labelToId(label)}`;
-                    return (
-                      <React.Fragment key={cbId}>
-                        <Checkbox
-                          label={label}
-                          name={cbId}
-                          onClick={() =>
-                            updateSelectedCheckboxes({
-                              gridType: 'vulnerabilities',
-                              key: cbId,
-                              value: label
-                            })
-                          }
-                          aria-label={arialabel}
-                          aria-expanded={
-                            textinputs
-                              ? grid.vulnerabilities[cbId]
-                                ? 'true'
-                                : 'false'
-                              : undefined
-                          }
-                        />
-                        {textinputs && (
-                          <div aria-live="polite">
-                            {grid.vulnerabilities[cbId] &&
-                              textinputs.map(({ label, type }) => {
-                                const inputId = `${cbId}-${labelToId(label)}-i`;
-                                return (
-                                  <TextInput
-                                    key={inputId}
-                                    name={inputId}
-                                    label={label}
-                                    onChange={value =>
-                                      updateTextData({
-                                        key: inputId,
-                                        value,
-                                        label,
-                                        parentKey: cbId,
-                                        inputType: type,
-                                        gridType: 'vulnerabilities'
-                                      })
-                                    }
-                                  />
-                                );
-                              })}
-                          </div>
-                        )}
-                      </React.Fragment>
-                    );
-                  })}
-                </CheckboxList>
-              </div>
-              <div className="govuk-grid-column-one-third">
-                <CheckboxList className="asset">
-                  {assets.map(({ arialabel, label, textinputs }) => {
-                    const cbId = `${id}-a-${labelToId(label)}`;
-                    return (
-                      <React.Fragment key={cbId}>
-                        <Checkbox
-                          label={label}
-                          name={cbId}
-                          onClick={() =>
-                            updateSelectedCheckboxes({
-                              gridType: 'assets',
-                              key: cbId,
-                              value: label
-                            })
-                          }
-                          aria-label={arialabel}
-                          aria-expanded={
-                            textinputs
-                              ? grid.assets[cbId]
-                                ? 'true'
-                                : 'false'
-                              : undefined
-                          }
-                        />
-                        {textinputs && (
-                          <div aria-live="polite">
-                            {grid.assets[cbId] &&
-                              textinputs.map(({ label, type }) => {
-                                const inputId = `${cbId}-${labelToId(label)}-i`;
-                                return (
-                                  <TextInput
-                                    name={inputId}
-                                    key={inputId}
-                                    label={label}
-                                    onChange={value =>
-                                      updateTextData({
-                                        key: inputId,
-                                        value,
-                                        label,
-                                        parentKey: cbId,
-                                        inputType: type,
-                                        gridType: 'assets'
-                                      })
-                                    }
-                                  />
-                                );
-                              })}
-                          </div>
-                        )}
-                      </React.Fragment>
-                    );
-                  })}
-                </CheckboxList>
-              </div>
-              <div className="govuk-grid-column-one-third">
-                {filterResources(name).map(resource => (
-                  <ResourceCard
-                    key={resource.id}
-                    data-testid={`resource-${resource.id}`}
-                    {...resource}
-                  />
-                ))}
-              </div>
+    <>
+      <div className="govuk-grid-column-two-thirds">
+        <Accordion
+          title="Things to explore with the resident"
+          handleExpanded={() => {
+            setAllExpandedGroups();
+          }}
+        >
+          {groups.map(({ id, name, assets, vulnerabilities }) => {
+            const hasSelectedVulnerabilities = Object.keys(
+              grid.vulnerabilities
+            ).some(key => key.startsWith(id));
+            const hasSelectedAssets = Object.keys(grid.assets).some(key =>
+              key.startsWith(id)
+            );
+            return (
+              <AccordionItem
+                key={id}
+                id={id}
+                heading={name}
+                hasSelectedVulnerabilities={hasSelectedVulnerabilities}
+                hasSelectedAssets={hasSelectedAssets}
+                onClick={expanded =>
+                  setExpandedGroups({
+                    ...expandedGroups,
+                    [id]:
+                      expandedGroups[id] !== undefined
+                        ? !expandedGroups[id]
+                        : expanded
+                  })
+                }
+              >
+                <div className="govuk-grid-row">
+                  <div className="govuk-grid-column-one-half">
+                    <CheckboxList className="vulnerability">
+                      {vulnerabilities.map(
+                        ({ arialabel, label, textinputs }) => {
+                          const cbId = `${id}-v-${labelToId(label)}`;
+                          return (
+                            <React.Fragment key={cbId}>
+                              <Checkbox
+                                label={label}
+                                name={cbId}
+                                onClick={() =>
+                                  updateSelectedCheckboxes({
+                                    gridType: 'vulnerabilities',
+                                    key: cbId,
+                                    value: label
+                                  })
+                                }
+                                aria-label={arialabel}
+                                aria-expanded={
+                                  textinputs
+                                    ? grid.vulnerabilities[cbId]
+                                      ? 'true'
+                                      : 'false'
+                                    : undefined
+                                }
+                              />
+                              {textinputs && grid.vulnerabilities[cbId] && (
+                                <div aria-live="polite">
+                                  {textinputs.map(({ label, type }) => {
+                                    const inputId = `${cbId}-${labelToId(
+                                      label
+                                    )}-i`;
+                                    return (
+                                      <TextInput
+                                        key={inputId}
+                                        name={inputId}
+                                        label={label}
+                                        onChange={value =>
+                                          updateTextData({
+                                            key: inputId,
+                                            value,
+                                            label,
+                                            parentKey: cbId,
+                                            inputType: type,
+                                            gridType: 'vulnerabilities'
+                                          })
+                                        }
+                                      />
+                                    );
+                                  })}
+                                </div>
+                              )}
+                            </React.Fragment>
+                          );
+                        }
+                      )}
+                    </CheckboxList>
+                  </div>
+                  <div className="govuk-grid-column-one-third">
+                    <CheckboxList className="asset">
+                      {assets.map(({ arialabel, label, textinputs }) => {
+                        const cbId = `${id}-a-${labelToId(label)}`;
+
+                        return (
+                          <React.Fragment key={cbId}>
+                            <Checkbox
+                              label={label}
+                              name={cbId}
+                              onClick={() =>
+                                updateSelectedCheckboxes({
+                                  gridType: 'assets',
+                                  key: cbId,
+                                  value: label
+                                })
+                              }
+                              aria-label={arialabel}
+                              aria-expanded={
+                                textinputs
+                                  ? grid.assets[cbId]
+                                    ? 'true'
+                                    : 'false'
+                                  : undefined
+                              }
+                            />
+                            {textinputs && grid.assets[cbId] && (
+                              <div aria-live="polite">
+                                {textinputs.map(({ label, type }) => {
+                                  const inputId = `${cbId}-${labelToId(
+                                    label
+                                  )}-i`;
+
+                                  return (
+                                    <TextInput
+                                      name={inputId}
+                                      key={inputId}
+                                      label={label}
+                                      onChange={value =>
+                                        updateTextData({
+                                          key: inputId,
+                                          value,
+                                          label,
+                                          parentKey: cbId,
+                                          inputType: type,
+                                          gridType: 'assets'
+                                        })
+                                      }
+                                    />
+                                  );
+                                })}
+                              </div>
+                            )}
+                          </React.Fragment>
+                        );
+                      })}
+                    </CheckboxList>
+                  </div>
+                </div>
+              </AccordionItem>
+            );
+          })}
+        </Accordion>
+      </div>
+
+      <div className="govuk-grid-column-one-third">
+        {groups.map(({ id, name }) => {
+          return (
+            <div key={`${id}-resources`}>
+              {expandedGroups[id] &&
+                filterResources(name).map(resource => {
+                  return (
+                    <ResourceCard
+                      key={resource.id}
+                      data-testid={`resource-${resource.id}`}
+                      {...resource}
+                    />
+                  );
+                })}
             </div>
-          </AccordionItem>
-        );
-      })}
-    </Accordion>
+          );
+        })}
+      </div>
+    </>
   );
 };
 

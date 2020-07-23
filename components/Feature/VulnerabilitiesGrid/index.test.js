@@ -263,8 +263,10 @@ describe('VulnerabilitiesGrid', () => {
       );
 
       expect(queryByTestId('resource-hq')).not.toBeInTheDocument();
-
-      act(() => getByLabelText('Social isolation').click());
+      act(() => {
+        queryByTestId('relationships-and-support-network').click();
+        getByLabelText('Social isolation').click();
+      });
       expect(queryByTestId('resource-hq')).toBeInTheDocument();
     });
   });
@@ -287,7 +289,32 @@ describe('VulnerabilitiesGrid', () => {
 
     expect(queryByTestId('resource-hs')).not.toBeInTheDocument();
 
-    act(() => getByLabelText('Rent arrears').click());
+    act(() => {
+      queryByTestId('financial-stability').click();
+      getByLabelText('Rent arrears').click();
+    });
     expect(queryByTestId('resource-hs')).toBeInTheDocument();
+  });
+
+  it('does not show a resource if accordion is collapsed', () => {
+    const resources = [
+      {
+        id: 'hs',
+        name: 'Hackney Shine',
+        description:
+          'We offer free online and over the phone advice service to ...',
+        websites: ['https://hackney.gov.uk/shine'],
+        tags: ['Financial stability']
+      }
+    ];
+
+    const { getByLabelText, queryByTestId } = render(
+      <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources} />
+    );
+
+    expect(queryByTestId('resource-hs')).not.toBeInTheDocument();
+
+    act(() => getByLabelText('Rent arrears').click());
+    expect(queryByTestId('resource-hs')).not.toBeInTheDocument();
   });
 });

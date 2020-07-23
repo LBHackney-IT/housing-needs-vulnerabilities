@@ -903,7 +903,8 @@ Accordion.prototype.onSectionToggle = function ($section) {
   this.setExpanded(!expanded, $section);
 
   // Store the state in sessionStorage when a change is triggered
-  this.storeState($section);
+  // @mmmmillar: accordion state not required
+  // this.storeState($section);
 };
 
 // When Open/Close All toggled, set and store state
@@ -916,7 +917,8 @@ Accordion.prototype.onOpenOrCloseAllToggle = function () {
   nodeListForEach($sections, function ($section) {
     $module.setExpanded(nowExpanded, $section);
     // Store the state in sessionStorage when a change is triggered
-    $module.storeState($section);
+    // @kosiakkatrina: accordion state not required
+    //$module.storeState($section);
   });
 
   $module.updateOpenAllButton(nowExpanded);
