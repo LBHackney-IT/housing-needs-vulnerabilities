@@ -25,9 +25,7 @@ or start a local dynamodb container with Docker like so: `docker run -p 8000:800
 ```
 curl -X POST \
   http://localhost:3000/api/snapshots \
-  -H 'cache-control: no-cache' \
-  -H 'content-type: application/json' \
-  -H 'postman-token: 2a068e9c-3c70-57a0-f1bb-a20fca0bd2dd' \
+  -H 'content-type: application/json'
   -d '{
 "firstName" : "Sue",
 "lastName" : "Taylor",
