@@ -8,6 +8,9 @@ This project uses **yarn** for dependency management and is built with Next.js.
    ```
    yarn
    ```
+   and
+   `mkdir dynamodblocal`
+   if the 'dynamodblocal' directory does not exist.
 2. Create a `.env` file based off of the `.env.sample` that exists.
 3. [Set up DynamoDB Local](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
 or start a local dynamodb container with Docker like so: `docker-compose up`
