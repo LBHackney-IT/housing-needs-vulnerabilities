@@ -1,5 +1,54 @@
 [
   {
+    "id": "food-needs",
+    "name": "Food needs",
+    "assets": [      
+      {
+      "label": "Cooking facilities"
+      },
+      {
+        "label": "Collection"
+      },
+      {
+        "label": "Other",
+        "arialabel": "Other assets",
+        "textinputs": [
+          {
+            "type": "other",
+            "label": "Other assets"
+          }
+        ]
+      }
+    ],
+    "vulnerabilities": [
+      {
+        "label": "Food supply"
+      }, 
+      {
+        "label": "Home delivery"
+      },
+      {
+        "label": "Halal"
+      },
+      {
+        "label": "Allergies"
+      },
+      {
+        "label": "Hot food"
+      }, 
+      {
+        "label": "Other Dietary requirements",
+        "arialabel": "Other Dietary requirements",
+        "textinputs": [
+          {
+            "type": "other",
+            "label": "Other Dietary requirements"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "financial-stability",
     "name": "Financial stability",
     "assets": [

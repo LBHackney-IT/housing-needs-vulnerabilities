@@ -13,6 +13,10 @@ const ResourceCard = ({ name, description, websites, address, ...others }) => (
               </a>
             </li>
           ))}
+
+            <li>
+              Distance:  
+            </li>
         </ul>
       </>
     )}

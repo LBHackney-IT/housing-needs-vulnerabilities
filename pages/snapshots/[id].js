@@ -22,8 +22,8 @@ const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
 
   const [editSnapshot, setEditSnapshot] = useState(
     snapshot.assets.length === 0 &&
-      snapshot.vulnerabilities.length === 0 &&
-      !snapshot.notes
+    snapshot.vulnerabilities.length === 0 &&
+    !snapshot.notes
   );
   const [hasValue, setHasValue] = useState(false);
 
@@ -32,8 +32,8 @@ const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
     snapshot.vulnerabilities = selected.vulnerabilities;
     setHasValue(
       snapshot.assets.length > 0 ||
-        snapshot.vulnerabilities.length > 0 ||
-        snapshot.notes
+      snapshot.vulnerabilities.length > 0 ||
+      snapshot.notes
     );
   };
 
@@ -41,12 +41,12 @@ const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
     snapshot.notes = notes;
     setHasValue(
       snapshot.assets.length > 0 ||
-        snapshot.vulnerabilities.length > 0 ||
-        snapshot.notes
+      snapshot.vulnerabilities.length > 0 ||
+      snapshot.notes
     );
   };
 
-  const { dob, firstName, lastName, assets, vulnerabilities, notes } = snapshot;
+  const { dob, firstName, lastName, postcode, assets, vulnerabilities, notes } = snapshot;
   const customerId = snapshot.systemIds?.[0];
 
   return (
@@ -63,6 +63,7 @@ const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
       <h1>
         {firstName} {lastName}
       </h1>
+      <p>Postcode: {postcode}</p>
       {dob && (
         <span
           className="govuk-body govuk-!-font-weight-bold"
@@ -115,8 +116,8 @@ const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
                 ))}
               </ul>
             ) : (
-              'None captured'
-            )}
+                'None captured'
+              )}
           </div>
           <div data-testid="assets-summary">
             <h2>Assets</h2>
@@ -127,12 +128,24 @@ const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
                 ))}
               </ul>
             ) : (
-              'None captured'
-            )}
+                'None captured'
+              )}
           </div>
+
+          <div data-testid="resources-summary">
+            <h2>Resources</h2>
+
+          </div>
+
           <div data-testid="notes-summary">
             <h2>Notes</h2>
             {notes ? notes : 'None captured'}
+          </div>
+
+          <div data-testid="notes-summary">
+            <br></br>
+            <button class="govuk-button" id="print">Print this page</button><br></br>
+            <button class="govuk-button" id="shared-plan">Generate Shared Plan</button>
           </div>
         </>
       )}
