@@ -2,7 +2,7 @@ In order to use the local airtable, please set your env variable to this test en
 
 AIRTABLE_BASE_ID=baseId123
 AIRTABLE_TABLE_NAMES=Service directory,Tools
-AIRTABLE_BASE_URL=http://localhost:8080
+AIRTABLE_BASE_URL=http://localhost:8085
 
 then from the project root directory build this Docker image:
 

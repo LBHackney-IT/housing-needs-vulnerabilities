@@ -15,4 +15,4 @@ services:
       context: ./airtable-local
       dockerfile: Dockerfile
     ports:
-      - 8080:8080
+      - 8085:8080
