@@ -10,7 +10,7 @@ This project uses **yarn** for dependency management and is built with Next.js.
    ```
 2. Create a `.env` file based off of the `.env.sample` that exists.
 3. [Set up DynamoDB Local](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
-or start a local dynamodb container with Docker like so: `docker run -p 8000:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -inMemory -sharedDb`
+or start a local dynamodb container with Docker like so: `docker-compose up`
 4. Configure AWS cli with `aws configure`
 5. Create local DynamoDB plans table
    ```bash
