@@ -8,3 +8,11 @@ services:
       - ./dynamodblocal:/dynamodblocal
     ports:
      - "8000:8000"
+
+ 
+  airtable-stub:
+    build:
+      context: ./airtable-local
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
