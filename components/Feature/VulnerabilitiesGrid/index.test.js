@@ -254,6 +254,7 @@ describe('VulnerabilitiesGrid', () => {
             'http://www.hackneyquest.org.uk/'
           ],
           address: '1 Poole Rd, London E9 7AE',
+          postcode: 'E9 7AE',
           tags: ['Social isolation']
         }
       ];

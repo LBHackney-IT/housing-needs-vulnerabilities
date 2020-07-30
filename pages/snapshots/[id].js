@@ -6,6 +6,7 @@ import { getTokenFromCookieHeader } from 'lib/utils/token';
 import { Button, TextArea } from 'components/Form';
 import VulnerabilitiesGrid from 'components/Feature/VulnerabilitiesGrid';
 import { convertIsoDateToString, convertIsoDateToYears } from 'lib/utils/date';
+import geoCoordinates from 'lib/api/utils/geoCoordinates';
 
 const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
   const { snapshot, loading, updateSnapshot } = useSnapshot(
@@ -49,6 +50,8 @@ const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
   const { dob, firstName, lastName, postcode, assets, vulnerabilities, notes } = snapshot;
   const customerId = snapshot.systemIds?.[0];
 
+  const residentCoordinates = geoCoordinates(postcode);
+  
   return (
     <>
       <div>
@@ -77,6 +80,7 @@ const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
           <VulnerabilitiesGrid
             onUpdate={updateSelected}
             resources={resources}
+            residentCoordinates={residentCoordinates}
           />
           <TextArea
             name="notes"

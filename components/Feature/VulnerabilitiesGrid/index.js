@@ -27,7 +27,7 @@ function createLookup() {
   return lookup;
 }
 
-const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
+const VulnerabilitiesGrid = ({ resources, onUpdate, residentCoordinates}) => {
   const [grid, setGrid] = useState({
     assets: {},
     vulnerabilities: {},
@@ -341,6 +341,7 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
                       key={resource.id}
                       data-testid={`resource-${resource.id}`}
                       {...resource}
+                      residentCoordinates={residentCoordinates}
                     />
                   );
                 })}
