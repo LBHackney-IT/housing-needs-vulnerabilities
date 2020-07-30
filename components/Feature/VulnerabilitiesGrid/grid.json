@@ -22,6 +22,7 @@
     ],
     "vulnerabilities": [
       {
+<<<<<<< HEAD
         "label": "Food"
       }, 
       {
@@ -29,6 +30,12 @@
       },
       {
         "label": "Delivery"
+=======
+        "label": "Food supply"
+      }, 
+      {
+        "label": "Home delivery"
+>>>>>>> 15410b95fa92ed7ad34eb4cd6c40c0725e03a3c4
       },
       {
         "label": "Halal"
@@ -37,6 +44,7 @@
         "label": "Allergies"
       },
       {
+<<<<<<< HEAD
         "label": "Hot Food"
       }, 
       {
@@ -47,6 +55,9 @@
       }, 
       {
         "label": "Somali"
+=======
+        "label": "Hot food"
+>>>>>>> 15410b95fa92ed7ad34eb4cd6c40c0725e03a3c4
       }, 
       {
         "label": "Other Dietary requirements",
