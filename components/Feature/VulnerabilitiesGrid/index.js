@@ -121,14 +121,44 @@ const VulnerabilitiesGrid = ({ resources, onUpdate }) => {
     })
       .filter(value => group.has(value.name))
       .map(value => value.name);
-
+    /**
     return resources.filter(resource => {
+      console.log("Filtering on tags ", resource.tags )
       return (
         resource.tags.find(tag => targets.includes(tag)) ||
         (targets.length > 0 && resource.tags.includes(groupName))
       );
     });
+     */
+
+    let rankedArray = [];
+    resources.map(resource => {
+      let matches = findArrayMatches(resource.tags, targets);
+      if(matches.length > 0 || resource.tags.includes(groupName)) {
+        rankedArray.push({resource: resource, matches: matches.length});
+      }
+    });
+    let sorted = sortArrayByMatches(rankedArray);
+    return sorted ? sorted.map(item=> item.resource).slice(0, 3) : [];
   };
+
+  const sortArrayByMatches = (arr) => {
+    return arr.sort(function(a,b) {
+        return a.matches > b.matches ? -1 : a.matches < b.matches ? 1 : 0;
+    });
+  }
+
+  const findArrayMatches = (arr1, arr2) => {
+      var ret = [];
+      arr1.sort();
+      arr2.sort();
+      for(var i = 0; i < arr1.length; i += 1) {
+          if(arr2.indexOf(arr1[i]) > -1){
+              ret.push(arr1[i]);
+          }
+      }
+      return ret;
+  }
 
   const setAllExpandedGroups = () => {
     const expanded = Object.values(expandedGroups);

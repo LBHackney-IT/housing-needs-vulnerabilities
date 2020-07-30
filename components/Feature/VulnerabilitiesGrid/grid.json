@@ -22,10 +22,13 @@
     ],
     "vulnerabilities": [
       {
-        "label": "Food supply"
+        "label": "Food"
       }, 
       {
-        "label": "Home delivery"
+        "label": "Collection"
+      },
+      {
+        "label": "Delivery"
       },
       {
         "label": "Halal"
@@ -34,7 +37,16 @@
         "label": "Allergies"
       },
       {
-        "label": "Hot food"
+        "label": "Hot Food"
+      }, 
+      {
+        "label": "Caribbean"
+      },  
+      {
+        "label": "African"
+      }, 
+      {
+        "label": "Somali"
       }, 
       {
         "label": "Other Dietary requirements",

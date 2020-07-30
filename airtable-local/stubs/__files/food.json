@@ -1,0 +1,64 @@
+{
+  "records": [
+    {
+        "id": "6666HJXBrVw8Lasd",
+        "fields": {
+            "Name": "Hackney Food Bank / St John's Hoxton",
+            "Description": "Food Bank - Trussel Trust. Must be referred by an agency registered for foodbank vouchers, ID required on food pickup. Monday 11am-1pm",
+            "Website 1": "St John's Hoxton Crypt, Pitfield Street N1 6NP",
+            "Address": "St John's Hoxton Crypt, Pitfield Street N1 6NP",
+            "Tags": [
+            ],
+            "Vulnerability snapshot tags": [
+                "Food", "Collection"
+            ]
+        },
+        "createdTime": "2020-06-17T11:01:33.000Z"
+    },
+    {
+        "id": "6666HJXBrVw8Ldsa",
+        "fields": {
+            "Name": "African Community School",
+            "Description": "Food Parcel Delivery. African/Caribbean cuisine. Delivery once a fortnight ",
+            "Website 1": "office@acschool.org.uk",
+            "Address": "Halkevi Centre, 31 - 33 Dalston Lane, E8 3DF",
+            "Tags": [
+            ],
+            "Vulnerability snapshot tags": [
+                "Food", "African", "Caribbean", "Delivery", "Collection"
+            ]
+        },
+        "createdTime": "2020-06-17T11:01:33.000Z"
+    },
+    {
+        "id": "6666HJXBrVw8LBcwer",
+        "fields": {
+            "Name": "North London Food Service",
+            "Description": "Hot food. Leave a message, they will call back. Mixed funding - grant applications and local donations",
+            "Website 1": "",
+            "Address": "N4 2HA",
+            "Tags": [
+            ],
+            "Vulnerability snapshot tags": [
+                "Food", "Vegetarian", "Halal", "Hot Food", "Delivery"
+            ]
+        },
+        "createdTime": "2020-06-17T11:01:33.000Z"
+    },
+    {
+        "id": "6666HJXBrVw8LBcwdb",
+        "fields": {
+            "Name": "The Boiler House N16",
+            "Description": "Food Bank - Independent. Weekdays 9-5, Weekends 10-3. Referral Contact: Claire. Email: community@n16boilerhouse.com. Phone Number: 020 8806 8013",
+            "Website 1": "",
+            "Address": "George Downing Estate, Cazenove Rd, N16 6BE",
+            "Tags": [
+            ],
+            "Vulnerability snapshot tags": [
+                "Food", "Collection", "Delivery"
+            ]
+        },
+        "createdTime": "2020-06-17T11:01:33.000Z"
+    }
+  ]
+}
