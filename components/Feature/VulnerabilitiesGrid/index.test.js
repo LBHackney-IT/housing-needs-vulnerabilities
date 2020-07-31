@@ -2,6 +2,7 @@ import { fireEvent, render } from '@testing-library/react';
 import VulnerabilitiesGrid from './index';
 import groups from './grid.json';
 import { act } from 'react-dom/test-utils';
+import nock from 'nock';
 
 describe('VulnerabilitiesGrid', () => {
   const resources = [];
@@ -16,7 +17,7 @@ describe('VulnerabilitiesGrid', () => {
     }, 0);
 
     const { container } = render(
-      <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources} />
+      <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources}/>
     );
 
     expect(
@@ -31,11 +32,11 @@ describe('VulnerabilitiesGrid', () => {
     const onUpdate = jest.fn();
     const expected = expect.objectContaining({
       assets: [],
-      vulnerabilities: [{ name: 'Rent arrears', data: [] }]
+      vulnerabilities: [{ name: 'Food', data: [] }]
     });
 
     const { container } = render(
-      <VulnerabilitiesGrid onUpdate={onUpdate} resources={resources} />
+      <VulnerabilitiesGrid onUpdate={onUpdate} resources={resources}/>
     );
 
     act(() => container.querySelector('.govuk-checkboxes__input').click());
@@ -44,7 +45,7 @@ describe('VulnerabilitiesGrid', () => {
 
   it('creates a textinput when checkbox is checked', () => {
     const { container } = render(
-      <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources} />
+      <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources}/>
     );
 
     fireEvent(
@@ -67,7 +68,7 @@ describe('VulnerabilitiesGrid', () => {
       vulnerabilities: []
     });
     const { container } = render(
-      <VulnerabilitiesGrid onUpdate={onUpdate} resources={resources} />
+      <VulnerabilitiesGrid onUpdate={onUpdate} resources={resources}/>
     );
 
     fireEvent(
@@ -95,7 +96,7 @@ describe('VulnerabilitiesGrid', () => {
       vulnerabilities: [{ data: [], name: 'some text' }]
     });
     const { container } = render(
-      <VulnerabilitiesGrid onUpdate={onUpdate} resources={resources} />
+      <VulnerabilitiesGrid onUpdate={onUpdate} resources={resources}/>
     );
 
     fireEvent(
@@ -120,7 +121,7 @@ describe('VulnerabilitiesGrid', () => {
 
   it('creates text inputs when active case checkbox is checked', () => {
     const { container } = render(
-      <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources} />
+      <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources}/>
     );
 
     fireEvent(
@@ -169,7 +170,7 @@ describe('VulnerabilitiesGrid', () => {
       ]
     });
     const { container } = render(
-      <VulnerabilitiesGrid onUpdate={onUpdate} resources={resources} />
+      <VulnerabilitiesGrid onUpdate={onUpdate} resources={resources}/>
     );
 
     fireEvent(
@@ -207,7 +208,7 @@ describe('VulnerabilitiesGrid', () => {
       ]
     });
     const { container } = render(
-      <VulnerabilitiesGrid onUpdate={onUpdate} resources={resources} />
+      <VulnerabilitiesGrid onUpdate={onUpdate} resources={resources}/>
     );
 
     fireEvent(
@@ -259,8 +260,21 @@ describe('VulnerabilitiesGrid', () => {
         }
       ];
 
+      const addressLookup = nock('test./api/v1/addresses')
+        .get(/.*/)
+        .reply(200, {
+          data: {
+            address: [
+              {
+                longitude: 0,
+                latitude: 0
+              }
+            ]
+          }
+        });
+
       const { getByLabelText, queryByTestId } = render(
-        <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources} />
+        <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources}/>
       );
 
       expect(queryByTestId('resource-hq')).not.toBeInTheDocument();
@@ -285,7 +299,7 @@ describe('VulnerabilitiesGrid', () => {
     ];
 
     const { getByLabelText, queryByTestId } = render(
-      <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources} />
+      <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources}/>
     );
 
     expect(queryByTestId('resource-hs')).not.toBeInTheDocument();
@@ -310,7 +324,7 @@ describe('VulnerabilitiesGrid', () => {
     ];
 
     const { getByLabelText, queryByTestId } = render(
-      <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources} />
+      <VulnerabilitiesGrid onUpdate={jest.fn()} resources={resources}/>
     );
 
     expect(queryByTestId('resource-hs')).not.toBeInTheDocument();

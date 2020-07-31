@@ -2,11 +2,11 @@
 
 exports[`createResourceFromModel maps properties from an Airtable record 1`] = `
 Resource {
-  "address": "42 Wallaby Way, Sydney",
-  "postcode": "A1 123",
+  "address": "42 Wallaby Way, Sydney, S1",
   "description": "This is a description",
   "id": "dakjhksd8283",
   "name": "Resource name",
+  "postcode": "S1",
   "tags": Array [],
   "websites": Array [
     "https://www.example.com",
