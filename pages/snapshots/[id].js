@@ -149,7 +149,7 @@ const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
           <div data-testid="notes-summary">
             <br></br>
             <button className="govuk-button" id="print">Print this page</button><br></br>
-            <button clclassNameass="govuk-button" id="shared-plan">Generate Shared Plan</button>
+            <button className="govuk-button" id="shared-plan">Generate Shared Plan</button>
           </div>
         </>
       )}

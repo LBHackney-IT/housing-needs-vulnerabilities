@@ -15,11 +15,13 @@ const ResourceCard = ({
   const [postcodeDistance, setPostcodeDistance] = useState(null);
   if (postcode && postcode.length > 2 && residentCoordinates) {
     residentCoordinates.then(resident => {
-      geoCoordinates(postcode).then(resource => {
-        setPostcodeDistance(
-          geoDistance(resident.lat, resident.long, resource.lat, resource.long)
-        );
-      });
+      if(resident){
+        geoCoordinates(postcode).then(resource => {
+          setPostcodeDistance(
+            geoDistance(resident.lat, resident.long, resource.lat, resource.long)
+          );
+        })
+      }
     });
   }
 
