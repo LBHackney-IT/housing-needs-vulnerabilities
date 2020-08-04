@@ -2,6 +2,9 @@
 
 .resource {
   margin-bottom: 0.5em;
+  width: 45%;
+  display: inline-table;
+  margin-left: 5px;
 
   h3 {
     margin-top: 0;
@@ -17,9 +20,10 @@
     padding: 0px 5px 1px 5px;
     color: white;
     text-transform: uppercase;
-    margin-left: 5px;
+    margin-right: 5px;
     font-size: 11pt;
     font-weight: 600;
+    white-space: nowrap;
   }
 
   .websites {

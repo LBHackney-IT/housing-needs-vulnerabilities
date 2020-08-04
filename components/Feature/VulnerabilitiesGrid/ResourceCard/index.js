@@ -28,6 +28,9 @@ const ResourceCard = ({
 
   return (
     <div className={`govuk-details__text ${css.resource}`} {...others}>
+      <div className="tags-container">
+        {tags.map(item=> (<span key={"tags-"+item} className={css.tags}>{item}</span>))}
+      </div>
       <h3>{name}</h3>
       {websites && websites.length > 0 && (
         <>
@@ -48,10 +51,6 @@ const ResourceCard = ({
             
             <li>
               {postcodeDistance && <>Distance: {postcodeDistance} miles</>}
-            </li>
-            <li>
-              {<>Tags: {tags.map(item=> (<span key={"tags-"+item} className={css.tags}>{item}</span>))}</>
-              }
             </li>
           </ul>
         </>
