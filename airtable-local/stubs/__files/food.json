@@ -63,6 +63,55 @@
             ]
         },
         "createdTime": "2020-06-17T11:01:33.000Z"
-    }
+    },
+    {
+        "id": "6666FkHGEn9BiiXvW",
+        "fields": {
+            "Name": "Made Up Kitchen / Hackney Marsh Partnership",
+            "Description": "Hot Food/ Food Parcels",
+            "Opening Times": "Thursday and Saturdays ",
+            "Address": "Concorde Youth Club, Kingsmead Way, E9 5PP",
+            "Coordinates": "51.5535,-0.0356",
+            "Postcode": "E9 5PP",
+            "Vulnerability snapshot tags": [
+                "Delivery",
+                "Vegetarian",
+                "Halal",
+                "Self Referral",
+                "Hot Food"
+            ],
+            "Wards / postcodes covered for service": "Kings Park",
+            "Current Provision": "100 parcels; 800 hot meals ",
+            "Email": "gburgess@hmp.org.uk or via kiran@madeupcollective.com",
+            "Website 1": "http://thepeopleskitchen.co.uk/covid-19",
+            "Notes": "Would like to start some sort of Service on Milton Gardens estate in Stoke newington where we run Stoke Newington Youth Hub - Limiting factors are around food donation. ",
+            "Office contact only": "gburgess@hmp.org.uk or via kiran@madeupcollective.com"
+        },
+        "createdTime": "2020-08-04T12:45:22.000Z"
+    }, 
+    {
+        "id": "222QfHufKAzfusMH",
+        "fields": {
+            "Name": "Made in Hackney",
+            "Description": "Hot Food",
+            "Opening Times": "Daily Mon-Fri",
+            "Coordinates": "51.5648,-0.0715",
+            "Postcode": "N16 6PA",
+            "Vulnerability snapshot tags": [
+                "Delivery",
+                "Vegan",
+                "Halal",
+                "Self Referral",
+                "Hot Food"
+            ],
+            "Wards / postcodes covered for service": "All",
+            "Current Provision": "250 meals a week",
+            "Phone Number": "020 8442 4266",
+            "Email": "info@madeinhackney.org.uk",
+            "Website 1": "https://madeinhackney.org/",
+            "Office contact only": "info@madeinhackney.org.uk"
+        },
+        "createdTime": "2020-08-04T12:45:22.000Z"
+    },
   ]
 }

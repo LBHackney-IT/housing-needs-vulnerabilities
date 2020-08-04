@@ -32,7 +32,7 @@ describe('VulnerabilitiesGrid', () => {
     const onUpdate = jest.fn();
     const expected = expect.objectContaining({
       assets: [],
-      vulnerabilities: [{ name: 'Food', data: [] }]
+      vulnerabilities: [{ name: 'Halal', data: [] }]
     });
 
     const { container } = render(
