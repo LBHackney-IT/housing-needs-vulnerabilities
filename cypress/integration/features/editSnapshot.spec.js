@@ -51,18 +51,15 @@ context('Edit snapshot', () => {
     it('Ranks resources by relevance', () => {
       cy.visit(`/snapshots/1`);
       cy.get('[data-testid=accordion-item]').eq(0).click();
-      cy.get('[data-testid=food-needs-v-food-checkbox]').click();
+      cy.get('[data-testid=food-needs-v-halal-checkbox]').click();
 
       cy.get('.govuk-details__text.ResourceCard_resource__-Szc9').eq(0)
-        .should('contain', 'Hackney Food Bank')
+        .should('contain', 'Made Up Kitchen')
 
-      cy.get('[data-testid=food-needs-v-hot-food-checkbox]').click();
+      cy.get('[data-testid=food-needs-v-vegan-checkbox]').click();
       cy.get('.govuk-details__text.ResourceCard_resource__-Szc9').eq(0)
-          .should('contain', 'North London Food Service')
+          .should('contain', 'Made in Hackney')
 
-      cy.get('[data-testid=food-needs-v-african-checkbox]').click();
-      cy.get('.govuk-details__text.ResourceCard_resource__-Szc9').eq(0)
-        .should('contain', 'African Community School')
     });
 
     it('Adds vulnerabilities, assets and notes', () => {
