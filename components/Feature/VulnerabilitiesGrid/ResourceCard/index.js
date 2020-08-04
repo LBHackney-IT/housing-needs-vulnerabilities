@@ -45,19 +45,12 @@ const ResourceCard = ({
          
         <>
           <ul className={css.websites}>
-            {websites.map(website => (
-              <li key={website}>
-                <a href={website} target="_blank" rel="noopener noreferrer">
-                  {website}
-                </a>
-              </li>
-            ))}
-
+            
             <li>
               {postcodeDistance && <>Distance: {postcodeDistance} miles</>}
             </li>
             <li>
-              {<>Tags: {tags.join(", ")}</>
+              {<>Tags: {tags.map(item=> (<span key={"tags-"+item} className={css.tags}>{item}</span>))}</>
               }
             </li>
           </ul>

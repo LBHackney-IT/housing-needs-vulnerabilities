@@ -114,12 +114,12 @@ const VulnerabilitiesGrid = ({ resources, onUpdate, residentCoordinates}) => {
 
   const filterResources = groupName => {
     const group = groupItems.get(groupName);
-
+    
     const targets = Object.values({
       ...grid.assets,
       ...grid.vulnerabilities
     })
-     // .filter(item => group.has(item.name))
+      .filter(item => group.has(item.name))
       .map(item => capitalise(item.name));
 
     /**
@@ -136,9 +136,10 @@ const VulnerabilitiesGrid = ({ resources, onUpdate, residentCoordinates}) => {
     resources.map(resource => {
       let matches = findArrayMatches(resource.tags, targets);
       if(matches.length > 0 || resource.tags.includes(groupName)) {
-        rankedArray.push({resource: resource, matches: matches.length});
+        rankedArray.push({resource: resource, matches: matches.length})    
       }
     });
+    console.log("Ranked Array: ", rankedArray);
     let sorted = sortArrayByMatches(rankedArray);
     return sorted ? sorted.map(item=> item.resource).slice(0, 6) : [];
   };
@@ -181,7 +182,7 @@ const VulnerabilitiesGrid = ({ resources, onUpdate, residentCoordinates}) => {
 
   return (
     <>
-      <div className="govuk-grid-column-two-thirds">
+      <div className="govuk-grid-column-full-width">
         <Accordion
           title="Things to explore with the resident"
           handleExpanded={() => {
@@ -330,31 +331,33 @@ const VulnerabilitiesGrid = ({ resources, onUpdate, residentCoordinates}) => {
                     </CheckboxList>
                   </div>
                 </div>
+
+
+                <div className="govuk-grid-column-full-width">
+                 { (
+                    <div key={`${id}-resources`}>
+                      {expandedGroups[id] &&
+                        filterResources(name).map(resource => {
+                          return (
+                            <ResourceCard
+                              key={resource.id}
+                              data-testid={`resource-${resource.id}`}
+                              {...resource}
+                              residentCoordinates={residentCoordinates}
+                            />
+                          )
+                        })}
+                    </div>
+                  )}
+              </div>
+              
               </AccordionItem>
             );
           })}
         </Accordion>
       </div>
 
-      <div className="govuk-grid-column-one-third">
-        {groups.map(({ id, name }) => {
-          return (
-            <div key={`${id}-resources`}>
-              {expandedGroups[id] &&
-                filterResources(name).map(resource => {
-                  return (
-                    <ResourceCard
-                      key={resource.id}
-                      data-testid={`resource-${resource.id}`}
-                      {...resource}
-                      residentCoordinates={residentCoordinates}
-                    />
-                  );
-                })}
-            </div>
-          );
-        })}
-      </div>
+
     </>
   );
 };
