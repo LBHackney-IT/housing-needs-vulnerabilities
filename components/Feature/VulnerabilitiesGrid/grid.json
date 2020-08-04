@@ -4,53 +4,31 @@
     "name": "Food needs",
     "assets": [      
       {
-      "label": "Cooking facilities"
-      },
-      {
-        "label": "Collection"
-      },
-      {
-        "label": "Other",
-        "arialabel": "Other assets",
-        "textinputs": [
-          {
-            "type": "other",
-            "label": "Other assets"
-          }
-        ]
-      }
-    ],
-    "vulnerabilities": [
-      {
-        "label": "Food"
-      }, 
-      {
-        "label": "Collection"
+        "label": "Hot Food"
       },
       {
         "label": "Delivery"
       },
       {
+        "label": "Collection"
+      }
+    ],
+    "vulnerabilities": [
+      {
         "label": "Halal"
       },
       {
-        "label": "Allergies"
-      },
-      {
-        "label": "Hot Food"
-      }, 
-      {
-        "label": "Caribbean"
+        "label": "Self Referral"
       },  
       {
-        "label": "African"
+        "label": "Vegetarian"
       }, 
       {
-        "label": "Somali"
+        "label": "Vegan"
       }, 
       {
-        "label": "Other Dietary requirements",
-        "arialabel": "Other Dietary requirements",
+        "label": "Other",
+        "arialabel": "Other",
         "textinputs": [
           {
             "type": "other",

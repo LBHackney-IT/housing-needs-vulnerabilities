@@ -9,6 +9,7 @@ const ResourceCard = ({
   websites,
   address,
   postcode,
+  tags,
   residentCoordinates,
   ...others
 }) => {
@@ -38,13 +39,30 @@ const ResourceCard = ({
                 </a>
               </li>
             ))}
+          </ul>
+        </>
+      )}
+         
+        <>
+          <ul className={css.websites}>
+            {websites.map(website => (
+              <li key={website}>
+                <a href={website} target="_blank" rel="noopener noreferrer">
+                  {website}
+                </a>
+              </li>
+            ))}
 
             <li>
               {postcodeDistance && <>Distance: {postcodeDistance} miles</>}
             </li>
+            <li>
+              {<>Tags: {tags.join(", ")}</>
+              }
+            </li>
           </ul>
         </>
-      )}
+      
       <details className="govuk-details" data-module="govuk-details">
         <summary className="">View more</summary>
         <div className={css.details}>

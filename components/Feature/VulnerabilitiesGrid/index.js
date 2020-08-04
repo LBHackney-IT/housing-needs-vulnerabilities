@@ -119,8 +119,9 @@ const VulnerabilitiesGrid = ({ resources, onUpdate, residentCoordinates}) => {
       ...grid.assets,
       ...grid.vulnerabilities
     })
-      .filter(value => group.has(value.name))
-      .map(value => value.name);
+     // .filter(item => group.has(item.name))
+      .map(item => capitalise(item.name));
+
     /**
     return resources.filter(resource => {
       console.log("Filtering on tags ", resource.tags )
@@ -139,8 +140,13 @@ const VulnerabilitiesGrid = ({ resources, onUpdate, residentCoordinates}) => {
       }
     });
     let sorted = sortArrayByMatches(rankedArray);
-    return sorted ? sorted.map(item=> item.resource).slice(0, 3) : [];
+    return sorted ? sorted.map(item=> item.resource).slice(0, 6) : [];
   };
+
+  const capitalise = (s) => {
+    if (typeof s !== 'string') return ''
+    return s.charAt(0).toUpperCase() + s.toLowerCase().slice(1)
+  }
 
   const sortArrayByMatches = (arr) => {
     return arr.sort(function(a,b) {
