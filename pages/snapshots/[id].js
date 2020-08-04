@@ -48,13 +48,19 @@ const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
   };
 
   const { dob, firstName, lastName, postcode, assets, vulnerabilities, notes } = snapshot;
-  const customerId = snapshot.systemIds?.[0];
-
+  let customerId = snapshot.systemIds?.[0];
+  // check the external system id for redirecting back to originating system
+  let backtoSingleView = true;
+  if (customerId && customerId.includes("inh-", 0)) {
+    customerId = customerId.substring(4);
+    backtoSingleView = false;
+  }
   const residentCoordinates = geoCoordinates(postcode);
   
   return (
     <>
       <div>
+        { backtoSingleView && (
         <a
           href={`${process.env.NEXT_PUBLIC_SINGLEVIEW_URL}/customers/${customerId}/view`}
           className="govuk-back-link back-button"
@@ -62,6 +68,18 @@ const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
         >
           Back to Single View
         </a>
+        )}
+        
+        { !backtoSingleView && (
+          <a
+          href={`${process.env.INH_URL}/help-requests/edit/${customerId}`}
+          className="govuk-back-link back-button"
+          data-testid="back-link-test"
+        >
+          Back to I Need Help
+        </a>
+
+        )}
       </div>
       <h1>
         {firstName} {lastName}
