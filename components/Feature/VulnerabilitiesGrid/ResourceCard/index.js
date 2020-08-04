@@ -10,53 +10,60 @@ const ResourceCard = ({
   address,
   postcode,
   tags,
+  telephone,
   residentCoordinates,
+  coordinates,
   ...others
 }) => {
   const [postcodeDistance, setPostcodeDistance] = useState(null);
   if (postcode && postcode.length > 2 && residentCoordinates) {
     residentCoordinates.then(resident => {
       if(resident){
-        geoCoordinates(postcode).then(resource => {
+        if(!coordinates){
+          geoCoordinates(postcode).then(resource => {
+            setPostcodeDistance(
+              geoDistance(resident.lat, resident.long, resource.lat, resource.long)
+            );
+          })
+        } else {
+          let lat, long;
+          [lat, long] = coordinates.split(",");
           setPostcodeDistance(
-            geoDistance(resident.lat, resident.long, resource.lat, resource.long)
+            geoDistance(resident.lat, resident.long, lat, long)
           );
-        })
+        }
       }
     });
   }
 
   return (
-    <div className={`govuk-details__text ${css.resource}`} {...others}>
-      <div className="tags-container">
+    <div className={`${css.resource}`} {...others}>
+      <div className={css.tags__container}>
         {tags.map(item=> (<span key={"tags-"+item} className={css.tags}>{item}</span>))}
       </div>
       <h3>{name}</h3>
-      {websites && websites.length > 0 && (
         <>
-          <ul className={css.websites}>
-            {websites.map(website => (
-              <li key={website}>
-                <a href={website} target="_blank" rel="noopener noreferrer">
-                  {website}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-         
-        <>
-          <ul className={css.websites}>
-            
+          <ul className={css.websites}>            
             <li>
-              {postcodeDistance && <>Distance: {postcodeDistance} miles</>}
+              {postcodeDistance && <><span className={css.label}>Distance:</span> {postcodeDistance} miles</>}
+            </li> 
+            <li>
+             <span className={css.label}>Availability:</span>
+            </li>
+            <li>
+             <span className={css.label}>Days / Times:</span>
+            </li>
+            <li>
+             <span className={css.label}>Distribution:</span>
+            </li>
+            <li>
+             <span className={css.label}>Telephone:</span> {telephone}
             </li>
           </ul>
         </>
       
       <details className="govuk-details" data-module="govuk-details">
-        <summary className="">View more</summary>
+        <summary className="">View more information</summary>
         <div className={css.details}>
           <p>{description}</p>
           {address && (
@@ -66,6 +73,18 @@ const ResourceCard = ({
             </>
           )}
         </div>
+        {websites && websites.length > 0 && (
+        <>
+          <ul className={css.websites}>
+            {websites.map(website => (
+              <li key={website}> Website: <a href={website} target="_blank" rel="noopener noreferrer">
+                  {website}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
       </details>
     </div>
   );
