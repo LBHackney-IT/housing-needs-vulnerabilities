@@ -2,6 +2,7 @@ import css from './index.module.scss';
 import geoDistance from 'lib/api/utils/geoDistance';
 import geoCoordinates from 'lib/api/utils/geoCoordinates';
 import { useState } from 'react';
+import SummaryList from 'components/Form/SummaryList';
 
 const ResourceCard = ({
   name,
@@ -11,6 +12,12 @@ const ResourceCard = ({
   postcode,
   tags,
   telephone,
+  openingTimes,
+  currentProvision,
+  email,
+  referralContact,
+  selfReferral,
+  notes,
   residentCoordinates,
   coordinates,
   ...others
@@ -35,6 +42,8 @@ const ResourceCard = ({
       }
     });
   }
+  const selfReferralElement = (selfReferral == 'No') ? 'Referral required' : 'Self referral'
+  const websiteElement = (<a href={websites[0]} target="_blank" rel="noopener noreferrer">{websites[0]}</a>)
 
   return (
     <div className={`${css.resource}`} {...others}>
@@ -43,48 +52,17 @@ const ResourceCard = ({
       </div>
       <h3>{name}</h3>
         <>
-          <ul className={css.websites}>            
-            <li>
-              {postcodeDistance && <><span className={css.label}>Distance:</span> {postcodeDistance} miles</>}
-            </li> 
-            <li>
-             <span className={css.label}>Availability:</span>
-            </li>
-            <li>
-             <span className={css.label}>Days / Times:</span>
-            </li>
-            <li>
-             <span className={css.label}>Distribution:</span>
-            </li>
-            <li>
-             <span className={css.label}>Telephone:</span> {telephone}
-            </li>
-          </ul>
+        <SummaryList name={['postcodeDistance', 'description']} entries={{ 'Distance': postcodeDistance + ' miles',
+      'Availability': currentProvision, 'Days / Times' : openingTimes, 'Telephone' : telephone}} customStyle="small" />
+
         </>
       
       <details className="govuk-details" data-module="govuk-details">
         <summary className="">View more information</summary>
-        <div className={css.details}>
-          <p>{description}</p>
-          {address && (
-            <>
-              <h4>Address</h4>
-              <p>{address}</p>
-            </>
-          )}
-        </div>
-        {websites && websites.length > 0 && (
-        <>
-          <ul className={css.websites}>
-            {websites.map(website => (
-              <li key={website}> Website: <a href={website} target="_blank" rel="noopener noreferrer">
-                  {website}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
+
+        <SummaryList name={['a', 'b']} entries={{ 'How to contact': selfReferralElement,
+      'Address': address, 'Description' : description, 'Website' : websiteElement, 'Additional notes' : notes }} customStyle="small" />
+
       </details>
     </div>
   );

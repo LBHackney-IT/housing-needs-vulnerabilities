@@ -1,6 +1,6 @@
-const SummaryList = ({ name, entries }) => (
+const SummaryList = ({ name, entries, customStyle }) => (
   <div className="govuk-form-group">
-    <dl className="govuk-summary-list" id={name}>
+    <dl className={"govuk-summary-list " + customStyle} id={name}>
       {Object.entries(entries).map(([key, value], index) => {
         return (
           <div className="govuk-summary-list__row" key={index}>
