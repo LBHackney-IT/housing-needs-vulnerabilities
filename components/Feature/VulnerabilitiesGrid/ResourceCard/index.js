@@ -4,6 +4,8 @@ import geoCoordinates from 'lib/api/utils/geoCoordinates';
 import { useState } from 'react';
 import SummaryList from 'components/Form/SummaryList';
 
+const DISTRIBUTION_ARRAY = ['Delivery', 'Collection']
+
 const ResourceCard = ({
   name,
   description,
@@ -44,23 +46,24 @@ const ResourceCard = ({
   }
   const selfReferralElement = (selfReferral == 'No') ? 'Referral required' : 'Self referral'
   const websiteElement = (<a href={websites[0]} target="_blank" rel="noopener noreferrer">{websites[0]}</a>)
-
+  const distributionElement =  tags.filter(t => DISTRIBUTION_ARRAY.includes(t)).join(", ")
+  
   return (
     <div className={`${css.resource}`} {...others}>
       <div className={css.tags__container}>
-        {tags.map(item=> (<span key={"tags-"+item} className={css.tags}>{item}</span>))}
+        {tags.filter(t => !DISTRIBUTION_ARRAY.includes(t)).map(item=> (<span key={"tags-"+item} className={css.tags}>{item}</span>))}
       </div>
       <h3>{name}</h3>
         <>
-        <SummaryList name={['postcodeDistance', 'description']} entries={{ 'Distance': postcodeDistance + ' miles',
-      'Availability': currentProvision, 'Days / Times' : openingTimes, 'Telephone' : telephone}} customStyle="small" />
+        <SummaryList name={['resourceInfo']} entries={{ 'Distance': (postcodeDistance) ? postcodeDistance + ' miles' : null ,
+      'Availability': currentProvision, 'Days / Times' : openingTimes, 'Distribution' : distributionElement, 'Telephone' : telephone}} customStyle="small" />
 
         </>
       
       <details className="govuk-details" data-module="govuk-details">
         <summary className="">View more information</summary>
 
-        <SummaryList name={['a', 'b']} entries={{ 'How to contact': selfReferralElement,
+        <SummaryList name={'moreResourceInfo'} entries={{ 'How to contact': selfReferralElement,
       'Address': address, 'Description' : description, 'Website' : websiteElement, 'Additional notes' : notes }} customStyle="small" />
 
       </details>

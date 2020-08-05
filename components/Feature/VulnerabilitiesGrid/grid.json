@@ -2,10 +2,7 @@
   {
     "id": "food-needs",
     "name": "Food needs",
-    "assets": [      
-      {
-        "label": "Hot Food"
-      },
+    "assets": [    
       {
         "label": "Delivery"
       },
@@ -22,6 +19,9 @@
       }, 
       {
         "label": "Vegan"
+      },  
+      {
+        "label": "Hot Food"
       },
       {
         "label": "Other",
