@@ -81,8 +81,8 @@ const VulnerabilitiesGrid = ({ resources, onUpdate, residentCoordinates}) => {
     if (inputType === 'other') {
       updateGrid({
         [gridType]: value
-          ? addItem({ obj: grid[gridType], key, value })
-          : removeItem({ obj: grid[gridType], key })
+        ? addDataItem({ obj: grid[gridType], key, value, inputType, parentKey })
+        : removeDataItem({ obj: grid[gridType], parentKey, key })
       });
     } else {
       updateGrid({
@@ -114,14 +114,12 @@ const VulnerabilitiesGrid = ({ resources, onUpdate, residentCoordinates}) => {
 
   const filterResources = groupName => {
     const group = groupItems.get(groupName);
-    
     const targets = Object.values({
       ...grid.assets,
       ...grid.vulnerabilities
-    })
-      .filter(item => group.has(item.name))
-      .map(item => capitalise(item.name));
-
+    }).filter(item => group.has(item.name))
+      .map(item => item.name);
+    console.log(grid.vulnerabilities)
     /**
     return resources.filter(resource => {
       console.log("Filtering on tags ", resource.tags )
@@ -139,15 +137,9 @@ const VulnerabilitiesGrid = ({ resources, onUpdate, residentCoordinates}) => {
         rankedArray.push({resource: resource, matches: matches.length})    
       }
     });
-    console.log("Ranked Array: ", rankedArray);
     let sorted = sortArrayByMatches(rankedArray);
     return sorted ? sorted.map(item=> item.resource).slice(0, 6) : [];
   };
-
-  const capitalise = (s) => {
-    if (typeof s !== 'string') return ''
-    return s.charAt(0).toUpperCase() + s.toLowerCase().slice(1)
-  }
 
   const sortArrayByMatches = (arr) => {
     return arr.sort(function(a,b) {

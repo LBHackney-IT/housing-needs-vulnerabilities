@@ -44,18 +44,21 @@ const ResourceCard = ({
       }
     });
   }
+  const trimLength = (s, length) => s.length > length ? s.substring(0, length) + "..." : s
+
   const selfReferralElement = (selfReferral == 'No') ? 'Referral required' : 'Self referral'
-  const websiteElement = (<a href={websites[0]} target="_blank" rel="noopener noreferrer">{websites[0]}</a>)
+  const websiteElement = websites && websites.length > 0 &&  websites.map(website => (<a href={websites[0]} target="_blank" rel="noopener noreferrer">{websites[0]}</a>))
   const distributionElement =  tags.filter(t => DISTRIBUTION_ARRAY.includes(t)).join(", ")
-  
+  const tagsElement = tags.filter(t => !DISTRIBUTION_ARRAY.includes(t)).map(item=> (<span key={"tags-"+item} className={css.tags}>{trimLength(item, 20)}</span>))
+
   return (
     <div className={`${css.resource}`} {...others}>
       <div className={css.tags__container}>
-        {tags.filter(t => !DISTRIBUTION_ARRAY.includes(t)).map(item=> (<span key={"tags-"+item} className={css.tags}>{item}</span>))}
+        {tagsElement}
       </div>
       <h3>{name}</h3>
         <>
-        <SummaryList name={['resourceInfo']} entries={{ 'Distance': (postcodeDistance) ? postcodeDistance + ' miles' : null ,
+        <SummaryList key="resourceInfo" name={['resourceInfo']} entries={{ 'Distance': (postcodeDistance) ? postcodeDistance + ' miles' : null ,
       'Availability': currentProvision, 'Days / Times' : openingTimes, 'Distribution' : distributionElement, 'Telephone' : telephone}} customStyle="small" />
 
         </>
@@ -63,7 +66,7 @@ const ResourceCard = ({
       <details className="govuk-details" data-module="govuk-details">
         <summary className="">View more information</summary>
 
-        <SummaryList name={'moreResourceInfo'} entries={{ 'How to contact': selfReferralElement,
+        <SummaryList key="moreResourceInfo" name={'moreResourceInfo'} entries={{ 'How to contact': selfReferralElement,
       'Address': address, 'Description' : description, 'Website' : websiteElement, 'Additional notes' : notes }} customStyle="small" />
 
       </details>
