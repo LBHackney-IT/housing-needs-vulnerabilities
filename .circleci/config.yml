@@ -59,8 +59,6 @@ jobs:
     parameters:
       stage_name:
         type: string
-      API_URL:
-        type: string
       GTM_ID:
         type: string
       SINGLEVIEW_URL:
@@ -75,7 +73,6 @@ jobs:
       - run:
           name: deploy
           command: |
-            export NEXT_PUBLIC_API_URL=<< parameters.API_URL >>
             export NEXT_PUBLIC_GTM_ID=<< parameters.GTM_ID >>
             export NEXT_PUBLIC_SINGLEVIEW_URL=<< parameters.SINGLEVIEW_URL >>
             yarn
@@ -91,7 +88,6 @@ workflows:
       - deploy:
           name: deploy-staging
           stage_name: staging
-          API_URL: ${NEXT_PUBLIC_API_URL_STAGING}
           GTM_ID: ${NEXT_PUBLIC_GTM_ID}
           SINGLEVIEW_URL: ${NEXT_PUBLIC_SINGLEVIEW_URL_STAGING}
           filters:
@@ -106,7 +102,6 @@ workflows:
       - deploy:
           name: deploy-production
           stage_name: production
-          API_URL: ${NEXT_PUBLIC_API_URL_PRODUCTION}
           GTM_ID: ${NEXT_PUBLIC_GTM_ID}
           SINGLEVIEW_URL: ${NEXT_PUBLIC_SINGLEVIEW_URL_PRODUCTION}
           requires:
