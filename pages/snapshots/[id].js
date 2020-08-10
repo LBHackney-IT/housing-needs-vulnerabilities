@@ -51,7 +51,6 @@ const SnapshotSummary = ({ resources, initialSnapshot, token }) => {
 
   return (
     <>
-      <title>Snapshot</title>
       <div>
         <a
           href={`${process.env.NEXT_PUBLIC_SINGLEVIEW_URL}/customers/${customerId}/view`}
