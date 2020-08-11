@@ -3,27 +3,25 @@ import css from './index.module.scss';
 
 const Header = ({ serviceName }) => (
   <header className="govuk-header" role="banner" data-module="govuk-header">
-    <div
+    <a
+      href="/"
       className={`govuk-header__container govuk-width-container ${css['lbh-header__container']}`}
     >
       <div className="govuk-header__logo">
-        <a href="/" className="govuk-header__link govuk-header__link--homepage">
+        <div className="govuk-header__link govuk-header__link--homepage">
           <span
             className={`govuk-header__logotype ${css['lbh-header__logotype']}`}
           >
             <HackneyLogo />
           </span>
-        </a>
+        </div>
       </div>
       <div className="govuk-header__content">
-        <a
-          href="/"
-          className="govuk-header__link govuk-header__link--service-name"
-        >
+        <div className="govuk-header__link govuk-header__link--service-name">
           {serviceName}
-        </a>
+        </div>
       </div>
-    </div>
+    </a>
   </header>
 );
 
