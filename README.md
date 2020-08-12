@@ -1,4 +1,4 @@
-# Understanding vulnerability
+# Snapshot
 Allows staff to capture vulnerability and assets and have them surfaced in Single View.
 
 ## Getting started
@@ -19,7 +19,7 @@ or start a local dynamodb container with Docker like so: `docker-compose up`
    ```bash
    aws dynamodb create-table --cli-input-json file://./config/tables/vulnerabilities.json --endpoint-url http://localhost:8000
    ```
-6. Start running your local copy of understanding vulnerability.
+6. Start running your local copy of Snapshot.
    ```
    yarn dev
    ```
@@ -76,16 +76,16 @@ To promote this to production you will need to manually approve the deployment i
 Login is handled by Single View, so long as the Hackney token cookie is set users will be signed in here too.
 
 ### GET /api/snapshots/{id}
-Retrieves a vulnerabilities snapshot, given a snapshot id.
+Retrieves a snapshot, given a snapshot id.
 
 ### POST /api/snapshots/find
 Used by other applications (such as Single View) to find snapshots related to a particular person given their name, an optionally an array of identifiers.
 
 ### POST /api/snapshots
-Creates a new, empty, vulnerabilities snapshot for a specified person.
+Creates a new, empty, snapshot for a specified person.
 
 ### /loggedout
 The page displayed when a user is logged out.
 
 ### /snapshots/{id}
-Displays a vulnerability snapshot, if there is no data saved this will display the edit view - else it displays a readonly view of the snapshot.
+Displays a snapshot, if there is no data saved this will display the edit view - else it displays a readonly view of the snapshot.
